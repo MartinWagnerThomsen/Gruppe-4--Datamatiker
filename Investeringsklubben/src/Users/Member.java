@@ -1,4 +1,4 @@
 package Users;
 
-public class Member {
+public class Member extends User{
 }

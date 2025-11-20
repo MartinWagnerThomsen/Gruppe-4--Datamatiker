@@ -1,4 +1,5 @@
 package Users;
 
-public class President {
+public class President extends User implements Administrator {
+
 }

@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae984337-46c5-4ef3-841f-b0742731d61c" name="Changes" comment="Added president user and member classes">
-      <change beforePath="$PROJECT_DIR$/.idea/Gruppe-4--Datamatiker.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Gruppe-4--Datamatiker.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/DataObjects/Currency.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/DataObjects/Currency.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/DataObjects/Stock.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/DataObjects/Stock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/CsvHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/CsvHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/FileHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/FileHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/FileHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Users/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Users/Member.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Users/President.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Users/President.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Users/User.java" afterDir="false" />
-    </list>
+    <list default="true" id="ae984337-46c5-4ef3-841f-b0742731d61c" name="Changes" comment="Added president user and member classes" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,18 +15,16 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GithubDefaultAccount">
-    <option name="defaultAccountId" value="7bfb12cd-7438-4218-8d06-d6af1f84871b" />
-  </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="35bm8zvC2lXt8Hp9nhpBI78mkWk" />
   <component name="ProjectLevelVcsManager">
     <OptionsSetting value="false" id="Update" />
@@ -51,10 +38,16 @@
   "keyToString": {
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Application.CsvHandler.executor": "Run",
+    "Downloaded.Files.Path.Enabled": "false",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
@@ -72,6 +65,14 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="DataObjects" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>

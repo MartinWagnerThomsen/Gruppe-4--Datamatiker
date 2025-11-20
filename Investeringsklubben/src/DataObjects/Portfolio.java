@@ -4,19 +4,19 @@ public class Portfolio {
     double totalValue;
     double totalDifference;
 
-    public static void showStockPrice(){
+    public void showStockPrice(){
 
     }
-    public static void registerStock(){
+    public void registerStock(){
 
     }
-    public static void viewPortfolio(){
+    public void viewPortfolio(){
 
     }
-    public static void showPortfolioValue(){
+    public void showPortfolioValue(){
 
     }
-    public static void showLosses(){
+    public void showLosses(){
 
     }
 }

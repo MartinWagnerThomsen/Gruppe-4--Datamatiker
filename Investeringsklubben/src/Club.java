@@ -1,13 +1,13 @@
 public class Club {
 
 
-    public login(){
+    public void login(){
 
     }
-    public logout(){
+    public void logout(){
 
     }
-    public switch(){
+    public void switch(){
 
     }
 }

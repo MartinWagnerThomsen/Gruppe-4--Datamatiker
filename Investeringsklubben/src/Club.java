@@ -7,7 +7,7 @@ public class Club {
     public void logout(){
 
     }
-    public void switch(){
+    public void switchUser(){
 
     }
 }

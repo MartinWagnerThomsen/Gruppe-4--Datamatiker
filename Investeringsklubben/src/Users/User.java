@@ -1,35 +1,53 @@
 package Users;
 
-public abstract User {
+import DataObjects.Portfolio;
+
+import java.time.LocalDate;
+
+public abstract class User {
     /**
      * Mandatory attributes for Users
      */
-    private int userId;
-    private String email;
-    private Date birthday;
-    private double initialCash;
-    private Date createdAt;
-    private Date lastUpdated;
-    private Portfolio portfolio;
-    private String fullName;
+    int userId;
+     String email;
+     LocalDate birthday;
+     double initialCash;
+     LocalDate createdAt;
+     LocalDate lastUpdated;
+     Portfolio portfolio;
+     String fullName;
+
+     public User(int userId, String fullName, String email, LocalDate birthday, double initialCash,
+                 LocalDate createdAt, LocalDate lastUpdated,
+                 Portfolio portfolio
+          ){
+         this.userId = userId;
+         this.email = email;
+         this.birthday = birthday;
+         this.initialCash = initialCash;
+         this.createdAt = createdAt;
+         this.lastUpdated = lastUpdated;
+         this.portfolio = portfolio;
+         this.fullName = fullName;        
+     }
 
     /**
      * Mandatory methods for the user
      */
-    public void viewPortfolio();
-    public void viewTransactionHistory();
-    public void createUser();
+    public abstract void viewPortfolio();
+    public abstract void viewTransactionHistory();
+    public abstract void createUser();
 
     /**
      * Getters & Setters for the user class
      */
-    public int getUserId();
-    public String getEmail();
-    public Date getBirthday();
-    public Date getCreationDate();
-    public Date getLastUpdated();
-    public Portfolio getPortfolio();
-    public String getFullName();
+    abstract int getUserId();
+     abstract String getEmail();
+    abstract  LocalDate getBirthday();
+    abstract public LocalDate getCreationLocalDate();
+    abstract public LocalDate getLastUpLocalDated();
+    abstract public Portfolio getPortfolio();
+    abstract public String getFullName();
 
 
 

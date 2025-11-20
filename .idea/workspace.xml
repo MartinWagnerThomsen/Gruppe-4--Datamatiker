@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae984337-46c5-4ef3-841f-b0742731d61c" name="Changes" comment="F">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="ae984337-46c5-4ef3-841f-b0742731d61c" name="Changes" comment="Added president user and member classes">
+      <change beforePath="$PROJECT_DIR$/.idea/Gruppe-4--Datamatiker.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Gruppe-4--Datamatiker.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/DataObjects/Currency.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/DataObjects/Currency.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/DataObjects/Stock.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/DataObjects/Stock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/CsvHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/CsvHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/FileHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/FileHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/FileHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Users/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Users/Member.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Users/President.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Users/President.java" afterDir="false" />
@@ -46,6 +50,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.CsvHandler.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -82,7 +87,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1763386989765</updated>
-      <workItem from="1763386991455" duration="3898000" />
+      <workItem from="1763386991455" duration="9949000" />
     </task>
     <task id="LOCAL-00001" summary="Initializing project with all the different classes so far.">
       <option name="closed" value="true" />
@@ -108,7 +113,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763632114016</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added president user and member classes">
+      <option name="closed" value="true" />
+      <created>1763632889578</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1763632889578</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -118,6 +131,7 @@
     <MESSAGE value="Initializing project with all the different classes so far." />
     <MESSAGE value="Pushing txt" />
     <MESSAGE value="F" />
-    <option name="LAST_COMMIT_MESSAGE" value="F" />
+    <MESSAGE value="Added president user and member classes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added president user and member classes" />
   </component>
 </project>

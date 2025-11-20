@@ -1,5 +1,5 @@
 package Users;
-
-public class President extends User implements Administrator {
+//  extends User implements Administrator
+public class President {
 
 }

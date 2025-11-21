@@ -2,18 +2,18 @@ package Users;
 
 import DataObjects.Portfolio;
 
-import java.util.LocalDate;
+import java.time.LocalDate;
 
 public class Member extends User {
-    public Member(int userId, String fullName, String email, LocalDate birthday, double initialCash,
-           LocalDate createdAt, LocalDate lastupLocalDated,
-           Portfolio portfolio){
-        super(userId, fullName,email,birthday, initialCash,createdAt,lastupLocalDated) 
+    public Member(int userId, String fullName, String email,
+                  LocalDate birthday, double initialCash,
+                  LocalDate createdAt, LocalDate lastUpdated) {
+        super(userId, fullName, email, birthday, initialCash, createdAt, lastUpdated);
     }
 
     @Override
     public void viewPortfolio() {
-        
+
     }
 
     @Override

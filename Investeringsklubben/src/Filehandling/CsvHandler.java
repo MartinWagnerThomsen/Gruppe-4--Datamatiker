@@ -30,7 +30,7 @@ public class CsvHandler implements FileHandler {
                 break;
             case "portfolio":
                 System.out.println("Portfolio");
-                parsePortifolio();
+                parsePortifolio(fileName);
                 break;
             case "stocks":
                 System.out.println("stocks");

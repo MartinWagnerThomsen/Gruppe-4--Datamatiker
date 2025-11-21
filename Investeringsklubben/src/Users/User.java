@@ -31,6 +31,18 @@ public abstract class User {
          this.fullName = fullName;        
      }
 
+     public User(int userId, String fullName, String email, LocalDate birthday, double initialCash,
+                 LocalDate createdAt, LocalDate lastUpdated){
+         this.userId = userId;
+         this.email = email;
+         this.birthday = birthday;
+         this.initialCash = initialCash;
+         this.createdAt = createdAt;
+         this.lastUpdated = lastUpdated;
+         this.fullName = fullName;
+
+     }
+
     /**
      * Mandatory methods for the user
      */

@@ -124,6 +124,36 @@ public class CsvHandler implements FileHandler {
         }
     }
 
+    private void parsePortifolio(String fileName){
+        int count = 1;
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            while (br.readLine() != null) {
+                count++;
+            }
+        } catch (IOException e) {
+            System.out.println("Fejl ved læsning: " + e.getMessage());
+            return;
+        }
+        Portfolio[] portfolios = new Portfolio[count];
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            int i = 0;
+
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(";");
+                if (parts.length == 2) {
+                    double totalValue = Double.parseDouble(parts[0]);
+                    double totalDifference = Double.parseDouble(parts[1]);
+                    portfolios[i] = new Portfolio(totalValue, totalDifference);
+                    i++;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Fejl ved læsning: " + e.getMessage());
+        }
+    }
+
     public void writeFile(String fileName, String objectDataName) {
 
     };

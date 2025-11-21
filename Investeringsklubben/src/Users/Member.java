@@ -8,7 +8,6 @@ public class Member extends User {
 
 
     // Constructor with Portfolio added
-
     public Member(int userId, String fullName, String email, LocalDate birthday, double initialCash,
            LocalDate createdAt, LocalDate lastUpdated,
            Portfolio portfolio){
@@ -68,5 +67,10 @@ public class Member extends User {
     @Override
     public String getFullName() {
         return "";
+    }
+
+    @Override
+    public String toString() {
+        return userId + fullName + email + birthday +  initialCash + createdAt + lastUpdated;
     }
 }

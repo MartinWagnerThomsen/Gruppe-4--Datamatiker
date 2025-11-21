@@ -39,7 +39,7 @@ public class Stock {
     public void setLastUpdated(Date lastUpdated){this.lastUpdated = lastUpdated;}
 
     // constructor
-    Stock(String ticker,
+    public Stock(String ticker,
     String name,
     String sector,
     double price,

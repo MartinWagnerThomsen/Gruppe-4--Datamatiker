@@ -2,13 +2,22 @@ package Users;
 
 import DataObjects.Portfolio;
 
-import java.util.LocalDate;
+import java.time.LocalDate;
 
 public class Member extends User {
+
+
+    // Constructor with Portfolio added
+
     public Member(int userId, String fullName, String email, LocalDate birthday, double initialCash,
-           LocalDate createdAt, LocalDate lastupLocalDated,
+           LocalDate createdAt, LocalDate lastUpdated,
            Portfolio portfolio){
-        super(userId, fullName,email,birthday, initialCash,createdAt,lastupLocalDated) 
+        super(userId, fullName,email,birthday, initialCash,createdAt,lastUpdated);
+    }
+
+    // Constructor without portfolio for testing purposes
+    public Member(int userId, String fullName, String email, LocalDate birthday, double initialCash, LocalDate createdAt, LocalDate lastUpdated) {
+        super(userId, fullName, email, birthday, initialCash, createdAt, lastUpdated);
     }
 
     @Override
@@ -32,12 +41,12 @@ public class Member extends User {
     }
 
     @Override
-    String getEmail() {
+    public String getEmail() {
         return "";
     }
 
     @Override
-    LocalDate getBirthday() {
+    public LocalDate getBirthday() {
         return null;
     }
 

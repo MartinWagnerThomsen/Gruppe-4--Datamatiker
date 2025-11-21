@@ -1,9 +1,13 @@
 package DataObjects;
 
 public class Portfolio {
-    double totalValue;
-    double totalDifference;
+    private double totalValue;
+    private double totalDifference;
 
+    public Portfolio(double totalValue, double totalDifference){
+        this.totalValue = totalValue;
+        this.totalDifference = totalDifference;
+    }
     public void showStockPrice(){
 
     }

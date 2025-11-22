@@ -57,7 +57,9 @@ public abstract class User {
      abstract String getEmail();
     abstract  LocalDate getBirthday();
     abstract public LocalDate getCreationLocalDate();
-    abstract public LocalDate getLastUpLocalDated();
+
+    public abstract LocalDate getLastUpdated();
+
     abstract public Portfolio getPortfolio();
     abstract public String getFullName();
 

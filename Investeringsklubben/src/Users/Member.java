@@ -6,8 +6,10 @@ import java.time.LocalDate;
 
 public class Member extends User {
 
+    /**
+     * Constructor with Portfolio added
+      */
 
-    // Constructor with Portfolio added
     public Member(int userId, String fullName, String email, LocalDate birthday, double initialCash,
            LocalDate createdAt, LocalDate lastUpdated,
            Portfolio portfolio){
@@ -16,7 +18,15 @@ public class Member extends User {
 
     // Constructor without portfolio for testing purposes
     public Member(int userId, String fullName, String email, LocalDate birthday, double initialCash, LocalDate createdAt, LocalDate lastUpdated) {
-        super(userId, fullName, email, birthday, initialCash, createdAt, lastUpdated);
+        super(userId,
+                fullName,
+                email,
+                birthday,
+                initialCash,
+                createdAt,
+                lastUpdated);
+
+
     }
 
     @Override
@@ -36,37 +46,37 @@ public class Member extends User {
 
     @Override
     int getUserId() {
-        return 0;
+        return userId;
     }
 
     @Override
     public String getEmail() {
-        return "";
+        return email;
     }
 
     @Override
     public LocalDate getBirthday() {
-        return null;
+        return birthday;
     }
 
     @Override
     public LocalDate getCreationLocalDate() {
-        return null;
+        return createdAt;
     }
 
     @Override
-    public LocalDate getLastUpLocalDated() {
-        return null;
+    public LocalDate getLastUpdated() {
+        return lastUpdated;
     }
 
     @Override
     public Portfolio getPortfolio() {
-        return null;
+        return portfolio;
     }
 
     @Override
     public String getFullName() {
-        return "";
+        return fullName;
     }
 
     @Override

@@ -10,7 +10,6 @@
       <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/CsvHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/CsvHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Filehandling/CsvHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Filehandling/CsvHandler.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Users/Member.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Users/Member.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Users/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Users/User.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,9 +33,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GithubDefaultAccount">
-    <option name="defaultAccountId" value="7bfb12cd-7438-4218-8d06-d6af1f84871b" />
-  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Nelsoon-ds"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/MartinWagnerThomsen/Gruppe-4--Datamatiker.git",
+    "accountId": "9d9d938a-800b-4bd7-bfd5-00af52d2420b"
+  }
+}]]></component>
   <component name="HighlightingSettingsPerFile">
     <setting file="jar://$USER_HOME$/.jdks/openjdk-25/lib/src.zip!/java.base/java/io/BufferedReader.java" root0="SKIP_INSPECTION" />
   </component>
@@ -62,6 +70,7 @@
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
@@ -76,9 +85,9 @@
     "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "C:/Users/David/IdeaProjects/Gruppe-4--Datamatiker/Investeringsklubben/src/Main.java",
     "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
+    "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "preferences.keymap",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
@@ -94,8 +103,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26830.84" />
-        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.26830.84" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.25557.131" />
+        <option value="bundled-js-predefined-d6986cc7102b-b598e85cdad2-JavaScript-IU-252.25557.131" />
       </set>
     </attachedChunks>
   </component>

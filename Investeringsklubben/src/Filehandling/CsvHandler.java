@@ -11,15 +11,17 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-
+import java.util.stream.Collectors;
 public class CsvHandler implements FileHandler {
 
 
     private final static String memberData = "Investeringsklubben/src/Files/users.csv";
-    ArrayList<Member> userList;
+    private static ArrayList<Member> userList;
     ArrayList<Portfolio> portfolio;
     ArrayList<Stock> stocks;
     private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+
     public void readFile(String fileName, String dataObjectName) {
 
         switch(dataObjectName.toLowerCase()) {
@@ -68,6 +70,13 @@ public class CsvHandler implements FileHandler {
         return members;
     }
 
+    private String prettyPrint() {
+
+        String result = userList.stream().map(User::getFullName).collect(Collectors.joining("  "));
+        return result;
+    }
+
+
     public void writeFile(String fileName, String objectDataName) {
 
     };
@@ -83,6 +92,7 @@ public class CsvHandler implements FileHandler {
     public static void main(String[] args) {
         CsvHandler handler = new CsvHandler();
         handler.readFile(memberData, "user");
+        System.out.println(handler.prettyPrint());
 
     }
 }

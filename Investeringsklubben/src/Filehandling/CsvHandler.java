@@ -25,7 +25,7 @@ public class CsvHandler implements FileHandler {
         switch(dataObjectName.toLowerCase()) {
             case "user":
                 userList = parseUser(fileName);
-                System.out.println(userList.get(1).getBirthday());
+                System.out.println(userList.get(1));
                 break;
             case "portfolio":
                 System.out.println("Portfolio");

@@ -81,6 +81,14 @@ public class Member extends User {
 
     @Override
     public String toString() {
-        return userId + fullName + email + birthday +  initialCash + createdAt + lastUpdated;
+        return
+                "userId='" + userId + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", email='" + email + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", initialCash='" + initialCash +
+                "', createdAt='" + createdAt + '\'' +
+                ", lastUpdated='" + lastUpdated + '\''
+                ;
     }
 }

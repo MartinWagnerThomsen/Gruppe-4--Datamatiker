@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae984337-46c5-4ef3-841f-b0742731d61c" name="Changes" comment="Added president user and member classes" />
+    <list default="true" id="ae984337-46c5-4ef3-841f-b0742731d61c" name="Changes" comment="Updating git ignore">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/CsvHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/CsvHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Filehandling/CsvHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Filehandling/CsvHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Users/Member.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Users/Member.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Users/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Users/User.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,7 +27,18 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="7bfb12cd-7438-4218-8d06-d6af1f84871b" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/.jdks/openjdk-25/lib/src.zip!/java.base/java/io/BufferedReader.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
@@ -48,7 +66,7 @@
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "parseUser-func",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
@@ -122,7 +140,39 @@
       <option name="project" value="LOCAL" />
       <updated>1763632889578</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Opdaterede Member med variabel navne o g access modifiers">
+      <option name="closed" value="true" />
+      <created>1763717166426</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1763717166426</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Current progress on parseUser();">
+      <option name="closed" value="true" />
+      <created>1763719015658</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1763719015658</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Adding more stuff">
+      <option name="closed" value="true" />
+      <created>1763735611592</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1763735611592</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Updating git ignore">
+      <option name="closed" value="true" />
+      <created>1763735991950</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1763735991950</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -133,6 +183,10 @@
     <MESSAGE value="Pushing txt" />
     <MESSAGE value="F" />
     <MESSAGE value="Added president user and member classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added president user and member classes" />
+    <MESSAGE value="Opdaterede Member med variabel navne o g access modifiers" />
+    <MESSAGE value="Current progress on parseUser();" />
+    <MESSAGE value="Adding more stuff" />
+    <MESSAGE value="Updating git ignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updating git ignore" />
   </component>
 </project>

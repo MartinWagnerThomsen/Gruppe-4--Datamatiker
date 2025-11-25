@@ -10,7 +10,6 @@ public class Portfolio {
 
 
     public Portfolio() {
-
     }
 
     public Portfolio(double totalValue, double totalDifference){
@@ -23,9 +22,6 @@ public class Portfolio {
 
     public ArrayList<Transaction> getTransactions() {
         System.out.println("Remove this when done testing");
-        for(Transaction transaction : transactions) {
-            System.out.println(transaction);
-        }
         return transactions;
     }
 
@@ -43,6 +39,10 @@ public class Portfolio {
 
     }
     public void showLosses(){
+    }
 
+    @Override
+    public String toString() {
+        return transactions.toString();
     }
 }

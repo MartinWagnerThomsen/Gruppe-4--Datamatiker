@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae984337-46c5-4ef3-841f-b0742731d61c" name="Changes" comment="Changed parsePortfolio and added some changes to Portfolio to accomodate an incoming data type &quot;Transaction&quot;.">
-      <change afterPath="$PROJECT_DIR$/Investeringsklubben/src/DataObjects/Transaction.java" afterDir="false" />
+    <list default="true" id="ae984337-46c5-4ef3-841f-b0742731d61c" name="Changes" comment="Try to get Member.getPortfolio to actually get the portfolio and then add the transaction">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/DataObjects/Portfolio.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/DataObjects/Portfolio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/DataObjects/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/DataObjects/Transaction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/CsvHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/CsvHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Users/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Users/Member.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/DataObjects/Portfolio.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/DataObjects/Portfolio.class" afterDir="false" />
@@ -187,7 +187,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763735991950</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Try to get Member.getPortfolio to actually get the portfolio and then add the transaction">
+      <option name="closed" value="true" />
+      <created>1764065738739</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1764065738739</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -202,6 +210,7 @@
     <MESSAGE value="Current progress on parseUser();" />
     <MESSAGE value="Adding more stuff" />
     <MESSAGE value="Updating git ignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updating git ignore" />
+    <MESSAGE value="Try to get Member.getPortfolio to actually get the portfolio and then add the transaction" />
+    <option name="LAST_COMMIT_MESSAGE" value="Try to get Member.getPortfolio to actually get the portfolio and then add the transaction" />
   </component>
 </project>

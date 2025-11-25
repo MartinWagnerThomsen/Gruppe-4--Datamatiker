@@ -105,17 +105,17 @@ public class CsvHandler implements FileHandler {
             }
          System.out.println("Im here");
 
+        for (Member member : userList) {
             for (Transaction transaction : transactionList) {
-                for (Member member : userList) {
-                    if (member.getUserId() == transaction.getUserId()) {
-                        member.getPortfolio().setTransactions(transaction);
-                    }
-                    member.getPortfolio().setTransactions(transaction);
+                if (member.getUserId() == transaction.getUserId()) {
+                    member.addTransaction(transaction);
                 }
-
             }
+        }
+        System.out.println(userList.get(7).getPortfolio().toString());
 
-            // Match userID med de respektive transactions ved at løbe igennem listen af users
+
+        // Match userID med de respektive transactions ved at løbe igennem listen af users
             // Beregn derefter værdien af alle deres stocks UNIT TEST
             // Beregn difference uden % (dv.s hvor meget du har tjent/tabt fra baseline 100.000 (nuværende værdi - 100.000 for at finde forskellen) UNIT TEST
             // Beregn så deres difference (målt i % hvor meget de har vundet/tabt fra deres baseline som er 100.000) UNIT TEST

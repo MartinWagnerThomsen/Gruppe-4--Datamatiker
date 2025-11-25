@@ -5,15 +5,31 @@ import DataObjects.Portfolio;
 import java.time.LocalDate;
 
 public class Member extends User {
+
+    /**
+     * Constructor with Portfolio added
+      */
+
     public Member(int userId, String fullName, String email, LocalDate birthday, double initialCash,
-           LocalDate createdAt, LocalDate lastupLocalDated,
+           LocalDate createdAt, LocalDate lastUpdated,
            Portfolio portfolio){
-        super(userId, fullName, email,birthday, initialCash, createdAt, lastupLocalDated);
+        super(userId, fullName,email,birthday, initialCash,createdAt,lastUpdated);
+    }
+
+    // Constructor without portfolio for testing purposes
+    public Member(int userId, String fullName, String email, LocalDate birthday, double initialCash, LocalDate createdAt, LocalDate lastUpdated) {
+        super(userId,
+                fullName,
+                email,
+                birthday,
+                initialCash,
+                createdAt,
+                lastUpdated);
     }
 
     @Override
     public void viewPortfolio() {
-        
+
     }
 
     @Override
@@ -28,36 +44,49 @@ public class Member extends User {
 
     @Override
     int getUserId() {
-        return 0;
+        return userId;
     }
 
     @Override
-    String getEmail() {
-        return "";
+    public String getEmail() {
+        return email;
     }
 
     @Override
-    LocalDate getBirthday() {
-        return null;
+    public LocalDate getBirthday() {
+        return birthday;
     }
 
     @Override
     public LocalDate getCreationLocalDate() {
-        return null;
+        return createdAt;
     }
 
     @Override
-    public LocalDate getLastUpLocalDated() {
-        return null;
+    public LocalDate getLastUpdated() {
+        return lastUpdated;
     }
 
     @Override
     public Portfolio getPortfolio() {
-        return null;
+        return portfolio;
     }
 
     @Override
     public String getFullName() {
-        return "";
+        return fullName;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "userId='" + userId + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", email='" + email + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", initialCash='" + initialCash +
+                "', createdAt='" + createdAt + '\'' +
+                ", lastUpdated='" + lastUpdated + '\''
+                ;
     }
 }

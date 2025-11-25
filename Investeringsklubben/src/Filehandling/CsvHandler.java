@@ -1,5 +1,5 @@
 package Filehandling;
-package Users;
+
 
 import DataObjects.Currency;
 import DataObjects.Portfolio;
@@ -37,7 +37,7 @@ public class CsvHandler implements FileHandler {
                 break;
             case "portfolio":
                 System.out.println("Portfolio");
-               // parsePortfolio();
+                parsePortfolio(fileName);
                 break;
             case "stocks":
                 listOfStocks = parseStock(fileName);
@@ -74,7 +74,7 @@ public class CsvHandler implements FileHandler {
     }
 
 
-    private void parsePortifolio() {
+    private void parsePortfolio() {
     }
 
 

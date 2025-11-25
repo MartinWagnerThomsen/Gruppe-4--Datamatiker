@@ -1,6 +1,7 @@
 package Users;
 
 import DataObjects.Portfolio;
+import DataObjects.Transaction;
 
 import java.time.LocalDate;
 
@@ -29,6 +30,7 @@ public class Member extends User {
 
     @Override
     public void viewPortfolio() {
+        getPortfolio().getTransactions();
 
     }
 
@@ -43,7 +45,7 @@ public class Member extends User {
     }
 
     @Override
-    int getUserId() {
+   public  int getUserId() {
         return userId;
     }
 
@@ -88,5 +90,9 @@ public class Member extends User {
                 "', createdAt='" + createdAt + '\'' +
                 ", lastUpdated='" + lastUpdated + '\''
                 ;
+    }
+
+    public void add(Transaction transaction) {
+        portfolio.registerStock();
     }
 }

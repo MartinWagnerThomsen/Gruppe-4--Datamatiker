@@ -1,12 +1,11 @@
 package Filehandling;
 
+import DataObjects.*;
 import DataObjects.Currency;
-import DataObjects.Portfolio;
-import DataObjects.Stock;
-import DataObjects.StockExchange;
 import Users.Member;
 import Users.User;
 
+import javax.sound.sampled.Port;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,23 +15,26 @@ import java.util.*;
 import java.util.stream.Collectors;
 public class CsvHandler implements FileHandler {
 
+    private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
 
     private final static String memberData = "Investeringsklubben/src/Files/users.csv";
     private final static String stockmarket = "Investeringsklubben/src/Files/stockMarket.csv";
     private final static String transactions = "Investeringsklubben/src/Files/transactions.csv";
-    private static ArrayList<Member> userList;
+
+    private static ArrayList<Member> userList = new ArrayList<>();
     private static ArrayList<Portfolio> portfolio;
     ArrayList<Stock> stocks;
-    private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
+    private static ArrayList<Transaction> transactionList = new ArrayList<>();
     public static ArrayList<Stock> listOfStocks = new ArrayList<>();
+
+
 
     public void readFile(String fileName, String dataObjectName) {
 
         switch(dataObjectName.toLowerCase()) {
             case "user":
                 userList = parseUser(fileName);
-                System.out.println(userList.get(1));
                 break;
             case "portfolio":
                 System.out.println("Portfolio");
@@ -68,7 +70,8 @@ public class CsvHandler implements FileHandler {
                     double initialCash = Double.parseDouble(parts[4]);
                     LocalDate createdAt = LocalDate.parse(parts[5], formatter);
                     LocalDate lastUpdated = LocalDate.parse(parts[6], formatter);
-                    Member newMember = new Member(userId, fullName, email, birthday, initialCash, createdAt, lastUpdated);
+                    Portfolio portfolio = new Portfolio();
+                    Member newMember = new Member(userId, fullName, email, birthday, initialCash, createdAt, lastUpdated, portfolio);
                     members.add(newMember);
     } } catch (Exception e) {
             throw new RuntimeException(e);
@@ -83,9 +86,8 @@ public class CsvHandler implements FileHandler {
                 br.readLine();
                 while ((line = br.readLine()) != null) {
                     String[] parts = line.split(";");
-                    System.out.println(parts[0]);
-                    if (parts.length == 7) {
-                        // id of the transaction
+                    if (parts.length == 8) {
+                        int transactionId = Integer.parseInt(parts[0]);
                         int userId = Integer.parseInt(parts[1]);
                         LocalDate date = LocalDate.parse(parts[2], formatter);
                         String ticker = parts[3];
@@ -93,15 +95,31 @@ public class CsvHandler implements FileHandler {
                         String currency = parts[5];
                         String orderType = parts[6];
                         int quantity = Integer.parseInt(parts[7]);
-//                        double totalValue = Double.parseDouble(parts[0]);
-//                        double totalDifference = Double.parseDouble(parts[1]);
-//                        portfolios[i] = new Portfolio(totalValue, totalDifference);
-//                        i++;
+                        Transaction transaction = new Transaction(transactionId, userId, date,
+                                ticker, price, currency, orderType, quantity);
+                        transactionList.add(transaction);
                     }
                 }
             } catch (IOException e) {
                 System.out.println("Fejl ved læsning: " + e.getMessage());
             }
+         System.out.println("Im here");
+
+            for (Transaction transaction : transactionList) {
+                for (Member member : userList) {
+                    if (member.getUserId() == transaction.getUserId()) {
+                        member.getPortfolio().setTransactions(transaction);
+                    }
+                    member.getPortfolio().setTransactions(transaction);
+                }
+
+            }
+
+            // Match userID med de respektive transactions ved at løbe igennem listen af users
+            // Beregn derefter værdien af alle deres stocks UNIT TEST
+            // Beregn difference uden % (dv.s hvor meget du har tjent/tabt fra baseline 100.000 (nuværende værdi - 100.000 for at finde forskellen) UNIT TEST
+            // Beregn så deres difference (målt i % hvor meget de har vundet/tabt fra deres baseline som er 100.000) UNIT TEST
+
         }
 
 
@@ -175,11 +193,11 @@ public class CsvHandler implements FileHandler {
     }
 
     public static void main(String[] args) {
-        CsvHandler handle = new CsvHandler();
     //    handle.readFile(stockmarket, "stocks");
         CsvHandler handler = new CsvHandler();
          handler.readFile(memberData, "user");
-        System.out.println(handler.prettyPrint());
+
+        handler.parsePortfolio(transactions);
 
     }
 }

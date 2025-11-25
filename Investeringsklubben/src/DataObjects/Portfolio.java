@@ -1,6 +1,10 @@
 package DataObjects;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class Portfolio {
+    private ArrayList<Stock> portfolio = new ArrayList<>();
     private double totalValue;
     private double totalDifference;
 

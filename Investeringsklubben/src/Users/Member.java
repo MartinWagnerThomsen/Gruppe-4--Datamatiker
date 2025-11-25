@@ -83,6 +83,12 @@ public class Member extends User {
         return fullName;
     }
 
+    public void printMember() {
+        System.out.println("Member profile for: " + this.getFullName());
+        System.out.println("Portfolio: ");
+        System.out.println(this.getPortfolio());
+    }
+
     @Override
     public String toString() {
         return

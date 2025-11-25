@@ -27,15 +27,15 @@ public class Portfolio {
 
     public void setTransactions(Transaction transaction ) {
         this.transactions.add(transaction);
+        setTotalValue();
     }
 
     public void setTotalValue() {
         double sum = 0;
         for (Transaction transaction : transactions) {
-            sum+= transaction.getPrice();
+            sum+= transaction.getQuantity() * transaction.getPrice();
         }
         totalValue = sum;
-        System.out.println("Total value of portfolio " + totalValue);
     }
     public void registerStock(){
 
@@ -49,8 +49,25 @@ public class Portfolio {
     public void showLosses(){
     }
 
+    public void printPortfolio() {
+        for (Transaction element : transactions) {
+            System.out.println(element);
+        }
+    }
+
     @Override
     public String toString() {
-        return transactions.toString();
+        int portfolioNumber = 1;
+        StringBuilder sb = new StringBuilder();
+        sb.append("--- Portfolio Transactions ---\n");
+        for (Transaction t : transactions) {
+            sb.append(portfolioNumber).append(": ");
+            portfolioNumber++;
+            sb.append(t.toString());
+            sb.append("\n");
+        }
+        sb.append("Portfolio total value: ").append(totalValue).append(" DKK").append("\n"); // Hardcoded Currency for now
+        return sb.toString();
     }
+
 }

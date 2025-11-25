@@ -103,8 +103,6 @@ public class CsvHandler implements FileHandler {
             } catch (IOException e) {
                 System.out.println("Fejl ved læsning: " + e.getMessage());
             }
-         System.out.println("Im here");
-
         for (Member member : userList) {
             for (Transaction transaction : transactionList) {
                 if (member.getUserId() == transaction.getUserId()) {
@@ -112,7 +110,6 @@ public class CsvHandler implements FileHandler {
                 }
             }
         }
-        System.out.println(userList.get(7).getPortfolio());
 
         // Match userID med de respektive transactions ved at løbe igennem listen af users
             // Beregn derefter værdien af alle deres stocks UNIT TEST
@@ -197,6 +194,7 @@ public class CsvHandler implements FileHandler {
          handler.readFile(memberData, "user");
 
         handler.parsePortfolio(transactions);
+        userList.get(1).printMember();
 
     }
 }

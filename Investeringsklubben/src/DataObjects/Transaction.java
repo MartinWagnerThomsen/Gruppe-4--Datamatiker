@@ -97,6 +97,6 @@ public class Transaction {
     // Der skal konverteres fra int til String samt localdate til en string værdi
     @Override
     public String toString() {
-        return "Transaction Id: " + transactionId + " | Userid: " + userId + " | Date of the transaction: " + date + " | Ticker: " + ticker + " | Price: " + price + " | Currency: " + currency +  " | Order type: " + orderType + " Quantity: " + quantity + " \n";
+        return "Transaction Id: " + transactionId + " | Userid: " + userId + " | Date of the transaction: " + date + " | Ticker: " + ticker + " | Price: " + price + " | Currency: " + currency +  " | Order type: " + orderType + " Quantity: " + quantity;
      }
 }

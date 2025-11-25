@@ -1,6 +1,5 @@
 package Filehandling;
 
-
 import DataObjects.Currency;
 import DataObjects.Portfolio;
 import DataObjects.Stock;
@@ -11,7 +10,6 @@ import Users.User;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -71,12 +69,15 @@ public class CsvHandler implements FileHandler {
                     LocalDate lastUpdated = LocalDate.parse(parts[6], formatter);
                     Member newMember = new Member(userId, fullName, email, birthday, initialCash, createdAt, lastUpdated);
                     members.add(newMember);
+    } } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return members;
     }
 
+    private void parsePortfolio(String filename) {
 
-    private void parsePortfolio() {
     }
-
 
     /**
      * Reads and parses stock data from a semicolon-separated values (CSV) file
@@ -127,11 +128,9 @@ public class CsvHandler implements FileHandler {
             System.out.println("Fejl ved læsning: " + e.getMessage());
         }
      return listOfStocks;
-        return members;
     }
 
     private String prettyPrint() {
-
         String result = userList.stream().map(User::getFullName).collect(Collectors.joining("  "));
         return result;
     }

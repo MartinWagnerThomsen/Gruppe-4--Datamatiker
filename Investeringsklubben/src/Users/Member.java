@@ -25,12 +25,6 @@ public class Member extends User {
                 initialCash,
                 createdAt,
                 lastUpdated);
-
-
-    public Member(int userId, String fullName, String email,
-                  LocalDate birthday, double initialCash,
-                  LocalDate createdAt, LocalDate lastUpdated) {
-        super(userId, fullName, email, birthday, initialCash, createdAt, lastUpdated);
     }
 
     @Override

@@ -112,8 +112,7 @@ public class CsvHandler implements FileHandler {
                 }
             }
         }
-        System.out.println(userList.get(7).getPortfolio().toString());
-
+        System.out.println(userList.get(7).getPortfolio());
 
         // Match userID med de respektive transactions ved at løbe igennem listen af users
             // Beregn derefter værdien af alle deres stocks UNIT TEST

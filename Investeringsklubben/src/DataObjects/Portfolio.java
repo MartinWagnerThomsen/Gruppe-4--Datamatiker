@@ -21,13 +21,21 @@ public class Portfolio {
     }
 
     public ArrayList<Transaction> getTransactions() {
-        System.out.println("Remove this when done testing");
         return transactions;
     }
 
 
     public void setTransactions(Transaction transaction ) {
         this.transactions.add(transaction);
+    }
+
+    public void setTotalValue() {
+        double sum = 0;
+        for (Transaction transaction : transactions) {
+            sum+= transaction.getPrice();
+        }
+        totalValue = sum;
+        System.out.println("Total value of portfolio " + totalValue);
     }
     public void registerStock(){
 

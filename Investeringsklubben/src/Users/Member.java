@@ -27,11 +27,15 @@ public class Member extends User {
                 lastUpdated);
 
 
+    public Member(int userId, String fullName, String email,
+                  LocalDate birthday, double initialCash,
+                  LocalDate createdAt, LocalDate lastUpdated) {
+        super(userId, fullName, email, birthday, initialCash, createdAt, lastUpdated);
     }
 
     @Override
     public void viewPortfolio() {
-        
+
     }
 
     @Override

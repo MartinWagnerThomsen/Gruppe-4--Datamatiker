@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae984337-46c5-4ef3-841f-b0742731d61c" name="Changes" comment="Updating git ignore">
+    <list default="true" id="ae984337-46c5-4ef3-841f-b0742731d61c" name="Changes" comment="kommentare og test fil">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/DataObjects/Portfolio.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/DataObjects/Portfolio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/CsvHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/CsvHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Users/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/DataObjects/Portfolio.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/DataObjects/Portfolio.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Filehandling/CsvHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Filehandling/CsvHandler.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +72,7 @@
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "parseUser-func",
+    "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",

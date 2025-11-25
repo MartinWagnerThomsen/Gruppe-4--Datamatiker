@@ -18,9 +18,10 @@ public class CsvHandler implements FileHandler {
 
 
     private final static String memberData = "Investeringsklubben/src/Files/users.csv";
-    private static ArrayList<Member> userList;
     private final static String stockmarket = "Investeringsklubben/src/Files/stockMarket.csv";
-    ArrayList<Portfolio> portfolio;
+    private final static String transactions = "Investeringsklubben/src/Files/transactions.csv";
+    private static ArrayList<Member> userList;
+    private static ArrayList<Portfolio> portfolio;
     ArrayList<Stock> stocks;
     private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
@@ -75,9 +76,34 @@ public class CsvHandler implements FileHandler {
         return members;
     }
 
-    private void parsePortfolio(String filename) {
+    // Parsetransactions
+    private void parsePortfolio(String fileName) {
+            try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+                String line;
+                br.readLine();
+                while ((line = br.readLine()) != null) {
+                    String[] parts = line.split(";");
+                    System.out.println(parts[0]);
+                    if (parts.length == 7) {
+                        // id of the transaction
+                        int userId = Integer.parseInt(parts[1]);
+                        LocalDate date = LocalDate.parse(parts[2], formatter);
+                        String ticker = parts[3];
+                        double price = Double.parseDouble(parts[4].replace(',', '.'));
+                        String currency = parts[5];
+                        String orderType = parts[6];
+                        int quantity = Integer.parseInt(parts[7]);
+//                        double totalValue = Double.parseDouble(parts[0]);
+//                        double totalDifference = Double.parseDouble(parts[1]);
+//                        portfolios[i] = new Portfolio(totalValue, totalDifference);
+//                        i++;
+                    }
+                }
+            } catch (IOException e) {
+                System.out.println("Fejl ved læsning: " + e.getMessage());
+            }
+        }
 
-    }
 
     /**
      * Reads and parses stock data from a semicolon-separated values (CSV) file
@@ -150,9 +176,9 @@ public class CsvHandler implements FileHandler {
 
     public static void main(String[] args) {
         CsvHandler handle = new CsvHandler();
-        handle.readFile(stockmarket, "stocks");
+    //    handle.readFile(stockmarket, "stocks");
         CsvHandler handler = new CsvHandler();
-        handler.readFile(memberData, "user");
+         handler.readFile(memberData, "user");
         System.out.println(handler.prettyPrint());
 
     }

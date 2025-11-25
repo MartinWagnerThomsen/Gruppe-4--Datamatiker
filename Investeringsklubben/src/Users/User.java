@@ -64,6 +64,4 @@ public abstract class User {
     abstract public String getFullName();
 
 
-
-
 }

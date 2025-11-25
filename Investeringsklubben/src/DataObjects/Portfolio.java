@@ -13,6 +13,10 @@ public class Portfolio {
         this.totalDifference = totalDifference;
     }
 
+    public Portfolio(double totalValue){
+        this.totalValue = totalValue;
+    }
+
     //prisen på enkelte stock
     public void showStockPrice(){
 
@@ -42,7 +46,12 @@ public class Portfolio {
 
     }
 
+    //getters
     public double getTotalDifference(){
         return this.totalDifference;
+    }
+
+    public double getTotalValue(){
+        return totalValue;
     }
 }

@@ -1,6 +1,7 @@
 package Users;
 
 import DataObjects.Portfolio;
+import DataObjects.Transaction;
 
 import java.time.LocalDate;
 
@@ -13,22 +14,11 @@ public class Member extends User {
     public Member(int userId, String fullName, String email, LocalDate birthday, double initialCash,
            LocalDate createdAt, LocalDate lastUpdated,
            Portfolio portfolio){
-        super(userId, fullName,email,birthday, initialCash,createdAt,lastUpdated);
+        super(userId, fullName,email,birthday, initialCash,createdAt,lastUpdated, portfolio);
     }
-
-    // Constructor without portfolio for testing purposes
-    public Member(int userId, String fullName, String email, LocalDate birthday, double initialCash, LocalDate createdAt, LocalDate lastUpdated) {
-        super(userId,
-                fullName,
-                email,
-                birthday,
-                initialCash,
-                createdAt,
-                lastUpdated);
-    }
-
     @Override
     public void viewPortfolio() {
+        getPortfolio().getTransactions();
 
     }
 
@@ -43,7 +33,7 @@ public class Member extends User {
     }
 
     @Override
-    int getUserId() {
+   public  int getUserId() {
         return userId;
     }
 
@@ -72,9 +62,19 @@ public class Member extends User {
         return portfolio;
     }
 
+    public void addTransaction(Transaction transaction) {
+        this.portfolio.setTransactions(transaction);
+    }
+
     @Override
     public String getFullName() {
         return fullName;
+    }
+
+    public void printMember() {
+        System.out.println("Member profile for: " + this.getFullName());
+        System.out.println("Portfolio: ");
+        System.out.println(this.getPortfolio());
     }
 
     @Override
@@ -86,7 +86,12 @@ public class Member extends User {
                 ", birthday='" + birthday + '\'' +
                 ", initialCash='" + initialCash +
                 "', createdAt='" + createdAt + '\'' +
-                ", lastUpdated='" + lastUpdated + '\''
+                ", lastUpdated='" + lastUpdated + '\'' +
+                    ", portfolio='" + portfolio + '\''
                 ;
+    }
+
+    public void add(Transaction transaction) {
+        portfolio.registerStock();
     }
 }

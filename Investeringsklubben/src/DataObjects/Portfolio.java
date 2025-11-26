@@ -4,54 +4,70 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Portfolio {
-    private ArrayList<Stock> portfolio = new ArrayList<>();
+    private ArrayList<Transaction> transactions = new ArrayList<>();
     private double totalValue;
     private double totalDifference;
+
+
+    public Portfolio() {
+    }
 
     public Portfolio(double totalValue, double totalDifference){
         this.totalValue = totalValue;
         this.totalDifference = totalDifference;
     }
-
-    public Portfolio(double totalValue){
-        this.totalValue = totalValue;
-    }
-
-    //prisen på enkelte stock
     public void showStockPrice(){
 
     }
 
-    //registrer køb eller salg af beholdninger
+    public ArrayList<Transaction> getTransactions() {
+        return transactions;
+    }
+
+
+    public void setTransactions(Transaction transaction ) {
+        this.transactions.add(transaction);
+        setTotalValue();
+    }
+
+    public void setTotalValue() {
+        double sum = 0;
+        for (Transaction transaction : transactions) {
+            sum+= transaction.getQuantity() * transaction.getPrice();
+        }
+        totalValue = sum;
+    }
     public void registerStock(){
 
     }
-
-    //vis hele portefoljen: beholdning, samlet værdi, gevinst/tab.
     public void viewPortfolio(){
 
     }
-
-    //samlet værdi
     public void showPortfolioValue(){
 
     }
-
-    // tab
     public void showLosses(){
-
-    }
-    // gevinst
-    public void showProfits(){
-
     }
 
-    //getters
-    public double getTotalDifference(){
-        return this.totalDifference;
+    public void printPortfolio() {
+        for (Transaction element : transactions) {
+            System.out.println(element);
+        }
     }
 
-    public double getTotalValue(){
-        return totalValue;
+    @Override
+    public String toString() {
+        int portfolioNumber = 1;
+        StringBuilder sb = new StringBuilder();
+        sb.append("--- Portfolio Transactions ---\n");
+        for (Transaction t : transactions) {
+            sb.append(portfolioNumber).append(": ");
+            portfolioNumber++;
+            sb.append(t.toString());
+            sb.append("\n");
+        }
+        sb.append("Portfolio total value: ").append(totalValue).append(" DKK").append("\n"); // Hardcoded Currency for now
+        return sb.toString();
     }
+
 }

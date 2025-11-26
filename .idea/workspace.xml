@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ae984337-46c5-4ef3-841f-b0742731d61c" name="Changes" comment="kommentare og test fil">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Club.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Club.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +59,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.Club.executor": "Run",
     "Application.CsvHandler.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
     "ModuleVcsDetector.initialDetectionPerformed": "true",

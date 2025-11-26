@@ -79,7 +79,14 @@ public class CsvHandler implements FileHandler {
         return members;
     }
 
-    // Parsetransactions
+    /**
+     * It imports the transactions and creates Transaction
+     * objects and appends them to a list of transactions (transactionList).
+     * For every transactionId it then matches them on their userId.
+     * Then adds the transactions associated with each unique user to their own
+     * portfolio attribute.
+     * @param fileName
+     */
     private void parsePortfolio(String fileName) {
             try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
                 String line;
@@ -189,12 +196,11 @@ public class CsvHandler implements FileHandler {
     }
 
     public static void main(String[] args) {
-    //    handle.readFile(stockmarket, "stocks");
         CsvHandler handler = new CsvHandler();
+        handler.readFile(stockmarket, "stocks");
          handler.readFile(memberData, "user");
-
         handler.parsePortfolio(transactions);
-        userList.get(1).printMember();
+        userList.get(8).printMember();
 
     }
 }

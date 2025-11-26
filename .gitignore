@@ -2,3 +2,7 @@
 /.idea/misc.xml
 /.idea/workspace.xml
 
+### IntelliJ IDEA ###
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/

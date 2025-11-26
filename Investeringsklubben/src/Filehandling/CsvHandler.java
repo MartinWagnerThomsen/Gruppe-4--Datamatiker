@@ -1,9 +1,7 @@
 package Filehandling;
 
+import DataObjects.*;
 import DataObjects.Currency;
-import DataObjects.Portfolio;
-import DataObjects.Stock;
-import DataObjects.StockExchange;
 import Users.Member;
 import Users.User;
 
@@ -16,38 +14,23 @@ import java.util.*;
 import java.util.stream.Collectors;
 public class CsvHandler implements FileHandler {
 
+    private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
 
     private final static String memberData = "Investeringsklubben/src/Files/users.csv";
     private final static String stockmarket = "Investeringsklubben/src/Files/stockMarket.csv";
     private final static String transactions = "Investeringsklubben/src/Files/transactions.csv";
-    private static ArrayList<Member> userList;
-    private static ArrayList<Portfolio> portfolio;
-    ArrayList<Stock> stocks;
-    private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-    public static ArrayList<Stock> listOfStocks = new ArrayList<>();
+    private static ArrayList<Member> userList = new ArrayList<>();
+    private static ArrayList<Transaction> transactionList = new ArrayList<>();
+    private static ArrayList<Stock> listOfStocks = new ArrayList<>();
 
-    public void readFile(String fileName, String dataObjectName) {
 
-        switch(dataObjectName.toLowerCase()) {
-            case "user":
-                userList = parseUser(fileName);
-                System.out.println(userList.get(1));
-                break;
-            case "portfolio":
-                System.out.println("Portfolio");
-                parsePortfolio(fileName);
-                break;
-            case "stocks":
-                listOfStocks = parseStock(fileName);
-                for (Stock stock : listOfStocks) {
-                    System.out.println(stock.toString());
-                }
-                break;
-            default:
-                System.out.println("Invalid input");
-                break;
-        }
+
+    public void readFile() {
+        userList = parseUser(memberData);
+        parsePortfolio(transactions);
+        listOfStocks = parseStock(stockmarket);
     }
 
     /**
@@ -68,7 +51,8 @@ public class CsvHandler implements FileHandler {
                     double initialCash = Double.parseDouble(parts[4]);
                     LocalDate createdAt = LocalDate.parse(parts[5], formatter);
                     LocalDate lastUpdated = LocalDate.parse(parts[6], formatter);
-                    Member newMember = new Member(userId, fullName, email, birthday, initialCash, createdAt, lastUpdated);
+                    Portfolio portfolio = new Portfolio();
+                    Member newMember = new Member(userId, fullName, email, birthday, initialCash, createdAt, lastUpdated, portfolio);
                     members.add(newMember);
     } } catch (Exception e) {
             throw new RuntimeException(e);
@@ -76,16 +60,22 @@ public class CsvHandler implements FileHandler {
         return members;
     }
 
-    // Parsetransactions
+    /**
+     * It imports the transactions and creates Transaction
+     * objects and appends them to a list of transactions (transactionList).
+     * For every transactionId it then matches them on their userId.
+     * Then adds the transactions associated with each unique user to their own
+     * portfolio attribute.
+     * @param fileName
+     */
     private void parsePortfolio(String fileName) {
             try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
                 String line;
                 br.readLine();
                 while ((line = br.readLine()) != null) {
                     String[] parts = line.split(";");
-                    System.out.println(parts[0]);
-                    if (parts.length == 7) {
-                        // id of the transaction
+                    if (parts.length == 8) {
+                        int transactionId = Integer.parseInt(parts[0]);
                         int userId = Integer.parseInt(parts[1]);
                         LocalDate date = LocalDate.parse(parts[2], formatter);
                         String ticker = parts[3];
@@ -93,15 +83,27 @@ public class CsvHandler implements FileHandler {
                         String currency = parts[5];
                         String orderType = parts[6];
                         int quantity = Integer.parseInt(parts[7]);
-//                        double totalValue = Double.parseDouble(parts[0]);
-//                        double totalDifference = Double.parseDouble(parts[1]);
-//                        portfolios[i] = new Portfolio(totalValue, totalDifference);
-//                        i++;
+                        Transaction transaction = new Transaction(transactionId, userId, date,
+                                ticker, price, currency, orderType, quantity);
+                        transactionList.add(transaction);
                     }
                 }
             } catch (IOException e) {
                 System.out.println("Fejl ved læsning: " + e.getMessage());
             }
+        for (Member member : userList) {
+            for (Transaction transaction : transactionList) {
+                if (member.getUserId() == transaction.getUserId()) {
+                    member.addTransaction(transaction);
+                }
+            }
+        }
+
+        // Match userID med de respektive transactions ved at løbe igennem listen af users
+            // Beregn derefter værdien af alle deres stocks UNIT TEST
+            // Beregn difference uden % (dv.s hvor meget du har tjent/tabt fra baseline 100.000 (nuværende værdi - 100.000 for at finde forskellen) UNIT TEST
+            // Beregn så deres difference (målt i % hvor meget de har vundet/tabt fra deres baseline som er 100.000) UNIT TEST
+
         }
 
 
@@ -128,7 +130,6 @@ public class CsvHandler implements FileHandler {
      * populated with the data read from the file. Returns the current state of {@code listOfStocks}
      */
     private ArrayList<Stock> parseStock(String fileName) {
-        System.out.println("I got so far");
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
@@ -166,20 +167,17 @@ public class CsvHandler implements FileHandler {
 
     };
 
-    static void convertToString() {
-
-    }
-
-    static void convertToDataTypes() {
-
-    }
-
-    public static void main(String[] args) {
-        CsvHandler handle = new CsvHandler();
-    //    handle.readFile(stockmarket, "stocks");
+    public static ArrayList<Member> getUserData() {
         CsvHandler handler = new CsvHandler();
-         handler.readFile(memberData, "user");
-        System.out.println(handler.prettyPrint());
+        handler.readFile();
+        handler.parsePortfolio(transactions);
+        return userList;
 
     }
+    public static ArrayList<Stock> getStockData() {
+        CsvHandler handler = new CsvHandler();
+        handler.readFile();
+        return listOfStocks;
+    }
+
 }

@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae984337-46c5-4ef3-841f-b0742731d61c" name="Changes" comment="kommentare og test fil">
+    <list default="true" id="ae984337-46c5-4ef3-841f-b0742731d61c" name="Changes" comment="Still issues with facade but moved on a bit. Trying to consolidate method calls inside 1 class.">
       <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Club.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Club.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -16,15 +16,15 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="parsePortfolio" />
+        <entry key="$PROJECT_DIR$" value="transactions-parseportfolio" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -35,13 +35,28 @@
     &quot;assignee&quot;: &quot;Nelsoon-ds&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/MartinWagnerThomsen/Gruppe-4--Datamatiker.git&quot;,
-    &quot;accountId&quot;: &quot;9d9d938a-800b-4bd7-bfd5-00af52d2420b&quot;
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="7bfb12cd-7438-4218-8d06-d6af1f84871b" />
+  </component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/MartinWagnerThomsen/Gruppe-4--Datamatiker.git",
+    "accountId": "7bfb12cd-7438-4218-8d06-d6af1f84871b"
+  },
+  "recentNewPullRequestHead": {
+    "server": {
+      "useHttp": false,
+      "host": "github.com",
+      "port": null,
+      "suffix": null
+    },
+    "owner": "MartinWagnerThomsen",
+    "repository": "Gruppe-4--Datamatiker"
   }
-}</component>
+}]]></component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/.jdks/corretto-24.0.2/lib/src.zip!/java.base/java/lang/Object.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.jdks/corretto-24.0.2/lib/src.zip!/java.base/java/util/AbstractCollection.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$USER_HOME$/.jdks/openjdk-25/lib/src.zip!/java.base/java/io/BufferedReader.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProjectColorInfo">{
@@ -72,7 +87,9 @@
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "main",
+    "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
+    "database.data.extractors.current.id": "Comma-separated (CSV)_id",
+    "git-widget-placeholder": "#3 on transactions-parseportfolio",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
@@ -96,6 +113,26 @@
     <key name="CreateTestDialog.RecentsKey">
       <recent name="DataObjects" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="CsvHandler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Filehandling.CsvHandler" />
+      <module name="Gruppe-4--Datamatiker" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Filehandling.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.CsvHandler" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -178,7 +215,55 @@
       <option name="project" value="LOCAL" />
       <updated>1763735991950</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Try to get Member.getPortfolio to actually get the portfolio and then add the transaction">
+      <option name="closed" value="true" />
+      <created>1764065738739</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1764065738739</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Every member has a portfolio now. Portfolio generation is working.">
+      <option name="closed" value="true" />
+      <created>1764068536622</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1764068536622</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Cleaned up the transactions to get it working nicely. TRY IT OUT BY RUNNING CSVHANDLER">
+      <option name="closed" value="true" />
+      <created>1764079602161</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1764079602161</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Added comments">
+      <option name="closed" value="true" />
+      <created>1764145288273</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1764145288273</updated>
+    </task>
+    <task id="LOCAL-00013" summary="We made a facade!">
+      <option name="closed" value="true" />
+      <created>1764147245058</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1764147245058</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Still issues with facade but moved on a bit. Trying to consolidate method calls inside 1 class.">
+      <option name="closed" value="true" />
+      <created>1764152515584</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1764152515584</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -193,6 +278,12 @@
     <MESSAGE value="Current progress on parseUser();" />
     <MESSAGE value="Adding more stuff" />
     <MESSAGE value="Updating git ignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updating git ignore" />
+    <MESSAGE value="Try to get Member.getPortfolio to actually get the portfolio and then add the transaction" />
+    <MESSAGE value="Every member has a portfolio now. Portfolio generation is working." />
+    <MESSAGE value="Cleaned up the transactions to get it working nicely. TRY IT OUT BY RUNNING CSVHANDLER" />
+    <MESSAGE value="Added comments" />
+    <MESSAGE value="We made a facade!" />
+    <MESSAGE value="Still issues with facade but moved on a bit. Trying to consolidate method calls inside 1 class." />
+    <option name="LAST_COMMIT_MESSAGE" value="Still issues with facade but moved on a bit. Trying to consolidate method calls inside 1 class." />
   </component>
 </project>

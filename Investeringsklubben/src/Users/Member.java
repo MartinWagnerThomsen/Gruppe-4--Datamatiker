@@ -16,18 +16,6 @@ public class Member extends User {
            Portfolio portfolio){
         super(userId, fullName,email,birthday, initialCash,createdAt,lastUpdated, portfolio);
     }
-
-    // Constructor without portfolio for testing purposes
-//    public Member(int userId, String fullName, String email, LocalDate birthday, double initialCash, LocalDate createdAt, LocalDate lastUpdated) {
-//        super(userId,
-//                fullName,
-//                email,
-//                birthday,
-//                initialCash,
-//                createdAt,
-//                lastUpdated);
-//    }
-
     @Override
     public void viewPortfolio() {
         getPortfolio().getTransactions();

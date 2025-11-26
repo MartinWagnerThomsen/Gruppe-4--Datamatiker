@@ -23,15 +23,14 @@ public class CsvHandler implements FileHandler {
     private final static String transactions = "Investeringsklubben/src/Files/transactions.csv";
 
     private static ArrayList<Member> userList = new ArrayList<>();
-    private static ArrayList<Portfolio> portfolio;
-    ArrayList<Stock> stocks;
     private static ArrayList<Transaction> transactionList = new ArrayList<>();
-    public static ArrayList<Stock> listOfStocks = new ArrayList<>();
+    private static ArrayList<Stock> listOfStocks = new ArrayList<>();
+
+
 
 
 
     public void readFile(String fileName, String dataObjectName) {
-
         switch(dataObjectName.toLowerCase()) {
             case "user":
                 userList = parseUser(fileName);

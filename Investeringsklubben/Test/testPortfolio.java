@@ -19,14 +19,21 @@ public class testPortfolio {
     //nuværende totalværdi - startværdigen = difference
     // (startværdigen er 100.000 DKK)
     @Test
-    public void testDifference170000() {
+    public void testDifferenceForP1() {
         Assertions.assertEquals(70200, p1.getTotalDifference());
     }
 
     @Test
-    public void testDifference89630() {
+    public void testDifferenceForP2() {
         Assertions.assertEquals(-10370, p2.getTotalDifference());
     }
+
+    //setTotalValue
+    @Test
+    public void testTotalValue(){
+
+    }
+
 }
 
 

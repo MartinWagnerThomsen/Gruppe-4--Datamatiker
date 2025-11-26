@@ -4,16 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae984337-46c5-4ef3-841f-b0742731d61c" name="Changes" comment="We made a facade!">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="ae984337-46c5-4ef3-841f-b0742731d61c" name="Changes" comment="Still issues with facade but moved on a bit. Trying to consolidate method calls inside 1 class.">
       <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Club.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Club.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/CsvHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/CsvHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/FileHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/InvestmentClubFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/InvestmentClubFacade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Club.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Club.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Filehandling/CsvHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Filehandling/CsvHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Filehandling/FileHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Filehandling/FileHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Users/Member.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Users/Member.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +24,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="transactions-parseportfolio" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -50,6 +42,16 @@
   "selectedUrlAndAccountId": {
     "url": "https://github.com/MartinWagnerThomsen/Gruppe-4--Datamatiker.git",
     "accountId": "7bfb12cd-7438-4218-8d06-d6af1f84871b"
+  },
+  "recentNewPullRequestHead": {
+    "server": {
+      "useHttp": false,
+      "host": "github.com",
+      "port": null,
+      "suffix": null
+    },
+    "owner": "MartinWagnerThomsen",
+    "repository": "Gruppe-4--Datamatiker"
   }
 }]]></component>
   <component name="HighlightingSettingsPerFile">
@@ -87,7 +89,7 @@
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
     "database.data.extractors.current.id": "Comma-separated (CSV)_id",
-    "git-widget-placeholder": "transactions-parseportfolio",
+    "git-widget-placeholder": "#3 on transactions-parseportfolio",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
@@ -253,7 +255,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764147245058</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Still issues with facade but moved on a bit. Trying to consolidate method calls inside 1 class.">
+      <option name="closed" value="true" />
+      <created>1764152515584</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1764152515584</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -273,6 +283,7 @@
     <MESSAGE value="Cleaned up the transactions to get it working nicely. TRY IT OUT BY RUNNING CSVHANDLER" />
     <MESSAGE value="Added comments" />
     <MESSAGE value="We made a facade!" />
-    <option name="LAST_COMMIT_MESSAGE" value="We made a facade!" />
+    <MESSAGE value="Still issues with facade but moved on a bit. Trying to consolidate method calls inside 1 class." />
+    <option name="LAST_COMMIT_MESSAGE" value="Still issues with facade but moved on a bit. Trying to consolidate method calls inside 1 class." />
   </component>
 </project>

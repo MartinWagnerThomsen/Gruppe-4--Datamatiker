@@ -5,7 +5,6 @@ import DataObjects.Currency;
 import Users.Member;
 import Users.User;
 
-import javax.sound.sampled.Port;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -25,8 +24,6 @@ public class CsvHandler implements FileHandler {
     private static ArrayList<Member> userList = new ArrayList<>();
     private static ArrayList<Transaction> transactionList = new ArrayList<>();
     private static ArrayList<Stock> listOfStocks = new ArrayList<>();
-
-
 
 
 
@@ -192,6 +189,13 @@ public class CsvHandler implements FileHandler {
 
     static void convertToDataTypes() {
 
+    }
+
+    public static void getUserData() {
+
+    }
+    public static ArrayList<Stock> getStockData() {
+        return listOfStocks;
     }
 
     public static void main(String[] args) {

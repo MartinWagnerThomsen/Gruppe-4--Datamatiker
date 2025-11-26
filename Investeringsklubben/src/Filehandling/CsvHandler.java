@@ -27,25 +27,10 @@ public class CsvHandler implements FileHandler {
 
 
 
-    public void readFile(String fileName, String dataObjectName) {
-        switch(dataObjectName.toLowerCase()) {
-            case "user":
-                userList = parseUser(fileName);
-                break;
-            case "portfolio":
-                System.out.println("Portfolio");
-                parsePortfolio(fileName);
-                break;
-            case "stocks":
-                listOfStocks = parseStock(fileName);
-                for (Stock stock : listOfStocks) {
-                    System.out.println(stock.toString());
-                }
-                break;
-            default:
-                System.out.println("Invalid input");
-                break;
-        }
+    public void readFile() {
+        userList = parseUser(memberData);
+        parsePortfolio(transactions);
+        listOfStocks = parseStock(stockmarket);
     }
 
     /**
@@ -145,7 +130,6 @@ public class CsvHandler implements FileHandler {
      * populated with the data read from the file. Returns the current state of {@code listOfStocks}
      */
     private ArrayList<Stock> parseStock(String fileName) {
-        System.out.println("I got so far");
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
@@ -183,27 +167,17 @@ public class CsvHandler implements FileHandler {
 
     };
 
-    static void convertToString() {
-
-    }
-
-    static void convertToDataTypes() {
-
-    }
-
-    public static void getUserData() {
+    public static ArrayList<Member> getUserData() {
+        CsvHandler handler = new CsvHandler();
+        handler.readFile();
+        handler.parsePortfolio(transactions);
+        return userList;
 
     }
     public static ArrayList<Stock> getStockData() {
+        CsvHandler handler = new CsvHandler();
+        handler.readFile();
         return listOfStocks;
     }
 
-    public static void main(String[] args) {
-        CsvHandler handler = new CsvHandler();
-        handler.readFile(stockmarket, "stocks");
-         handler.readFile(memberData, "user");
-        handler.parsePortfolio(transactions);
-        userList.get(8).printMember();
-
-    }
 }

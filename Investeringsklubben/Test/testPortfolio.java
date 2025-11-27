@@ -37,7 +37,7 @@ public class testPortfolio {
     //setTotalValue
     //udregnes ved: initialCash er kontante værdi i starten. hver gang en stock købes:
     //kontantVærdi - pris af stocks købt = ny kontantVærdi
-    //kontant værdi = kontant værdi + stock beholdninger
+    //total værdi = kontant værdi + stock beholdninger
     Portfolio portfolio = new Portfolio(0,0);
     Member fakeMember = new Member(
             101,

@@ -27,10 +27,10 @@ public class Portfolio {
 
     public void setTransactions(Transaction transaction ) {
         this.transactions.add(transaction);
-        setTotalValue();
+        calculateTotalValue();
     }
 
-    public void setTotalValue() {
+    public void calculateTotalValue() {
         double sum = 0;
         for (Transaction transaction : transactions) {
             sum+= transaction.getQuantity() * transaction.getPrice();

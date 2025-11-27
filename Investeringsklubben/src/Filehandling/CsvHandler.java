@@ -21,7 +21,7 @@ public class CsvHandler implements FileHandler {
     private final static String memberData = "Investeringsklubben/src/Files/users.csv";
     private final static String stockmarket = "Investeringsklubben/src/Files/stockMarket.csv";
     private final static String transactions = "Investeringsklubben/src/Files/transactions.csv";
-    private final static String credentials = "Investeringsklubben/src/Files/loginCredentials";
+    private final static String credentials = "Investeringsklubben/src/Files/loginCredentials.csv";
 
     private static ArrayList<Member> userList = new ArrayList<>();
     private static ArrayList<Transaction> transactionList = new ArrayList<>();

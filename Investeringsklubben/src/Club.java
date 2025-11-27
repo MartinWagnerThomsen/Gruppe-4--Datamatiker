@@ -1,45 +1,67 @@
-import DataObjects.Currency;
-import DataObjects.Stock;
-import DataObjects.Transaction;
-import Filehandling.CsvHandler;
-import Filehandling.DataManager;
-import Users.Member;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
 
-
 public class Club {
-    static String adminUserName = "president@gmail.com";
-    static String password = "Sauron";
-    private DataManager dataManager;
+    private static final String adminUserName = "president@gmail.com";
+    private static final String admingPassword = "Sauron";
 
+    Scanner sc = new Scanner(System.in);
 
-    public static void login() {
+    String username;
+    String password;
+
+    public void login() {
         System.out.println("Velkommen. Tast brugernavn og kodeord.");
 
-        boolean isLoggedIn = false;
+        System.out.print("Brugernavn:");
+        username = sc.nextLine();
+        System.out.print("Adgangskode:");
+        password = sc.nextLine();
 
-        while (!isLoggedIn) {
+        // checker om brugeren er presidenten
+        if (username.equals(adminUserName) && password.equals(admingPassword)) {
+            System.out.println("Logger ind som president");
+            presidentMenu();
+        } else if (InvestmentClubFacade.credentialsValidation(username, password)) {
+            System.out.println("Logger ind som member");
+            membersMenu();
+        }
+    }
 
-            // checker om brugeren er presidenten
-            if (adminUserName.equals(adminUserName)) {
-                System.out.println("Logger ind som president");
-                isLoggedIn = true;
+    private static void presidentMenu() {
+        // Hvad end presidenten kan
+    }
 
-            } else {
-                System.out.println("Prøver at logge ind som medlem");
-            }
-            System.out.println("1. Se oversigt over brugernes porteføljeværdi \n" +
-                    "2. Vis rangliste\n " +
-                    "3. Vis fordelinger på aktier og sektorer\n" +
-                    "4. Tilføj ny bruger\n" +
-                    "5. Fjern bruger\n" +
-                    "6. Log ud");
+    public void membersMenu() {
+
+        System.out.println(
+                "1. Se oversigt over brugernes porteføljeværdi\n" +
+                "2. Vis rangliste\n" +
+                "3. Vis fordelinger på aktier og sektorer\n" +
+                "4. Tilføj ny bruger\n" + "5. Fjern bruger\n" +
+                "6. Log ud");
+
+        switch (sc.nextLine()) {
+            case "1":
+                //getPortfolio(user);
+                break;
+            case "2":
+                //getRankings();
+                break;
+            case "3":
+                //getSector(getPortfolio(user));
+                break;
+            case "4":
+                //addUser(getUserInfo());
+                break;
+            case "5":
+                //removeUser(getUserInfo());
+                break;
+            case "6":
+                //saveProgress();
+                login();
+                break;
+            default:
+                throw new IllegalArgumentException("Forket input");
         }
     }
 
@@ -50,87 +72,6 @@ public class Club {
     public void switchUser() {
 
     }
-
-    /**
-     * Finder vores medlem ved at bruge userId
-     */
-    public void findMember() {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter user ID for the user which you want to find transactions from: ");
-        int userId = sc.nextInt();
-        Member foundMember;
-        List<Member> members = dataManager.getMembers();
-        Optional<Member> memberOptional = members.stream()
-                .filter(member -> member.getUserId() == userId)
-                .findFirst();
-        if (memberOptional.isPresent()) {
-            foundMember = memberOptional.get();
-            foundMember.printMember();
-        }
-    }
-
-    public void createTransaction() {
-        Scanner sc = new Scanner(System.in);
-        Transaction lastTransaction = dataManager.getMembers().getLast().getPortfolio().getTransactions().getLast(); // Tag den sidste transaction
-        int transactionId = lastTransaction.getTransactionId() + 1;
-        System.out.print("Enter user ID: ");
-        int userId = sc.nextInt();
-        sc.nextLine();
-        System.out.print("Enter date (dd-MM-yyyy): ");
-        String dateInput = sc.nextLine();
-        LocalDate date = LocalDate.parse(dateInput, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        System.out.print("Enter stock ticker: ");
-        String ticker = sc.nextLine();
-        System.out.print("Enter price: ");
-        double price = sc.nextDouble();
-        sc.nextLine();
-        System.out.print("Enter currency (e.g., DKK): ");
-        String currency = sc.nextLine();
-        System.out.print("Enter order type (buy/sell): ");
-        String orderType = sc.nextLine();
-        System.out.print("Enter quantity: ");
-        int quantity = sc.nextInt();
-        // Create the transaction
-        Transaction transaction = new Transaction(
-                transactionId,
-                userId,
-                date,
-                ticker,
-                price,
-                currency,
-                orderType,
-                quantity
-        );
-        dataManager.registerNewTransaction(transaction);
-    }
-
-    public void mainLoop() {
-        DataManager manager = new DataManager();
-        this.dataManager = manager;
-
-        try {
-            if (manager.getMembers().size() < 0) {
-                System.out.println("Tom liste af medlemmer");
-            }
-        } catch (Exception e) {
-            System.out.println("Fortsæt loop");
-            e.printStackTrace();
-        }
-
-        createTransaction();
-      //  findMember();
-      List<Currency> currencies =  manager.getCurrencies();
-        System.out.println(currencies);
-
-
-    }
-
-
-
-    public static void main(String[] args) {
-        Club investmentClub = new Club();
-        investmentClub.mainLoop();
-
-    }
 }
+
 

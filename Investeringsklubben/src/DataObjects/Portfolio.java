@@ -1,6 +1,5 @@
 package DataObjects;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Portfolio {
@@ -25,13 +24,13 @@ public class Portfolio {
     }
 
 
-    public void setTransactions(Transaction transaction ) {
+    public void addTransactions(Transaction transaction ) {
         this.transactions.add(transaction);
-        calculateTotalValue();
     }
 
     public void calculateTotalValue() {
         double sum = 0;
+
         for (Transaction transaction : transactions) {
             sum+= transaction.getQuantity() * transaction.getPrice();
         }

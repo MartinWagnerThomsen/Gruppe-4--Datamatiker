@@ -21,6 +21,7 @@ public class CsvHandler implements FileHandler {
     private final static String memberData = "Investeringsklubben/src/Files/users.csv";
     private final static String stockmarket = "Investeringsklubben/src/Files/stockMarket.csv";
     private final static String transactions = "Investeringsklubben/src/Files/transactions.csv";
+    private final static String credentials = "Investeringsklubben/src/Files/loginCredentials";
 
     private static ArrayList<Member> userList = new ArrayList<>();
     private static ArrayList<Transaction> transactionList = new ArrayList<>();
@@ -158,27 +159,26 @@ public class CsvHandler implements FileHandler {
         }
      return listOfStocks;
     }
-    public static List<Member>parseloginCredentials(String fileName) throws Exception{
-        List<Member> Login = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+
+    public static List<Member> parseloginCredentials() {
+        List<Member> login = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(credentials))) {
             String line;
             br.readLine(); // eat the line
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(";");
-                System.out.println(line);
                 if (parts.length == 3) {
                     String username = parts[0];
                     String password = parts[1];
                     String userType = parts[2];
-
-
+                    Member member = new Member(username, password, userType);
+                    login.add(member);
                 }
-
-        }
-    } catch (IOException e) {
-        System.out.println("Fejl ved læsning: " + e.getMessage());
             }
-        return Login;
+        } catch (IOException e) {
+            System.out.println("Fejl ved læsning: " + e.getMessage());
+        }
+        return login;
     }
 
     private String prettyPrint() {

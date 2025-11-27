@@ -4,6 +4,7 @@ import Users.Member;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class InvestmentClubFacade {
@@ -51,6 +52,16 @@ public class InvestmentClubFacade {
             throw new RuntimeException(e);
         }
         return stocks;
+    }
+
+    public static boolean credentialsValidation(String username, String password) {
+        List<Member> members = CsvHandler.parseloginCredentials();
+        for (Member member : members) {
+            if (username.equals(member.getEmail()) && password.equals(member.getPassword())){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void saveUserData() {}

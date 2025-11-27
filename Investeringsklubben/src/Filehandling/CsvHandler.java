@@ -7,6 +7,7 @@ import DataObjects.StockExchange;
 import Users.Member;
 import Users.User;
 
+import javax.security.auth.login.LoginContext;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -149,11 +150,34 @@ public class CsvHandler implements FileHandler {
                     Stock stock = new Stock(ticker, name, sector, price, currency, rating, dividendYield, market, lastUpdated);
                     listOfStocks.add(stock);
                 }
+
             }
         } catch (IOException e) {
             System.out.println("Fejl ved læsning: " + e.getMessage());
         }
      return listOfStocks;
+    }
+    public static List<Member>parseloginCredentials(String fileName) throws Exception{
+        List<Member> Login = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            br.readLine(); // eat the line
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(";");
+                System.out.println(line);
+                if (parts.length == 3) {
+                    String username = parts[0];
+                    String password = parts[1];
+                    String userType = parts[2];
+
+
+                }
+
+        }
+    } catch (IOException e) {
+        System.out.println("Fejl ved læsning: " + e.getMessage());
+            }
+        return Login;
     }
 
     private String prettyPrint() {

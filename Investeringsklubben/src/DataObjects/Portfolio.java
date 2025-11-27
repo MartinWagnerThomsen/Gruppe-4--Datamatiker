@@ -1,5 +1,7 @@
 package DataObjects;
 
+import Users.Member;
+
 import java.util.ArrayList;
 
 public class Portfolio {
@@ -28,11 +30,26 @@ public class Portfolio {
         this.transactions.add(transaction);
     }
 
-    public void calculateTotalValue() {
+    public void calculateTotalValue(Member member) {
         double sum = 0;
-
+        double totalStocksValue = 0;
+        double stocksBuyValue = 0;
+        double stocksSellValue = 0;
+        double cashBalance = member.getInitialCash();
         for (Transaction transaction : transactions) {
-            sum+= transaction.getQuantity() * transaction.getPrice();
+            if (transaction.getOrderType().equalsIgnoreCase("buy")){
+                stocksBuyValue += transaction.getQuantity() * transaction.getPrice();
+                totalStocksValue += stocksBuyValue;
+                cashBalance -= totalStocksValue;
+                sum = cashBalance + totalStocksValue;
+            }
+            if (transaction.getOrderType().equalsIgnoreCase("sell")){
+                stocksSellValue += transaction.getQuantity() * transaction.getPrice();
+                totalStocksValue -= stocksBuyValue;
+                cashBalance += stocksSellValue;
+                sum = cashBalance + totalStocksValue;
+
+            }
         }
         totalValue = sum;
     }

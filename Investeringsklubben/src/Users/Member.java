@@ -47,6 +47,10 @@ public class Member extends User {
         return birthday;
     }
 
+    public double getInitialCash(){
+        return initialCash;
+    }
+
     @Override
     public LocalDate getCreationLocalDate() {
         return createdAt;

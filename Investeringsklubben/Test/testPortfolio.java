@@ -100,15 +100,16 @@ public class testPortfolio {
     @Test
     public void testTotalValueAfterTransaction1(){
         portfolio.addTransactions(transaction1);
-        portfolio.calculateTotalValue();
+        portfolio.calculateTotalValue(fakeMember);
         Assertions.assertEquals(100000.00, portfolio.getTotalValue());
 
     }
 
     @Test
     public void testTotalValueAfterTransaction2(){
+        portfolio.addTransactions(transaction1);
         portfolio.addTransactions(transaction2);
-        portfolio.calculateTotalValue();
+        portfolio.calculateTotalValue(fakeMember);
         Assertions.assertEquals(100440.00, portfolio.getTotalValue());
     }
 

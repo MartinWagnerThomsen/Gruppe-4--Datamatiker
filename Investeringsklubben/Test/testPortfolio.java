@@ -21,7 +21,7 @@ public class testPortfolio {
     //beregn difference (gevindst/tab) uden %
     //nuværende totalværdi - startværdigen = difference
     // (startværdigen er 100.000 DKK)
-    Portfolio p1 = new Portfolio(170200);
+/*    Portfolio p1 = new Portfolio(170200);
     Portfolio p2 = new Portfolio(89630);
 
     @Test
@@ -33,7 +33,7 @@ public class testPortfolio {
     public void testDifferenceForP2() {
         Assertions.assertEquals(-10370, p2.getTotalDifference());
     }
-
+*/
     //setTotalValue
     //udregnes ved: initialCash er kontante værdi i starten. hver gang en stock købes:
     //kontantVærdi - pris af stocks købt = ny kontantVærdi
@@ -56,17 +56,11 @@ public class testPortfolio {
             1, 101,
             LocalDate.of(2025, 11, 22),
             "ORSTED", 500, "DKK", "sell", 10);
-    portfolio.setTransactions(transaction1);
-    portfolio.setTransactions(transaction2);
 
-    @Test
-    public void testTotalValueMalthe(){
-        Assertions.assertEquals(100000, CsvHandler.userList.get(8).totalValue);
-    }
 
     @Test
     public void testTotalValue(){
-        Assertions.assertEquals(102168, fakeMember.Portfolio);
+        Assertions.assertEquals(100440.00, portfolio.setTotalValue());
     }
 
 

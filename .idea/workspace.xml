@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ae984337-46c5-4ef3-841f-b0742731d61c" name="Changes" comment="Still issues with facade but moved on a bit. Trying to consolidate method calls inside 1 class.">
-      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Club.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Club.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Investeringsklubben/Test/testPortfolio.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/Test/testPortfolio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/DataObjects/Portfolio.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/DataObjects/Portfolio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Club.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Club.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/DataObjects/Portfolio.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/DataObjects/Portfolio.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,25 +39,22 @@
     &quot;assignee&quot;: &quot;Nelsoon-ds&quot;
   }
 }</component>
-  <component name="GithubDefaultAccount">
-    <option name="defaultAccountId" value="7bfb12cd-7438-4218-8d06-d6af1f84871b" />
-  </component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/MartinWagnerThomsen/Gruppe-4--Datamatiker.git",
-    "accountId": "7bfb12cd-7438-4218-8d06-d6af1f84871b"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/MartinWagnerThomsen/Gruppe-4--Datamatiker.git&quot;,
+    &quot;accountId&quot;: &quot;7bfb12cd-7438-4218-8d06-d6af1f84871b&quot;
   },
-  "recentNewPullRequestHead": {
-    "server": {
-      "useHttp": false,
-      "host": "github.com",
-      "port": null,
-      "suffix": null
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
     },
-    "owner": "MartinWagnerThomsen",
-    "repository": "Gruppe-4--Datamatiker"
+    &quot;owner&quot;: &quot;MartinWagnerThomsen&quot;,
+    &quot;repository&quot;: &quot;Gruppe-4--Datamatiker&quot;
   }
-}]]></component>
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="jar://$USER_HOME$/.jdks/corretto-24.0.2/lib/src.zip!/java.base/java/lang/Object.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$USER_HOME$/.jdks/corretto-24.0.2/lib/src.zip!/java.base/java/util/AbstractCollection.java" root0="SKIP_INSPECTION" />
@@ -77,6 +78,7 @@
     "Application.Club.executor": "Run",
     "Application.CsvHandler.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.testPortfolio.testTotalValue.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
@@ -89,7 +91,7 @@
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
     "database.data.extractors.current.id": "Comma-separated (CSV)_id",
-    "git-widget-placeholder": "#3 on transactions-parseportfolio",
+    "git-widget-placeholder": "testBranch",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
@@ -114,7 +116,7 @@
       <recent name="DataObjects" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.testPortfolio.testTotalValue">
     <configuration name="CsvHandler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Filehandling.CsvHandler" />
       <module name="Gruppe-4--Datamatiker" />
@@ -128,8 +130,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="testPortfolio.testTotalValue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Gruppe-4--Datamatiker" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="testPortfolio" />
+      <option name="METHOD_NAME" value="testTotalValue" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.testPortfolio.testTotalValue" />
         <item itemvalue="Application.CsvHandler" />
       </list>
     </recent_temporary>

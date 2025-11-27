@@ -54,6 +54,9 @@ public class Portfolio {
             System.out.println(element);
         }
     }
+    public double getTotalValue(){
+        return totalValue;
+    }
 
     @Override
     public String toString() {

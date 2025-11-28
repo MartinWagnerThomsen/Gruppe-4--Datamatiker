@@ -1,15 +1,19 @@
 package Filehandling;
 
+import Exceptions.CsvParsingException;
 import DataObjects.Stock;
 import DataObjects.Transaction;
 import Users.Member;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class DataManager {
-    // Centraliser filstier
     private static final String MEMBERS_FILE = "Investeringsklubben/src/Files/users.csv";
     private static final String STOCKS_FILE = "Investeringsklubben/src/Files/stockMarket.csv";
     private static final String TRANSACTIONS_FILE = "Investeringsklubben/src/Files/transactions.csv";
@@ -18,11 +22,12 @@ public class DataManager {
     private List<Stock> stocks;
     private final CsvHandler csvHandler;
 
+    // Initialiser lister for at undgå NullPointerException, selv hvis indlæsning fejler
     public DataManager() {
         this.csvHandler = new CsvHandler();
-        // Initialiser lister for at undgå NullPointerException, selv hvis indlæsning fejler
         this.members = new ArrayList<>();
         this.stocks = new ArrayList<>();
+        loadAllData();
     }
 
     /**
@@ -41,7 +46,7 @@ public class DataManager {
             this.members = loadedMembers;
             this.stocks = loadedStocks;
 
-            // 3. Udfør forretningslogik: Link transaktioner til medlemmer
+            // 3. Link transaktioner til medlemmer
             linkTransactionsToMembers(allTransactions);
 
             System.out.println("Data indlæst successfuldt.");
@@ -49,8 +54,6 @@ public class DataManager {
         } catch (CsvParsingException e) {
             System.err.println("KRITISK FEJL under indlæsning af data: " + e.getMessage());
             System.err.println("Applikationen kan ikke starte korrekt. Tjek filformater.");
-            // I en rigtig applikation ville man måske lukke programmet her
-            // System.exit(1);
         }
     }
 
@@ -64,8 +67,6 @@ public class DataManager {
         for (Transaction transaction : transactions) {
             Member member = memberMap.get(transaction.getUserId());
             if (member != null) {
-                // Her antager vi at Member har en getPortfolio() metode
-                // der returnerer et Portfolio objekt, som har en addTransaction() metode.
                 member.getPortfolio().addTransaction(transaction);
             }
         }
@@ -75,23 +76,25 @@ public class DataManager {
      * Registrerer en ny transaktion og sikrer, at alt data gemmes korrekt.
      */
     public void registerNewTransaction(Transaction transaction) {
+
         // Find det relevante medlem
         Member memberToUpdate = members.stream()
                 .filter(m -> m.getUserId() == transaction.getUserId())
                 .findFirst()
-                .orElse(null);
+                .orElse(null); // Overvej at tilføj NA?
 
         if (memberToUpdate == null) {
             System.err.println("Kunne ikke registrere transaktion: Medlem med ID " + transaction.getUserId() + " ikke fundet.");
             return;
         }
 
+
         // 1. Tilføj transaktion til porteføljen i hukommelsen
         memberToUpdate.getPortfolio().addTransaction(transaction);
 
         // 2. Opdater medlemmets 'cash' (skal implementeres)
-        // double cost = transaction.getPrice() * transaction.getQuantity();
-        // memberToUpdate.setCash(memberToUpdate.getCash() - cost);
+        double cost = transaction.getPrice() * transaction.getQuantity();
+         memberToUpdate.setCash(memberToUpdate.getInitialCash() - cost);
 
         // 3. Sæt 'lastUpdated' dato
         memberToUpdate.setLastUpdated(LocalDate.now());

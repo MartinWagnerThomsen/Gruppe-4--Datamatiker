@@ -2,141 +2,90 @@ package Filehandling;
 
 import DataObjects.*;
 import DataObjects.Currency;
+import Exceptions.CsvParsingException;
 import Users.Member;
-import Users.User;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
-public class CsvHandler implements FileHandler {
+public class CsvHandler {
 
-    private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
-
-    private final static String memberData = "Investeringsklubben/src/Files/users.csv";
-    private final static String stockmarket = "Investeringsklubben/src/Files/stockMarket.csv";
-    private final static String transactions = "Investeringsklubben/src/Files/transactions.csv";
-
-    private static ArrayList<Member> userList = new ArrayList<>();
-    private static ArrayList<Transaction> transactionList = new ArrayList<>();
-    private static ArrayList<Stock> listOfStocks = new ArrayList<>();
-
-
-
-    public void readFile() {
-        userList = parseUser(memberData);
-        parsePortfolio(transactions);
-        listOfStocks = parseStock(stockmarket);
-    }
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private static final String SEPARATOR = ";";
 
     /**
-     * Header for the parseUser
-     * @params userId;full_name;email;birth_date;initial_cash_DKK;created_at;last_updated
+     * Læser en fil med brugere og returnerer en liste af Member-objekter.
      */
-    private ArrayList<Member> parseUser(String fileName) {
-        ArrayList<Member> members = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+    public List<Member> readMembers(String filePath) throws CsvParsingException {
+        List<Member> members = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            br.readLine(); // Spring header over
             String line;
-            br.readLine(); // Den her linje den spiser Headeren (den første linje i arrayet)
             while ((line = br.readLine()) != null) {
-                String[] parts = line.split(";");
+                String[] parts = line.split(SEPARATOR);
+                if (parts.length == 7) {
                     int userId = Integer.parseInt(parts[0]);
                     String fullName = parts[1];
                     String email = parts[2];
-                    LocalDate birthday = LocalDate.parse(parts[3], formatter);
+                    LocalDate birthday = LocalDate.parse(parts[3], FORMATTER);
                     double initialCash = Double.parseDouble(parts[4]);
-                    LocalDate createdAt = LocalDate.parse(parts[5], formatter);
-                    LocalDate lastUpdated = LocalDate.parse(parts[6], formatter);
+                    LocalDate createdAt = LocalDate.parse(parts[5], FORMATTER);
+                    LocalDate lastUpdated = LocalDate.parse(parts[6], FORMATTER);
+                    // Opret et tomt portfolio; det fyldes senere af DataManager
                     Portfolio portfolio = new Portfolio();
-                    Member newMember = new Member(userId, fullName, email, birthday, initialCash, createdAt, lastUpdated, portfolio);
-                    members.add(newMember);
-    } } catch (Exception e) {
-            throw new RuntimeException(e);
+                    members.add(new Member(userId, fullName, email, birthday, initialCash, createdAt, lastUpdated, portfolio));
+                } else {
+                    throw new CsvParsingException("Forkert antal kolonner i medlemsfil: " + line, null);
+                }
+            }
+        } catch (IOException | NumberFormatException | java.time.format.DateTimeParseException e) {
+            throw new CsvParsingException("Kunne ikke læse eller parse medlemsfil: " + filePath, e);
         }
         return members;
     }
 
     /**
-     * It imports the transactions and creates Transaction
-     * objects and appends them to a list of transactions (transactionList).
-     * For every transactionId it then matches them on their userId.
-     * Then adds the transactions associated with each unique user to their own
-     * portfolio attribute.
-     * @param fileName
+     * Læser en fil med transaktioner.
      */
-    private void parsePortfolio(String fileName) {
-            try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-                String line;
-                br.readLine();
-                while ((line = br.readLine()) != null) {
-                    String[] parts = line.split(";");
-                    if (parts.length == 8) {
-                        int transactionId = Integer.parseInt(parts[0]);
-                        int userId = Integer.parseInt(parts[1]);
-                        LocalDate date = LocalDate.parse(parts[2], formatter);
-                        String ticker = parts[3];
-                        double price = Double.parseDouble(parts[4].replace(',', '.'));
-                        String currency = parts[5];
-                        String orderType = parts[6];
-                        int quantity = Integer.parseInt(parts[7]);
-                        Transaction transaction = new Transaction(transactionId, userId, date,
-                                ticker, price, currency, orderType, quantity);
-                        transactionList.add(transaction);
-                    }
-                }
-            } catch (IOException e) {
-                System.out.println("Fejl ved læsning: " + e.getMessage());
-            }
-        for (Member member : userList) {
-            for (Transaction transaction : transactionList) {
-                if (member.getUserId() == transaction.getUserId()) {
-                    member.addTransaction(transaction);
-                }
-            }
-        }
-
-        // Match userID med de respektive transactions ved at løbe igennem listen af users
-            // Beregn derefter værdien af alle deres stocks UNIT TEST
-            // Beregn difference uden % (dv.s hvor meget du har tjent/tabt fra baseline 100.000 (nuværende værdi - 100.000 for at finde forskellen) UNIT TEST
-            // Beregn så deres difference (målt i % hvor meget de har vundet/tabt fra deres baseline som er 100.000) UNIT TEST
-
-        }
-
-
-    /**
-     * Reads and parses stock data from a semicolon-separated values (CSV) file
-     * and populates the {@code listOfStocks} field with {@link Stock} objects.
-     *
-     * <p>The file is expected to have a header row followed by data rows.
-     * Each data row must contain nine semicolon-separated fields in the following order:
-     * <ul>
-     * <li><strong>ticker</strong> (String)</li>
-     * <li><strong>name</strong> (String)</li>
-     * <li><strong>sector</strong> (String)</li>
-     * <li><strong>price</strong> (double, uses ',' as decimal separator)</li>
-     * <li><strong>currency</strong> (String, parsed by {@link Currency#parseCurrency(String)})</li>
-     * <li><strong>rating</strong> (String)</li>
-     * <li><strong>dividend_yield</strong> (double, uses ',' as decimal separator)</li>
-     * <li><strong>market</strong> (String, parsed by {@link StockExchange#parseStockExchange(String)})</li>
-     * <li><strong>last_updated</strong> (String, parsed using the class's {@code formatter} field)</li>
-     * </ul>
-     *
-     * @param fileName The path and name of the CSV file containing the stock data.
-     * @return The {@code ArrayList} of {@link Stock} objects, which is the class's {@code listOfStocks} field,
-     * populated with the data read from the file. Returns the current state of {@code listOfStocks}
-     */
-    private ArrayList<Stock> parseStock(String fileName) {
-
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+    public List<Transaction> readTransactions(String filePath) throws CsvParsingException {
+        List<Transaction> transactions = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            br.readLine(); // Spring header
             String line;
-            br.readLine(); // eat the line
             while ((line = br.readLine()) != null) {
-                String[] parts = line.split(";");
-                System.out.println(line);
+                String[] parts = line.split(SEPARATOR);
+                if (parts.length == 8) {
+                    int transactionId = Integer.parseInt(parts[0]);
+                    int userId = Integer.parseInt(parts[1]);
+                    LocalDate date = LocalDate.parse(parts[2], FORMATTER);
+                    String ticker = parts[3];
+                    double price = Double.parseDouble(parts[4].replace(',', '.'));
+                    String currency = parts[5];
+                    String orderType = parts[6];
+                    int quantity = Integer.parseInt(parts[7]);
+                    transactions.add(new Transaction(transactionId, userId, date, ticker, price, currency, orderType, quantity));
+                } else {
+                    throw new CsvParsingException("Forkert antal kolonner i transaktionsfil: " + line, null);
+                }
+            }
+        } catch (IOException | NumberFormatException | java.time.format.DateTimeParseException e) {
+            throw new CsvParsingException("Kunne ikke læse eller parse transaktionsfil: " + filePath, e);
+        }
+        return transactions;
+    }
+
+    public List<Stock> readStocks(String filePath) throws CsvParsingException {
+        List<Stock> stocks = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            br.readLine(); // Spring header
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(SEPARATOR);
                 if (parts.length == 9) {
                     String ticker = parts[0];
                     String name = parts[1];
@@ -146,38 +95,83 @@ public class CsvHandler implements FileHandler {
                     String rating = parts[5];
                     double dividendYield = Double.parseDouble(parts[6].replace(',', '.'));
                     StockExchange market = StockExchange.parseStockExchange(parts[7]);
-                    LocalDate lastUpdated = LocalDate.parse(parts[8], formatter);
-                    Stock stock = new Stock(ticker, name, sector, price, currency, rating, dividendYield, market, lastUpdated);
-                    listOfStocks.add(stock);
+                    LocalDate lastUpdated = LocalDate.parse(parts[8], FORMATTER);
+                    stocks.add(new Stock(ticker, name, sector, price, currency, rating, dividendYield, market, lastUpdated));
+                } else {
+                    throw new CsvParsingException("Forkert antal kolonner i aktiefil: " + line, null);
                 }
             }
-        } catch (IOException e) {
-            System.out.println("Fejl ved læsning: " + e.getMessage());
+        } catch (IOException | NumberFormatException | java.time.format.DateTimeParseException e) {
+            throw new CsvParsingException("Kunne ikke læse eller parse aktiefil: " + filePath, e);
         }
-     return listOfStocks;
-    }
-
-    private String prettyPrint() {
-        String result = userList.stream().map(User::getFullName).collect(Collectors.joining("  "));
-        return result;
+        return stocks;
     }
 
 
-    public void writeFile(String fileName, String objectDataName) {
+    /**
+     * Tilføjer en enkelt transaktion til slutningen af en CSV-fil.
+     */
+    public void appendTransaction(String filePath, Transaction transaction) throws IOException {
+        String csvLine = convertToCsvLine(transaction);
 
-    };
+        try (FileWriter writer = new FileWriter(filePath, true)) {
+            writer.write(csvLine);
 
-    public static ArrayList<Member> getUserData() {
-        CsvHandler handler = new CsvHandler();
-        handler.readFile();
-        handler.parsePortfolio(transactions);
-        return userList;
+        } catch (IOException e) {
+            System.out.println("Fejl ved skrivning til fil: " + e.getMessage());
+        }
+
+
+       }
+
+    /**
+     * Overskriver hele bruger-filen med en ny liste af medlemmer.
+     */
+    public void writeAllMembers(String filePath, List<Member> members) throws IOException {
+        List<String> lines = new ArrayList<>();
+        lines.add("user_Id;full_name;email;birth_date;initial_cash_DKK;created_at;last_updated"); // Header
+
+        List<String> memberLines = members.stream()
+                .map(this::convertToCsvLine)
+                .collect(Collectors.toList());
+        lines.addAll(memberLines);
+
+        try (FileWriter writer = new FileWriter(filePath)) {
+            for (String line : lines) {
+                writer.write(line + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println("Fejl ved skrivning til fil: " + e.getMessage());
+        }
+
+
 
     }
-    public static ArrayList<Stock> getStockData() {
-        CsvHandler handler = new CsvHandler();
-        handler.readFile();
-        return listOfStocks;
+
+    // --- Private konverterings-hjælpemetoder ---
+
+    private String convertToCsvLine(Member m) {
+        return String.join(SEPARATOR,
+                String.valueOf(m.getUserId()),
+                m.getFullName(),
+                m.getEmail(),
+                m.getBirthday().format(FORMATTER),
+                String.valueOf(m.getInitialCash()).replace('.', ','), // Konverter tilbage til komma for CSV
+                m.getCreationLocalDate().format(FORMATTER),
+                m.getLastUpdated().format(FORMATTER)
+        );
     }
 
+    private String convertToCsvLine(Transaction t) {
+        return String.join(SEPARATOR,
+                String.valueOf(t.getTransactionId()),
+                String.valueOf(t.getUserId()),
+                t.getDate().format(FORMATTER),
+                t.getTicker(),
+                String.valueOf(t.getPrice()).replace('.',','), // Konverter tilbage til komma for CSV
+                t.getCurrency(),
+                t.getOrderType(),
+                String.valueOf(t.getQuantity())
+        );
+    }
 }

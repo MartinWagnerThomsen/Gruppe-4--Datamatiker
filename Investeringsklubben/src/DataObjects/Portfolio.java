@@ -1,8 +1,10 @@
 package DataObjects;
 
+import Filehandling.InvestmentClubFacade;
 import Users.Member;
-
 import java.util.ArrayList;
+import java.util.List;
+
 
 public class Portfolio {
     private ArrayList<Transaction> transactions = new ArrayList<>();
@@ -30,15 +32,28 @@ public class Portfolio {
         this.transactions.add(transaction);
     }
 
+    /*
+    * Lav en variabel "sum" som holder quantity af den pågældende aktie
+    * Check om sum er lig med 0 - hvis det er den så skal den fjernes fra listen af akier
+    * for det pågældende medlem
+    * Hvis ikke den er nul skal quantity være resultatet af quantity - sum (sell) / quantity + sum (buy)
+     Bagefter skal man regne ud hvad den reele pris af aktien er baseret på stockmarket.csv prisen som er vores
+     * baseline pris (snapshot).
+     * */
     public void calculateTotalValue(Member member) {
+        InvestmentClubFacade facade = new InvestmentClubFacade();
+        List<Stock> listOfStocks = facade.fetchStockData();
+
         double sum = 0;
         double totalStocksValue = 0;
         double cashBalance = member.getInitialCash();
         for (Transaction transaction : transactions) {
+
             if (transaction.getOrderType().equalsIgnoreCase("buy")){
                 double stocksBuyValue = 0;
+
                 stocksBuyValue += transaction.getQuantity() * transaction.getPrice();
-            //    totalStocksValue += stocksCurrentValue * transaction.getQuantity();
+            //    totalStocksValue += stocksCurrentValue * transaction.getQuan62tity();
                 cashBalance -= stocksBuyValue;
             //    sum = cashBalance + stocksCurrentValue;
             }
@@ -50,8 +65,29 @@ public class Portfolio {
             //    sum = cashBalance + totalStocksValue;
 
             }
+
+
         }
         totalValue = cashBalance; //temporary. should be totalValue = sum;
+    }
+
+
+    public void calculateInvestedStocks () {
+        List<Transaction> investedStocks = new ArrayList<>();
+        for (Transaction transaction : transactions) {
+            if (transaction.getOrderType().equalsIgnoreCase("buy")){
+                investedStocks.add(transaction);
+            }
+            if (transaction.getOrderType().equalsIgnoreCase("sell")){
+                //if (transaction.getQuantity())
+                investedStocks.remove(transaction);
+            }
+            // Nu bør vi have en liste af de aktier vi har tilbage
+
+
+        }
+
+
     }
     public void registerStock(){
 

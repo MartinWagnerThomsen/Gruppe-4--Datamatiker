@@ -1,10 +1,9 @@
+package Filehandling;
+
 import DataObjects.Stock;
-import Filehandling.CsvHandler;
 import Users.Member;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class InvestmentClubFacade {
 

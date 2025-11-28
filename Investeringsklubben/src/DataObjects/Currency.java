@@ -1,6 +1,6 @@
 package DataObjects;
 
-import com.sun.source.tree.BreakTree;
+import Exceptions.InvalidCurrencyException;
 
 public class Currency {
     private String currencyName;

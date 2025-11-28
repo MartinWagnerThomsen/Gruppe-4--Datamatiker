@@ -6,18 +6,10 @@ import DataObjects.Transaction;
 import java.time.LocalDate;
 
 public class Member extends User {
-    String password;
-    String userType;
-    // meget hacky
-    public Member(String email, String password, String userType){
-        this.email = email;
-        this.password = password;
-        this.userType = userType;
-    }
+
     /**
      * Constructor with Portfolio added
       */
-
 
     public Member(int userId, String fullName, String email, LocalDate birthday, double initialCash,
            LocalDate createdAt, LocalDate lastUpdated,
@@ -40,7 +32,21 @@ public class Member extends User {
 
     }
 
-    public String getPassword(){return password;}
+    public void setLastUpdated (LocalDate update) {
+        this.lastUpdated = update;
+    }
+
+    public void setCash (double cash) {
+        this.initialCash = cash;
+    }
+
+
+
+    @Override
+    public double getInitialCash() {
+        return initialCash;
+    }
+
 
     @Override
    public  int getUserId() {

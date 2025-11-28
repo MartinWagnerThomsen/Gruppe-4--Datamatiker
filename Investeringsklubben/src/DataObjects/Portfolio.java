@@ -33,25 +33,25 @@ public class Portfolio {
     public void calculateTotalValue(Member member) {
         double sum = 0;
         double totalStocksValue = 0;
-        double stocksBuyValue = 0;
-        double stocksSellValue = 0;
         double cashBalance = member.getInitialCash();
         for (Transaction transaction : transactions) {
             if (transaction.getOrderType().equalsIgnoreCase("buy")){
+                double stocksBuyValue = 0;
                 stocksBuyValue += transaction.getQuantity() * transaction.getPrice();
-                totalStocksValue += stocksBuyValue;
-                cashBalance -= totalStocksValue;
-                sum = cashBalance + totalStocksValue;
+            //    totalStocksValue += stocksCurrentValue * transaction.getQuantity();
+                cashBalance -= stocksBuyValue;
+            //    sum = cashBalance + stocksCurrentValue;
             }
             if (transaction.getOrderType().equalsIgnoreCase("sell")){
+                double stocksSellValue = 0;
                 stocksSellValue += transaction.getQuantity() * transaction.getPrice();
-                totalStocksValue -= stocksBuyValue;
+            //    totalStocksValue -= stocksBuyValue;
                 cashBalance += stocksSellValue;
-                sum = cashBalance + totalStocksValue;
+            //    sum = cashBalance + totalStocksValue;
 
             }
         }
-        totalValue = sum;
+        totalValue = cashBalance; //temporary. should be totalValue = sum;
     }
     public void registerStock(){
 

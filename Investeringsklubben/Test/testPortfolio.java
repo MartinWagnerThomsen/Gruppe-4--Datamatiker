@@ -11,22 +11,29 @@ import java.time.LocalDate;
 
 public class testPortfolio {
     Portfolio portfolio = new Portfolio(0,0);
+
+    //;2;02-03-2025;VWS;197;DKK;buy;50
     Transaction transaction1 = new Transaction(
             1, 101,
-            LocalDate.of(2025, 11, 21),
-            "ORSTED", 456, "DKK", "buy", 10);
+            LocalDate.of(2025, 3, 2),
+            "VWS", 197, "DKK", "buy", 50);
+    //;2;02-03-2025;VWS;200;DKK;sell;50
     Transaction transaction2 = new Transaction(
             2, 101,
-            LocalDate.of(2025, 11, 22),
-            "ORSTED", 500, "DKK", "sell", 10);
-
+            LocalDate.of(2025, 3, 2),
+            "VWS", 200, "DKK", "sell", 50);
+    //;2;08-03-2025;NETC;356;DKK;buy;22
+    Transaction transaction3 = new Transaction(
+            3, 101,
+            LocalDate.of(2025, 3, 8),
+            "NETC", 356, "DKK", "buy", 22);
     Member fakeMember = new Member(
             101,
             "Torben Christensen",
             "torbenchris@gmail.com",
             LocalDate.of(1995, 5, 20),
             100000,
-            LocalDate.of(2025, 11, 20),
+            LocalDate.of(2025, 2, 20),
             LocalDate.of(2025, 11, 26), portfolio);
 
     @Test
@@ -61,7 +68,7 @@ public class testPortfolio {
     //total værdi = kontant værdi + stock beholdninger
     @BeforeEach
     void init(){
-        System.out.println("startup");
+        System.out.println("Test startup");
     //    Portfolio portfolio = new Portfolio(0,0);
 //        Transaction transaction1 = new Transaction(
 //                01, 101,
@@ -94,23 +101,40 @@ public class testPortfolio {
 
     @Test
     public void testTotalValueNotZero(){
+        portfolio.calculateTotalValue(fakeMember);
         Assertions.assertNotEquals(0, portfolio.getTotalValue());
+    }
+
+    //test that the starting value is 100000 DKK
+    @Test
+    public void testStartTotalValue(){
+        portfolio.calculateTotalValue(fakeMember);
+        Assertions.assertEquals(100000, portfolio.getTotalValue());
     }
 
     @Test
     public void testTotalValueAfterTransaction1(){
-        portfolio.addTransactions(transaction1);
+        portfolio.addTransactions(transaction1); // buy
         portfolio.calculateTotalValue(fakeMember);
-        Assertions.assertEquals(100000.00, portfolio.getTotalValue());
+        Assertions.assertEquals(100050, portfolio.getTotalValue());
 
     }
 
     @Test
     public void testTotalValueAfterTransaction2(){
-        portfolio.addTransactions(transaction1);
-        portfolio.addTransactions(transaction2);
+        portfolio.addTransactions(transaction1); //buy
+        portfolio.addTransactions(transaction2); //sell
         portfolio.calculateTotalValue(fakeMember);
-        Assertions.assertEquals(100440.00, portfolio.getTotalValue());
+        Assertions.assertEquals(100150, portfolio.getTotalValue());
+    }
+
+    @Test
+    public void testTotalValueAfterTransaction3(){
+        portfolio.addTransactions(transaction1); //buy
+        portfolio.addTransactions(transaction2); //sell
+        portfolio.addTransactions(transaction3); //buy
+        portfolio.calculateTotalValue(fakeMember);
+        Assertions.assertEquals(100238, portfolio.getTotalValue());
     }
 
 //    public static void main(String[] args) {

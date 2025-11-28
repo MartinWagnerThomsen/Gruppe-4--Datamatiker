@@ -1,5 +1,6 @@
 package Filehandling;
 
+import DataObjects.Currency;
 import Exceptions.CsvParsingException;
 import DataObjects.Stock;
 import DataObjects.Transaction;
@@ -17,9 +18,11 @@ public class DataManager {
     private static final String MEMBERS_FILE = "Investeringsklubben/src/Files/users.csv";
     private static final String STOCKS_FILE = "Investeringsklubben/src/Files/stockMarket.csv";
     private static final String TRANSACTIONS_FILE = "Investeringsklubben/src/Files/transactions.csv";
+    private static final String CURRENCY_FILE = "Investeringsklubben/src/Files/currency.csv";
 
     private List<Member> members;
     private List<Stock> stocks;
+    private List<Currency> currencies;
     private final CsvHandler csvHandler;
 
     // Initialiser lister for at undgå NullPointerException, selv hvis indlæsning fejler
@@ -41,10 +44,12 @@ public class DataManager {
             List<Member> loadedMembers = csvHandler.readMembers(MEMBERS_FILE);
             List<Stock> loadedStocks = csvHandler.readStocks(STOCKS_FILE);
             List<Transaction> allTransactions = csvHandler.readTransactions(TRANSACTIONS_FILE);
+            List<Currency> loadedCurrencies = csvHandler.readCurrency(CURRENCY_FILE);
 
             // 2. Gem primær data i DataManager's state
             this.members = loadedMembers;
             this.stocks = loadedStocks;
+            this.currencies = loadedCurrencies;
 
             // 3. Link transaktioner til medlemmer
             linkTransactionsToMembers(allTransactions);
@@ -92,7 +97,20 @@ public class DataManager {
         // 1. Tilføj transaktion til porteføljen i hukommelsen
         memberToUpdate.getPortfolio().addTransaction(transaction);
 
+        // 1.2
+
+        String currency = transaction.getCurrency();
+
+        if (currency != "DKK") {
+
+        }
+
         // 2. Opdater medlemmets 'cash' (skal implementeres)
+
+        if (transaction.getOrderType().equals("buy")) {
+
+
+        }
         double cost = transaction.getPrice() * transaction.getQuantity();
          memberToUpdate.setCash(memberToUpdate.getInitialCash() - cost);
 
@@ -121,5 +139,8 @@ public class DataManager {
 
     public List<Stock> getStocks() {
         return stocks;
+    }
+    public List<Currency> getCurrencies() {
+        return currencies;
     }
 }

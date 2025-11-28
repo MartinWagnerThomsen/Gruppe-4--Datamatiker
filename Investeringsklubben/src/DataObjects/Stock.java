@@ -8,7 +8,7 @@ public class Stock {
     private String sector;
     private double price;
     private double transactionCost;
-    private Currency currency;
+    private String currency;
     private String rating;
     private double dividentYield;
     private StockExchange stockExchange;
@@ -20,7 +20,7 @@ public class Stock {
     public String getSector(){return this.sector;}
     public double getPrice(){return this.price;}
     public double getTransactionCost(){return this.transactionCost;}
-    public Currency getCurrency(){return this.currency;}
+    public String getCurrency(){return this.currency;}
     public String getRating(){return this.rating;}
     public double getDividentYield(){return this.dividentYield;}
     public StockExchange getStockExchange(){return this.stockExchange;}
@@ -32,7 +32,7 @@ public class Stock {
     public void setSector(String sector){this.sector = sector;}
     public void setPrice(double price){this.price = price;}
     public void setTransactionCost(double transactionCost){this.transactionCost = transactionCost;}
-    public void setCurrency(Currency currency){this.currency = currency;}
+    public void setCurrency(String currency){this.currency = currency;}
     public void setRating(String rating){this.rating = rating;}
     public void setDividentYield(double dividentYield){this.dividentYield = dividentYield;}
     public void setMarket(StockExchange stockExchange){this.stockExchange = stockExchange;}
@@ -45,7 +45,7 @@ public class Stock {
     String sector,
     double price,
     // double transactionCost,
-    Currency currency,
+    String currency,
     String rating,
     double dividentYield,
     StockExchange stockExchange,

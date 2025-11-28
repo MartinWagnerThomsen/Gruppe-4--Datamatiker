@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
+
 public class CsvHandler {
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -33,7 +34,7 @@ public class CsvHandler {
                     String fullName = parts[1];
                     String email = parts[2];
                     LocalDate birthday = LocalDate.parse(parts[3], FORMATTER);
-                    double initialCash = Double.parseDouble(parts[4]);
+                    double initialCash = Double.parseDouble(parts[4].replace(',', '.'));
                     LocalDate createdAt = LocalDate.parse(parts[5], FORMATTER);
                     LocalDate lastUpdated = LocalDate.parse(parts[6], FORMATTER);
                     // Opret et tomt portfolio; det fyldes senere af DataManager
@@ -79,6 +80,31 @@ public class CsvHandler {
         return transactions;
     }
 
+    public List<Currency> readCurrency(String filePath) throws CsvParsingException {
+        List<Currency> currencies = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            br.readLine();
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(SEPARATOR);
+                String baseCurr = parts[0];
+                String quote = parts[1];
+                double rate = Double.parseDouble(parts[2].replace(',', '.'));
+                LocalDate lastUpdated = LocalDate.parse(parts[3],FORMATTER);
+                System.out.println(lastUpdated);
+                Currency currency = new Currency(baseCurr, quote, rate, lastUpdated);
+                currencies.add(currency);
+
+            }
+        } catch (IOException | NumberFormatException | java.time.format.DateTimeParseException e) {
+            throw new CsvParsingException("Kunne ikke læse eller parse currency fil: " + filePath, e);
+        }
+        System.out.println(currencies);
+        return currencies;
+    }
+
+    ;
+
     public List<Stock> readStocks(String filePath) throws CsvParsingException {
         List<Stock> stocks = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -91,7 +117,7 @@ public class CsvHandler {
                     String name = parts[1];
                     String sector = parts[2];
                     double price = Double.parseDouble(parts[3].replace(',', '.'));
-                    Currency currency = Currency.parseCurrency(parts[4]);
+                    String currency = parts[4];
                     String rating = parts[5];
                     double dividendYield = Double.parseDouble(parts[6].replace(',', '.'));
                     StockExchange market = StockExchange.parseStockExchange(parts[7]);
@@ -115,14 +141,13 @@ public class CsvHandler {
         String csvLine = convertToCsvLine(transaction);
 
         try (FileWriter writer = new FileWriter(filePath, true)) {
-            writer.write(csvLine);
-
+            writer.write(csvLine + "\n");
         } catch (IOException e) {
             System.out.println("Fejl ved skrivning til fil: " + e.getMessage());
         }
 
 
-       }
+    }
 
     /**
      * Overskriver hele bruger-filen med en ny liste af medlemmer.
@@ -143,7 +168,6 @@ public class CsvHandler {
         } catch (IOException e) {
             System.out.println("Fejl ved skrivning til fil: " + e.getMessage());
         }
-
 
 
     }
@@ -168,7 +192,7 @@ public class CsvHandler {
                 String.valueOf(t.getUserId()),
                 t.getDate().format(FORMATTER),
                 t.getTicker(),
-                String.valueOf(t.getPrice()).replace('.',','), // Konverter tilbage til komma for CSV
+                String.valueOf(t.getPrice()).replace('.', ','), // Konverter tilbage til komma for CSV
                 t.getCurrency(),
                 t.getOrderType(),
                 String.valueOf(t.getQuantity())

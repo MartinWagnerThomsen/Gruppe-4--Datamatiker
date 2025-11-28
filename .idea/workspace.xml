@@ -4,8 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae984337-46c5-4ef3-841f-b0742731d61c" name="Changes" comment="Still issues with facade but moved on a bit. Trying to consolidate method calls inside 1 class.">
+    <list default="true" id="ae984337-46c5-4ef3-841f-b0742731d61c" name="Changes" comment="Lidt hjælp">
+      <change afterPath="$PROJECT_DIR$/Investeringsklubben/src/Projekt A Case_Investeringsklubben Hold B 2025E FINAL (1).pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Club.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Club.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/DataObjects/Currency.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/DataObjects/Currency.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/DataObjects/Stock.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/DataObjects/Stock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/CsvHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/CsvHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/DataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/DataManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Files/transactions.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Files/transactions.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Files/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Files/users.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Club.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Club.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/DataObjects/Currency.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/DataObjects/Currency.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/DataObjects/Stock.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/DataObjects/Stock.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Filehandling/CsvHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Filehandling/CsvHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Files/transactions.csv" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Files/transactions.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Files/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Files/users.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +38,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="transactions-parseportfolio" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -35,13 +49,10 @@
     &quot;assignee&quot;: &quot;Nelsoon-ds&quot;
   }
 }</component>
-  <component name="GithubDefaultAccount">
-    <option name="defaultAccountId" value="7bfb12cd-7438-4218-8d06-d6af1f84871b" />
-  </component>
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
     "url": "https://github.com/MartinWagnerThomsen/Gruppe-4--Datamatiker.git",
-    "accountId": "7bfb12cd-7438-4218-8d06-d6af1f84871b"
+    "accountId": "9d9d938a-800b-4bd7-bfd5-00af52d2420b"
   },
   "recentNewPullRequestHead": {
     "server": {
@@ -87,11 +98,12 @@
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
-    "database.data.extractors.current.id": "Comma-separated (CSV)_id",
-    "git-widget-placeholder": "#3 on transactions-parseportfolio",
+    "database.data.extractors.current.export.id": "Semicolon-separated_id",
+    "database.data.extractors.current.id": "Semicolon-separated_id",
+    "git-widget-placeholder": "feature-dataManager",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/David/IdeaProjects/Gruppe-4--Datamatiker/Investeringsklubben/src",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -107,14 +119,27 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\David\IdeaProjects\Gruppe-4--Datamatiker\Investeringsklubben\src" />
+    </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\David\IdeaProjects\Gruppe-4--Datamatiker" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="DataObjects" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Club">
+    <configuration name="Club" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Club" />
+      <module name="Gruppe-4--Datamatiker" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CsvHandler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Filehandling.CsvHandler" />
       <module name="Gruppe-4--Datamatiker" />
@@ -130,6 +155,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Club" />
         <item itemvalue="Application.CsvHandler" />
       </list>
     </recent_temporary>
@@ -150,6 +176,7 @@
       <option name="presentableId" value="Default" />
       <updated>1763386989765</updated>
       <workItem from="1763386991455" duration="9949000" />
+      <workItem from="1764348850707" duration="10253000" />
     </task>
     <task id="LOCAL-00001" summary="Initializing project with all the different classes so far.">
       <option name="closed" value="true" />
@@ -263,7 +290,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764152515584</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Lidt hjælp">
+      <option name="closed" value="true" />
+      <created>1764328067799</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1764328067799</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -284,6 +319,7 @@
     <MESSAGE value="Added comments" />
     <MESSAGE value="We made a facade!" />
     <MESSAGE value="Still issues with facade but moved on a bit. Trying to consolidate method calls inside 1 class." />
-    <option name="LAST_COMMIT_MESSAGE" value="Still issues with facade but moved on a bit. Trying to consolidate method calls inside 1 class." />
+    <MESSAGE value="Lidt hjælp" />
+    <option name="LAST_COMMIT_MESSAGE" value="Lidt hjælp" />
   </component>
 </project>

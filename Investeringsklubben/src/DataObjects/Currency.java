@@ -1,45 +1,50 @@
 package DataObjects;
 
-import Exceptions.InvalidCurrencyException;
+
+import Filehandling.DataManager;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Currency {
-    private String currencyName;
+    private String baseCurr;
+    private String quote;
+    private double rate;
+    private LocalDate lastUpdated;
+    private List<Currency> currencies = new ArrayList<>();
 
-    private static final Currency DKK = new Currency("DKK");
-    private static final Currency EUR = new Currency("EUR");
-    private static final Currency USD = new Currency("USD");
-
-    Currency(String currencyName){
-        this.currencyName = currencyName;
+    public Currency(String baseCurr, String quote, double rate, LocalDate lastUpdated) {
+        this.baseCurr = baseCurr;
+        this.quote = quote;
+        this.rate = rate;
+        this.lastUpdated = lastUpdated;
     }
 
-    // getters
-    public String getCurrencyName(){return currencyName;}
 
-    // setters
-    public void setCurrencyName(String currencyName){this.currencyName = currencyName;}
-
-    public static void findRightCurrency() {
-    }
-    public static void calculateCurrencyPrice() {
+    public double getRate() {
+        return rate;
     }
 
-    public static Currency parseCurrency(String currency) throws InvalidCurrencyException {
-        if(currency.length() > 3){
-            throw new InvalidCurrencyException("The currency you're trying to parse exceeds the expected limit!");
+    public String getBaseCurr() {
+        return baseCurr;
+    }
+
+    public double convertToDkk () {
+        DataManager manager = new DataManager();
+        this.currencies = manager.getCurrencies();
+
+        for (Currency element : currencies) {
+            if(element.getBaseCurr() == this.baseCurr) {
+                this.getRate() = element.getRate();
+            }
         }
-        return switch (currency) {
-            case "DKK" -> DKK;
-            case "EUR" -> EUR;
-            case "USD" -> USD;
-            default -> DKK;
-        };
+
     }
+
 
     @Override
     public String toString() {
-        return "Currency{" +
-                "currencyName='" + currencyName + '\'' +
-                '}';
+        return "Currency: " + baseCurr + " Rate: " + rate;
     }
 }

@@ -1,19 +1,21 @@
+import DataObjects.Currency;
 import DataObjects.Transaction;
 import Filehandling.CsvHandler;
 import Filehandling.DataManager;
 import Users.Member;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 
 public class Club {
     static String adminUserName = "president@gmail.com";
     static String password = "Sauron";
-    private final CsvHandler handler = new CsvHandler();
-
+    private DataManager dataManager;
 
 
     public static void login() {
@@ -37,46 +39,56 @@ public class Club {
                     "4. Tilføj ny bruger\n" +
                     "5. Fjern bruger\n" +
                     "6. Log ud");
-        }}
-
-        public void logout () {
-
         }
-        public void switchUser () {
+    }
 
-        }
+    public void logout() {
 
-    public Transaction createTransaction() {
+    }
+
+    public void switchUser() {
+
+    }
+
+    /**
+     * Finder vores medlem ved at bruge userId
+     */
+    public void findMember() {
         Scanner sc = new Scanner(System.in);
+        System.out.print("Enter user ID for the user which you want to find transactions from: ");
+        int userId = sc.nextInt();
+        Member foundMember;
+        List<Member> members = dataManager.getMembers();
+        Optional<Member> memberOptional = members.stream()
+                .filter(member -> member.getUserId() == userId)
+                .findFirst();
+        if (memberOptional.isPresent()) {
+            foundMember = memberOptional.get();
+            foundMember.printMember();
+        }
+    }
 
-        System.out.print("Enter transaction ID: ");
-        int transactionId = sc.nextInt();
-        sc.nextLine(); // consume newline
-
+    public void createTransaction() {
+        Scanner sc = new Scanner(System.in);
+        Transaction lastTransaction = dataManager.getMembers().getLast().getPortfolio().getTransactions().getLast(); // Tag den sidste transaction
+        int transactionId = lastTransaction.getTransactionId() + 1;
         System.out.print("Enter user ID: ");
         int userId = sc.nextInt();
         sc.nextLine();
-
-        System.out.print("Enter date (YYYY-MM-DD): ");
+        System.out.print("Enter date (dd-MM-yyyy): ");
         String dateInput = sc.nextLine();
-        LocalDate date = LocalDate.parse(dateInput);
-
+        LocalDate date = LocalDate.parse(dateInput, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         System.out.print("Enter stock ticker: ");
         String ticker = sc.nextLine();
-
         System.out.print("Enter price: ");
         double price = sc.nextDouble();
         sc.nextLine();
-
         System.out.print("Enter currency (e.g., DKK): ");
         String currency = sc.nextLine();
-
         System.out.print("Enter order type (buy/sell): ");
         String orderType = sc.nextLine();
-
         System.out.print("Enter quantity: ");
         int quantity = sc.nextInt();
-
         // Create the transaction
         Transaction transaction = new Transaction(
                 transactionId,
@@ -88,18 +100,33 @@ public class Club {
                 orderType,
                 quantity
         );
-
-        return transaction;
-
-
-
+        dataManager.registerNewTransaction(transaction);
     }
-    public static void main(String[] args){
-        Club investmentClub = new Club();
-        DataManager dataManager = new DataManager();
-        Transaction action = investmentClub.createTransaction();
-        dataManager.registerNewTransaction(action);
 
-    }
+    public void mainLoop() {
+        DataManager manager = new DataManager();
+        this.dataManager = manager;
+
+        try {
+            if (manager.getMembers().size() < 0) {
+                System.out.println("Tom liste af medlemmer");
+            }
+        } catch (Exception e) {
+            System.out.println("Fortsæt loop");
+            e.printStackTrace();
         }
+
+        //createTransaction();
+      //  findMember();
+      List<Currency> currencies =  manager.getCurrencies();
+        System.out.println(currencies);
+
+    }
+
+    public static void main(String[] args) {
+        Club investmentClub = new Club();
+        investmentClub.mainLoop();
+
+    }
+}
 

@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-
-
 public class testPortfolio {
     Portfolio portfolio = new Portfolio(0,0);
 

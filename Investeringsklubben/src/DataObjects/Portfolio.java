@@ -1,6 +1,6 @@
 package DataObjects;
 
-import Filehandling.InvestmentClubFacade;
+import Filehandling.DataManager;
 import Users.Member;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +44,8 @@ public class Portfolio {
      * baseline pris (snapshot).
      * */
     public void calculateTotalValue(Member member){
-        InvestmentClubFacade facade = new InvestmentClubFacade();
-        List<Stock> listOfStocks = facade.fetchStockData();
+        DataManager manager = new DataManager();
+        List<Stock> listOfStocks = manager.getStocks();
         calculateCashBalance(member);
 
     }
@@ -72,8 +72,8 @@ public class Portfolio {
 
 
     public void calculateInvestedStocks(Member member) {
-        InvestmentClubFacade facade = new InvestmentClubFacade();
-        List<Stock> listOfStocks = facade.fetchStockData();
+        DataManager manager = new DataManager();
+        List<Stock> listOfStocks = manager.getStocks();
         List<Stock> investedStocks = new ArrayList<>();
         List<Transaction> memberTransactions = member.getPortfolio().transactions;
         for (Transaction transaction : memberTransactions) {

@@ -7,6 +7,7 @@ import DataObjects.Transaction;
 import Users.Member;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,10 @@ public class DataManager {
     private List<Stock> stocks;
     private List<Currency> currencies;
     private final CsvHandler csvHandler;
+
+    DecimalFormat numberFormat = new DecimalFormat("#.00");
+
+
 
     // Initialiser lister for at undgå NullPointerException, selv hvis indlæsning fejler
     public DataManager() {
@@ -68,7 +73,6 @@ public class DataManager {
     private void linkTransactionsToMembers(List<Transaction> transactions) {
         Map<Integer, Member> memberMap = this.members.stream()
                 .collect(Collectors.toMap(Member::getUserId, member -> member));
-
         for (Transaction transaction : transactions) {
             Member member = memberMap.get(transaction.getUserId());
             if (member != null) {
@@ -101,8 +105,8 @@ public class DataManager {
 
         String currency = transaction.getCurrency();
 
-        if (currency != "DKK") {
-
+        if (!currency.equals("DKK")) {
+            convertToDkk(transaction);
         }
 
         // 2. Opdater medlemmets 'cash' (skal implementeres)
@@ -130,6 +134,49 @@ public class DataManager {
             System.err.println("KRITISK FEJL under gemning af transaktion: " + e.getMessage());
             // Her bør man overveje en strategi for at håndtere fejl under skrivning.
         }
+    }
+
+
+    /**
+     * Tager en aktie som input
+     * Derefter hentes vores valutakurser fra DataManager
+     * Hvis aktiens valuta matcher en af vores kurser så hentes raten
+     * Prisen af aktien ganges derefter med raten for at finde prisen i DKK
+     * Resultatet bliver gemt på aktien samt dens aktie valuta gemmes som DKK
+     * @param stockTransaction
+     */
+    public void convertToDkk (Transaction stockTransaction) {
+        String danishkrone = "DKK";
+        // Vi har brug for at få vores rater
+        DataManager manager = new DataManager();
+        List<Currency> listOfCurrenciesAndRates = manager.getCurrencies();
+
+        // Så har vi brug for at gemme aktie kursen
+        String stockCurrency = stockTransaction.getCurrency();
+        double stockPricePrStock = stockTransaction.getPrice();
+        double stockQuantity = stockTransaction.getQuantity();
+        System.out.println(stockCurrency);
+
+        if(!stockCurrency.equalsIgnoreCase("DKK")) {
+            for (Currency currency : listOfCurrenciesAndRates){
+                if (stockCurrency.equalsIgnoreCase(currency.getBaseCurr())) {
+                    System.out.println("Found the currency in our list: " + currency);
+                    System.out.println("Converting " + stockTransaction.getTicker() + " at the current price pr stock: " +
+                            "" + stockPricePrStock + " " + stockCurrency + " to " + currency.getRate());
+
+                    double totalStockPrice = stockPricePrStock * stockQuantity;
+                    double totalPriceAfterConversion = totalStockPrice * currency.getRate();
+                    System.out.println("Result of the conversion of " + stockQuantity + " " + stockCurrency + " to " + numberFormat.format(totalPriceAfterConversion) + danishkrone);
+
+
+                }
+            }
+
+        }
+
+
+
+
     }
 
     // --- Getters til UI-laget ---

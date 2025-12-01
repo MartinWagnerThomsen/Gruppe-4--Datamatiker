@@ -64,6 +64,10 @@ public class DataManager {
             List<Transaction> allTransactions = csvHandler.readTransactions(TRANSACTIONS_FILE);
             List<Currency> loadedCurrencies = csvHandler.readCurrency(CURRENCY_FILE);
 
+
+            // Prøv at opdater vores currencies fra vores API kald
+            updateCurrencies();
+
             // 2. Gem primær data i DataManager's state
             this.members = loadedMembers;
             this.stocks = loadedStocks;
@@ -216,8 +220,7 @@ public class DataManager {
 
 
     public static class CurrencyFetcher {
-        private static final String API_URL =
-                "https://www.nationalbanken.dk/api/currencyrates?format=rss&lang=da&isocodes=eur,usd,sek,nok,gbp,jpy,aud,cad";
+        private static final String API_URL = "https://www.nationalbanken.dk/api/currencyrates?format=rss&lang=da&isocodes=eur,usd,sek,nok,gbp,jpy,aud,cad";
 
         public String fetchCurrencyData() {
             // 1. Opret HttpClient instans (bruges ofte som Singleton/globalt)
@@ -365,6 +368,4 @@ public class DataManager {
 
 
     }
-    public static void main(String[] args) throws IOException {
-
-    }}
+}

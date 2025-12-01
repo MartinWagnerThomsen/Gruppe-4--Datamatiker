@@ -106,7 +106,7 @@ public class Club {
 
     public void mainLoop() {
         DataManager manager = new DataManager();
-        this.dataManager = manager;
+
 
         try {
             if (manager.getMembers().size() < 0) {
@@ -116,9 +116,7 @@ public class Club {
             System.out.println("Fortsæt loop");
             e.printStackTrace();
         }
-
-        createTransaction();
-      //  findMember();
+        //  findMember();
 
     }
 
@@ -127,6 +125,7 @@ public class Club {
     public static void main(String[] args) {
         Club investmentClub = new Club();
         investmentClub.mainLoop();
+
 
 
     }

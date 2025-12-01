@@ -42,13 +42,6 @@ public class Member extends User {
     }
 
 
-
-    @Override
-    public double getInitialCash() {
-        return initialCash;
-    }
-
-
     @Override
    public  int getUserId() {
         return userId;

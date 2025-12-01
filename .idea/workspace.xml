@@ -4,8 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae984337-46c5-4ef3-841f-b0742731d61c" name="Changes" comment="Still issues with facade but moved on a bit. Trying to consolidate method calls inside 1 class.">
+    <list default="true" id="ae984337-46c5-4ef3-841f-b0742731d61c" name="Changes" comment="Rollback commit">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Club.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Club.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/CsvHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/CsvHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/DataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/DataManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Files/currency.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Files/currency.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Club.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Club.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Filehandling/CsvHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Filehandling/CsvHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Files/currency.csv" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Files/currency.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +31,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="transactions-parseportfolio" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -38,25 +45,26 @@
   <component name="GithubDefaultAccount">
     <option name="defaultAccountId" value="7bfb12cd-7438-4218-8d06-d6af1f84871b" />
   </component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/MartinWagnerThomsen/Gruppe-4--Datamatiker.git",
-    "accountId": "7bfb12cd-7438-4218-8d06-d6af1f84871b"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/MartinWagnerThomsen/Gruppe-4--Datamatiker.git&quot;,
+    &quot;accountId&quot;: &quot;9d9d938a-800b-4bd7-bfd5-00af52d2420b&quot;
   },
-  "recentNewPullRequestHead": {
-    "server": {
-      "useHttp": false,
-      "host": "github.com",
-      "port": null,
-      "suffix": null
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
     },
-    "owner": "MartinWagnerThomsen",
-    "repository": "Gruppe-4--Datamatiker"
+    &quot;owner&quot;: &quot;MartinWagnerThomsen&quot;,
+    &quot;repository&quot;: &quot;Gruppe-4--Datamatiker&quot;
   }
-}]]></component>
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="jar://$USER_HOME$/.jdks/corretto-24.0.2/lib/src.zip!/java.base/java/lang/Object.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$USER_HOME$/.jdks/corretto-24.0.2/lib/src.zip!/java.base/java/util/AbstractCollection.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.jdks/corretto-24.0.2/lib/src.zip!/java.xml/com/sun/org/apache/xerces/internal/parsers/XMLParser.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$USER_HOME$/.jdks/openjdk-25/lib/src.zip!/java.base/java/io/BufferedReader.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProjectColorInfo">{
@@ -71,50 +79,65 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Application.Club.executor": "Run",
-    "Application.CsvHandler.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
-    "database.data.extractors.current.id": "Comma-separated (CSV)_id",
-    "git-widget-placeholder": "#3 on transactions-parseportfolio",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/Users/David/IdeaProjects/Gruppe-4--Datamatiker/Investeringsklubben/src/Main.java",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Application.Club.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CsvHandler.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DataManager.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;database.data.extractors.current.export.id&quot;: &quot;Semicolon-separated_id&quot;,
+    &quot;database.data.extractors.current.id&quot;: &quot;Semicolon-separated_id&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature-dataManager&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/David/IdeaProjects/Gruppe-4--Datamatiker/Investeringsklubben/src&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/David/IdeaProjects/Gruppe-4--Datamatiker/Investeringsklubben/src/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\David\IdeaProjects\Gruppe-4--Datamatiker\Investeringsklubben\src" />
+    </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\David\IdeaProjects\Gruppe-4--Datamatiker" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="DataObjects" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Club">
+    <configuration name="Club" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Club" />
+      <module name="Gruppe-4--Datamatiker" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CsvHandler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Filehandling.CsvHandler" />
       <module name="Gruppe-4--Datamatiker" />
@@ -130,6 +153,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Club" />
         <item itemvalue="Application.CsvHandler" />
       </list>
     </recent_temporary>
@@ -137,8 +161,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.25557.131" />
-        <option value="bundled-js-predefined-d6986cc7102b-b598e85cdad2-JavaScript-IU-252.25557.131" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26830.84" />
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.26830.84" />
       </set>
     </attachedChunks>
   </component>
@@ -150,6 +174,8 @@
       <option name="presentableId" value="Default" />
       <updated>1763386989765</updated>
       <workItem from="1763386991455" duration="9949000" />
+      <workItem from="1764348850707" duration="10253000" />
+      <workItem from="1764581091177" duration="13778000" />
     </task>
     <task id="LOCAL-00001" summary="Initializing project with all the different classes so far.">
       <option name="closed" value="true" />
@@ -263,11 +289,62 @@
       <option name="project" value="LOCAL" />
       <updated>1764152515584</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Lidt hjælp">
+      <option name="closed" value="true" />
+      <created>1764328067799</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1764328067799</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Valutakonvertering implementeret i Club klassen.">
+      <option name="closed" value="true" />
+      <created>1764578556752</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1764578556752</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Valutakonvertering rykket til DataManager og koblet direkte til Create new transaction.">
+      <option name="closed" value="true" />
+      <created>1764580310693</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1764580310693</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Not functioning yet - consider going back  a commit">
+      <option name="closed" value="true" />
+      <created>1764592688560</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1764592688560</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Rollback commit">
+      <option name="closed" value="true" />
+      <created>1764593296707</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1764593296707</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initializing project with all the different classes so far." />
@@ -284,6 +361,11 @@
     <MESSAGE value="Added comments" />
     <MESSAGE value="We made a facade!" />
     <MESSAGE value="Still issues with facade but moved on a bit. Trying to consolidate method calls inside 1 class." />
-    <option name="LAST_COMMIT_MESSAGE" value="Still issues with facade but moved on a bit. Trying to consolidate method calls inside 1 class." />
+    <MESSAGE value="Lidt hjælp" />
+    <MESSAGE value="Valutakonvertering implementeret i Club klassen." />
+    <MESSAGE value="Valutakonvertering rykket til DataManager og koblet direkte til Create new transaction." />
+    <MESSAGE value="Not functioning yet - consider going back  a commit" />
+    <MESSAGE value="Rollback commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rollback commit" />
   </component>
 </project>

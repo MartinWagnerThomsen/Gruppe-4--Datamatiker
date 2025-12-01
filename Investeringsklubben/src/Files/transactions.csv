@@ -1,5 +1,5 @@
-﻿id;user_id;date;ticker;price;currency;order_type;quantity
-1;1;01-03-2025;NOVO-B;710,5;DKK;buy;20
+id;user_id;date;ticker;price;currency;order_type;quantity
+1;1;01-03-2025;NOVO-B;710,5;EUR;buy;20
 2;2;02-03-2025;VWS;197;DKK;buy;50
 3;3;02-03-2025;DANSKE;186;DKK;buy;30
 4;4;03-03-2025;PANDORA;770,5;DKK;buy;10
@@ -20,4 +20,8 @@
 19;9;12-03-2025;NZYM-B;338;DKK;buy;20
 20;10;12-03-2025;SIM;708;DKK;buy;7
 21;1;01-03-2025;NOVO-B;715;DKK;sell;20
-22;2;02-03-2025;VWS;200;DKK;sell;50
+21;4;02-10-2025;AATRO;190,0;DKK;buy;900
+21;1;01-12-2025;AMBA;612,0;DKK;buy;100
+21;1;02-12-2025;amba;900,0;NOK;buy;50
+21;2;02-12-2025;AMBA;1230,0;JPY;buy;100
+21;2;02-12-2025;AMBA;900,0;NOK;buy;1300

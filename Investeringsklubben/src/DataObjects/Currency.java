@@ -1,45 +1,86 @@
 package DataObjects;
 
-import com.sun.source.tree.BreakTree;
+
+import Filehandling.DataManager;
+
+import java.time.LocalDate;
+import java.util.List;
+
 
 public class Currency {
-    private String currencyName;
+    private String baseCurr;
+    private String quote;
+    private double rate;
+    private LocalDate lastUpdated;
 
-    private static final Currency DKK = new Currency("DKK");
-    private static final Currency EUR = new Currency("EUR");
-    private static final Currency USD = new Currency("USD");
-
-    Currency(String currencyName){
-        this.currencyName = currencyName;
+    public Currency(String baseCurr, String quote, double rate, LocalDate lastUpdated) {
+        this.baseCurr = baseCurr;
+        this.quote = quote;
+        this.rate = rate;
+        this.lastUpdated = lastUpdated;
     }
 
-    // getters
-    public String getCurrencyName(){return currencyName;}
-
-    // setters
-    public void setCurrencyName(String currencyName){this.currencyName = currencyName;}
-
-    public static void findRightCurrency() {
-    }
-    public static void calculateCurrencyPrice() {
+    public String getQuote() {
+        return quote;
     }
 
-    public static Currency parseCurrency(String currency) throws InvalidCurrencyException {
-        if(currency.length() > 3){
-            throw new InvalidCurrencyException("The currency you're trying to parse exceeds the expected limit!");
+    public LocalDate getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setQuote(String quote) {
+        this.quote = quote;
+    }
+
+    public void setLastUpdated(LocalDate lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
+    public void setBaseCurr(String baseCurr) {
+        this.baseCurr = baseCurr;
+    }
+
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+    public String getBaseCurr() {
+        return baseCurr;
+    }
+
+
+    /**
+     * Find beløbet
+     * Find den relevante kurs pris  (fx. Euro)
+     * Multiplicer beløbet med kursen
+     * Rund det af til nærmeste decimal
+     * Overvej gebyrer
+     * @return
+     */
+    public void convertToDkk (Stock stock) {
+        // Vi har brug for at få vores rater
+        DataManager manager = new DataManager();
+        List<Currency> listOfCurrenciesAndRates = manager.getCurrencies();
+
+        // Så har vi brug for at gemme aktie kursen
+        String stockCurrency = stock.getCurrency();
+        System.out.println(stockCurrency);
+
+
+        for (Currency currency : listOfCurrenciesAndRates) {
         }
-        return switch (currency) {
-            case "DKK" -> DKK;
-            case "EUR" -> EUR;
-            case "USD" -> USD;
-            default -> DKK;
-        };
+
     }
+
+    public static void main(String[] args) {
+    }
+
 
     @Override
     public String toString() {
-        return "Currency{" +
-                "currencyName='" + currencyName + '\'' +
-                '}';
+        return "Currency: " + baseCurr + " Rate: " + rate;
     }
 }

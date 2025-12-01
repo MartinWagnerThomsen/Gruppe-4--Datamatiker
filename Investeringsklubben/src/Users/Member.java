@@ -6,6 +6,7 @@ import DataObjects.Transaction;
 import java.time.LocalDate;
 
 public class Member extends User {
+    private double cashBalance;
 
     /**
      * Constructor with Portfolio added
@@ -63,6 +64,10 @@ public class Member extends User {
         return birthday;
     }
 
+    public double getInitialCash(){
+        return initialCash;
+    }
+
     @Override
     public LocalDate getCreationLocalDate() {
         return createdAt;
@@ -78,8 +83,15 @@ public class Member extends User {
         return portfolio;
     }
 
+    public double getCashBalance(){return cashBalance;}
+
+    //setter
+    public void setCashBalance(double cashBalance){
+        this.cashBalance = cashBalance;
+    }
+
     public void addTransaction(Transaction transaction) {
-        this.portfolio.setTransactions(transaction);
+        this.portfolio.addTransactions(transaction);
     }
 
     @Override

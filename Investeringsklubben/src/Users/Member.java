@@ -33,6 +33,22 @@ public class Member extends User {
 
     }
 
+    public void setLastUpdated (LocalDate update) {
+        this.lastUpdated = update;
+    }
+
+    public void setCash (double cash) {
+        this.initialCash = cash;
+    }
+
+
+
+    @Override
+    public double getInitialCash() {
+        return initialCash;
+    }
+
+
     @Override
    public  int getUserId() {
         return userId;

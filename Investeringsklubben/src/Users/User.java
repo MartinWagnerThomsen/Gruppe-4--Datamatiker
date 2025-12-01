@@ -50,6 +50,8 @@ public abstract class User {
     public abstract void viewTransactionHistory();
     public abstract void createUser();
 
+    public abstract double getInitialCash();
+
     /**
      * Getters & Setters for the user class
      */

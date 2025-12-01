@@ -27,6 +27,9 @@ public class Portfolio {
         return transactions;
     }
 
+    public void addTransaction(Transaction transaction ) {
+        this.transactions.add(transaction);
+    }
 
     public void addTransactions(Transaction transaction ) {
         this.transactions.add(transaction);

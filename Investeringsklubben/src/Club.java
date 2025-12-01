@@ -105,10 +105,9 @@ public class Club {
     }
 
     public void mainLoop() {
-        DataManager manager = new DataManager();
-
 
         try {
+            DataManager manager = new DataManager();
             if (manager.getMembers().size() < 0) {
                 System.out.println("Tom liste af medlemmer");
             }

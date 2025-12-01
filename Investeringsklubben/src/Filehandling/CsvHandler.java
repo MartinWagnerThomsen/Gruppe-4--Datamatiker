@@ -92,6 +92,7 @@ public class CsvHandler {
                 double rate = Double.parseDouble(parts[2].replace(',', '.'));
                 LocalDate lastUpdated = LocalDate.parse(parts[3],FORMATTER);
                 System.out.println(lastUpdated);
+                System.out.println(lastUpdated);
                 Currency currency = new Currency(baseCurr, quote, rate, lastUpdated);
                 currencies.add(currency);
 
@@ -225,9 +226,9 @@ public class CsvHandler {
 
     private String convertToCsvLine(Currency c) {
         return String.join(SEPARATOR,
-                String.valueOf(c.getBaseCurr()),
+                c.getBaseCurr(),
                 String.valueOf(c.getQuote()),
                 String.valueOf(c.getRate()),
-                String.valueOf(c.getLastUpdated()));
+                c.getLastUpdated().format(FORMATTER));
     }
 }

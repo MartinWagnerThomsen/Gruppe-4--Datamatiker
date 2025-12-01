@@ -6,6 +6,7 @@ import DataObjects.Transaction;
 import java.time.LocalDate;
 
 public class Member extends User {
+    private double cashBalance;
 
     /**
      * Constructor with Portfolio added
@@ -64,6 +65,13 @@ public class Member extends User {
     @Override
     public Portfolio getPortfolio() {
         return portfolio;
+    }
+
+    public double getCashBalance(){return cashBalance;}
+
+    //setter
+    public void setCashBalance(double cashBalance){
+        this.cashBalance = cashBalance;
     }
 
     public void addTransaction(Transaction transaction) {

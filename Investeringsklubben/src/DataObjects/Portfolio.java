@@ -40,53 +40,58 @@ public class Portfolio {
      Bagefter skal man regne ud hvad den reele pris af aktien er baseret på stockmarket.csv prisen som er vores
      * baseline pris (snapshot).
      * */
-    public void calculateTotalValue(Member member) {
+    public void calculateTotalValue(Member member){
         InvestmentClubFacade facade = new InvestmentClubFacade();
         List<Stock> listOfStocks = facade.fetchStockData();
+        calculateCashBalance(member);
 
-        double sum = 0;
-        double totalStocksValue = 0;
+    }
+
+    public double calculateCashBalance(Member member) {
+        System.out.println("Calculating cash balance...");
         double cashBalance = member.getInitialCash();
         for (Transaction transaction : transactions) {
 
             if (transaction.getOrderType().equalsIgnoreCase("buy")){
                 double stocksBuyValue = 0;
-
                 stocksBuyValue += transaction.getQuantity() * transaction.getPrice();
-            //    totalStocksValue += stocksCurrentValue * transaction.getQuan62tity();
                 cashBalance -= stocksBuyValue;
-            //    sum = cashBalance + stocksCurrentValue;
             }
             if (transaction.getOrderType().equalsIgnoreCase("sell")){
                 double stocksSellValue = 0;
                 stocksSellValue += transaction.getQuantity() * transaction.getPrice();
-            //    totalStocksValue -= stocksBuyValue;
                 cashBalance += stocksSellValue;
-            //    sum = cashBalance + totalStocksValue;
-
             }
-
-
         }
-        totalValue = cashBalance; //temporary. should be totalValue = sum;
+        member.setCashBalance(cashBalance);
+        return member.getCashBalance();
     }
 
 
-    public void calculateInvestedStocks () {
-        List<Transaction> investedStocks = new ArrayList<>();
-        for (Transaction transaction : transactions) {
+    public void calculateInvestedStocks(Member member) {
+        InvestmentClubFacade facade = new InvestmentClubFacade();
+        List<Stock> listOfStocks = facade.fetchStockData();
+        List<Stock> investedStocks = new ArrayList<>();
+        List<Transaction> memberTransactions = member.getPortfolio().transactions;
+        for (Transaction transaction : memberTransactions) {
             if (transaction.getOrderType().equalsIgnoreCase("buy")){
-                investedStocks.add(transaction);
+                for (Stock stocks : listOfStocks){
+                    if (stocks.getTicker().equalsIgnoreCase(transaction.getTicker())){
+                        investedStocks.add(stocks);
+                    }
+                }
             }
             if (transaction.getOrderType().equalsIgnoreCase("sell")){
-                //if (transaction.getQuantity())
-                investedStocks.remove(transaction);
+                for (Stock stocks : listOfStocks){
+                    if (stocks.getTicker().equalsIgnoreCase(transaction.getTicker())){
+                        investedStocks.remove(stocks);
+                    }
+                }
+
             }
             // Nu bør vi have en liste af de aktier vi har tilbage
-
-
         }
-
+        System.out.println(investedStocks);
 
     }
     public void registerStock(){

@@ -1,5 +1,4 @@
 import DataObjects.*;
-import Filehandling.CsvHandler;
 import Users.Member;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -62,10 +61,10 @@ public class testPortfolio {
         Assertions.assertEquals(-10370, p2.getTotalDifference());
     }
 */
-    //setTotalValue
+    //calculateTotalValue
     //udregnes ved: initialCash er kontante værdi i starten. hver gang en stock købes:
     //kontantVærdi - pris af stocks købt = ny kontantVærdi
-    //total værdi = kontant værdi + stock beholdninger
+    //total værdi = kontant værdi + kurs for aktier der er investeret i
     @BeforeEach
     void init(){
         System.out.println("Test startup");
@@ -101,44 +100,49 @@ public class testPortfolio {
 
     @Test
     public void testTotalValueNotZero(){
-        portfolio.calculateTotalValue(fakeMember);
-        Assertions.assertNotEquals(0, portfolio.getTotalValue());
+        Assertions.assertNotEquals(0, portfolio.calculateCashBalance(fakeMember));
     }
 
     //test that the starting value is 100000 DKK
     @Test
-    public void testStartTotalValue(){
-        portfolio.calculateTotalValue(fakeMember);
-        Assertions.assertEquals(100000, portfolio.getTotalValue());
+    public void testStartCashBalance(){
+        portfolio.calculateCashBalance(fakeMember);
+        Assertions.assertEquals(100000, portfolio.calculateCashBalance(fakeMember));
     }
 
     @Test
-    public void testTotalValueAfterTransaction1(){
+    public void testCashBalanceAfterTransaction1(){
         portfolio.addTransactions(transaction1); // buy
-        portfolio.calculateTotalValue(fakeMember);
-        Assertions.assertEquals(100050, portfolio.getTotalValue());
+        Assertions.assertEquals(90150, portfolio.calculateCashBalance(fakeMember));
 
     }
 
     @Test
-    public void testTotalValueAfterTransaction2(){
+    public void testCashBalanceAfterTransaction2(){
         portfolio.addTransactions(transaction1); //buy
         portfolio.addTransactions(transaction2); //sell
-        portfolio.calculateTotalValue(fakeMember);
-        Assertions.assertEquals(100150, portfolio.getTotalValue());
+        Assertions.assertEquals(100150, portfolio.calculateCashBalance(fakeMember));
     }
 
     @Test
-    public void testTotalValueAfterTransaction3(){
+    public void testCashBalanceAfterTransaction3(){
         portfolio.addTransactions(transaction1); //buy
         portfolio.addTransactions(transaction2); //sell
         portfolio.addTransactions(transaction3); //buy
-        portfolio.calculateTotalValue(fakeMember);
-        Assertions.assertEquals(100238, portfolio.getTotalValue());
+        Assertions.assertEquals(92318, portfolio.calculateCashBalance(fakeMember));
     }
 
+    @Test
+    public void testListOfInvestedStocksNETC(){
+        portfolio.addTransactions(transaction1); //buy VWS
+        portfolio.addTransactions(transaction2); //sell VWS
+        portfolio.addTransactions(transaction3); //buy NETC
+        portfolio.calculateInvestedStocks(fakeMember);//should only contain NETC
+    }
+
+
 //    public static void main(String[] args) {
-//        System.out.println();
+//
 //    }
 }
 

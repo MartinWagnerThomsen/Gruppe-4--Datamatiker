@@ -65,7 +65,7 @@ public class Stock {
 
     @Override
     public String toString() {
-        return "Stock{" +
+        return "Stock {" +
                 "ticker='" + ticker + '\'' +
                 ", name='" + name + '\'' +
                 ", sector='" + sector + '\'' +
@@ -76,6 +76,6 @@ public class Stock {
                 ", dividentYield=" + dividentYield +
                 ", stockExchange=" + stockExchange +
                 ", lastUpdated=" + lastUpdated +
-                '}';
+                " }";
     }
 }

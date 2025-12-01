@@ -1,4 +1,5 @@
 import DataObjects.Currency;
+import DataObjects.Stock;
 import DataObjects.Transaction;
 import Filehandling.CsvHandler;
 import Filehandling.DataManager;
@@ -121,11 +122,58 @@ public class Club {
       List<Currency> currencies =  manager.getCurrencies();
         System.out.println(currencies);
 
+
+    }
+
+    /**
+     * Tager en aktie som input
+     * Derefter hentes vores valutakurser fra DataManager
+     * Hvis aktiens valuta matcher en af vores kurser så hentes raten
+     * Prisen af aktien ganges derefter med raten for at finde prisen i DKK
+     * Resultatet bliver gemt på aktien samt dens aktie valuta gemmes som DKK
+     * @param stock
+     */
+    public void convertToDkk (Stock stock) {
+        String danishkrone = "DKK";
+        // Vi har brug for at få vores rater
+        DataManager manager = new DataManager();
+        List<Currency> listOfCurrenciesAndRates = manager.getCurrencies();
+
+        // Så har vi brug for at gemme aktie kursen
+        String stockCurrency = stock.getCurrency();
+        double stockPrice = stock.getPrice();
+        System.out.println(stockCurrency);
+
+        if(!stockCurrency.equalsIgnoreCase("DKK")) {
+            for (Currency currency : listOfCurrenciesAndRates){
+                if (stockCurrency.equalsIgnoreCase(currency.getBaseCurr())) {
+                    System.out.println("Found the currency in our list: " + currency);
+                    System.out.println("Converting " + stockPrice + stockCurrency + " the found value to DKK at " +
+                            "our current rate: " + currency.getRate());
+
+                    double totalPriceAfterConversion = stockPrice * currency.getRate();
+                    System.out.println("Result of the conversion: " + totalPriceAfterConversion + danishkrone);
+
+                    // Sæt aktiens priser til at reflektere dens reele dkk pris
+                    stock.setCurrency(danishkrone);
+                    stock.setPrice(totalPriceAfterConversion);
+
+                }
+            }
+
+        }
+
+
+
+
     }
 
     public static void main(String[] args) {
         Club investmentClub = new Club();
-        investmentClub.mainLoop();
+        //investmentClub.mainLoop();
+        DataManager manager = new DataManager();
+        List<Stock> testList = manager.getStocks();
+        investmentClub.convertToDkk(testList.getFirst());
 
     }
 }

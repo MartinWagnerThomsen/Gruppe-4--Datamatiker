@@ -135,9 +135,24 @@ public class testPortfolio {
         portfolio.addTransactions(transaction1); //buy VWS
         portfolio.addTransactions(transaction2); //sell VWS
         portfolio.addTransactions(transaction3); //buy NETC
-        portfolio.calculateInvestedStocks(fakeMember);//should only contain NETC
+        Assertions.assertEquals(7920, portfolio.calculateInvestedStocks(fakeMember));
     }
 
+    @Test
+    public void testListOfInvestedStocksTwo(){
+        portfolio.addTransactions(transaction1); //buy VWS
+        portfolio.addTransactions(transaction3); //buy NETC
+        Assertions.assertEquals(17820, portfolio.calculateInvestedStocks(fakeMember));
+    }
+
+    @Test
+    public void testTotalValue100238(){
+        portfolio.addTransactions(transaction1); //buy VWS
+        portfolio.addTransactions(transaction2); //sell VWS
+        portfolio.addTransactions(transaction3); //buy NETC
+        portfolio.calculateTotalValue(fakeMember);
+        Assertions.assertEquals(100238, portfolio.getTotalValue());
+    }
 
 //    public static void main(String[] args) {
 //

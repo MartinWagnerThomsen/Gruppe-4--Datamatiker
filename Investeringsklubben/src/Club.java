@@ -1,40 +1,60 @@
+import DataObjects.Stock;
+import DataObjects.Transaction;
+import Exceptions.CsvParsingException;
+import Filehandling.CsvHandler;
+import Filehandling.DataManager;
+import Users.Member;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
+
 public class Club {
-    private static final String adminUserName = "president@gmail.com";
-    private static final String admingPassword = "Sauron";
-
     Scanner sc = new Scanner(System.in);
+    CsvHandler csvhandler = new CsvHandler();
+    DataManager dataManager = new DataManager();
+    Member currentMember;
 
-    String username;
-    String password;
-
-    public void login() {
-        System.out.println("Velkommen. Tast brugernavn og kodeord.");
-
-        System.out.print("Brugernavn:");
-        username = sc.nextLine();
-        System.out.print("Adgangskode:");
-        password = sc.nextLine();
-
-        // checker om brugeren er presidenten
-        if (username.equals(adminUserName) && password.equals(admingPassword)) {
-            System.out.println("Logger ind som president");
-            presidentMenu();
-        } else if (InvestmentClubFacade.credentialsValidation(username, password)) {
-            System.out.println("Logger ind som member");
-            membersMenu();
-        }
+    public static void main(String[] args) {
+        Club investmentClub = new Club();
+        investmentClub.mainLoop();
+        investmentClub.login();
     }
 
-    private Portfolio getPortfolio(int userId) {
-        ArrayList<Member> memberList = CsvHandler.getUserData();
-        for (Member member : memberList) {
-            if (userId == member.getUserId()){
-                return member.getPortfolio();
+    public void login() {
+        /*
+        tempMemberList bruger en mindre konstruktør og sørger for at det som brugeren logger ind som passer
+        der bliver senere retuneret en Member med den fulde konstruktør
+         */
+        List<Member> tempMemberList = csvhandler.parseloginCredentials();
+        System.out.println("Velkommen. Tast brugernavn og adgangskode.");
+
+        System.out.print("Brugernavn: ");
+        String username = sc.nextLine();
+        for (Member member : tempMemberList) {
+            if (username.equals(member.getEmail())) {
+                System.out.print("Adgangskode: ");
+                String password = sc.nextLine();
+                if (password.equals(member.getPassword())) {
+                    System.out.println("Logger dig ind som " + member.getUserType());
+                    switch (member.getUserType().toLowerCase()) {
+                        case "member":
+                            try {
+                                membersMenu(username);
+                            } catch (CsvParsingException e) {
+                                throw new RuntimeException(e);
+                            }
+                            break;
+                        case "president":
+                            presidentMenu();
+                            break;
+                    }
+                }
             }
         }
-        return null;
     }
 
     private void presidentMenu() throws IllegalArgumentException {
@@ -83,7 +103,7 @@ public class Club {
         switch (sc.nextLine()) {
             case "1":
                 //getStockMarket()
-                ArrayList<Stock> stockMarket = InvestmentClubFacade.fetchStockData();
+                List<Stock> stockMarket = dataManager.getStocks();
                 for (Stock stock : stockMarket) {
                     System.out.println(stock.getName());
                     System.out.println(stock.getPrice());
@@ -97,17 +117,22 @@ public class Club {
                 break;
             case "4":
                 //getTransactions()
-                ArrayList<Transaction> transactions = InvestmentClubFacade.fetchStockData();
+
+                /*
+
+                List<Transaction> transactions = dataManager.getTransactions();
+
                 for (Transaction transaction : transactions) {
                     System.out.println(transaction.getDate());
                     System.out.println(transaction.getTicker());
                     System.out.println(transaction.getPrice());
                     System.out.println(transaction.getQuantity());
                 }
+
+                 */
                 break;
             case "5":
                 //logOut
-                menu();
                 break;
             default:
                 throw new IllegalArgumentException("Forket input");

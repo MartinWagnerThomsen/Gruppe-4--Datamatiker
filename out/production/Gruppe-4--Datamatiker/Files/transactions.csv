@@ -24,3 +24,4 @@ id;user_id;date;ticker;price;currency;order_type;quantity
 21;1;01-12-2025;AMBA;612,0;DKK;buy;100
 21;1;02-12-2025;amba;900,0;NOK;buy;50
 21;2;02-12-2025;AMBA;1230,0;JPY;buy;100
+21;2;02-12-2025;AMBA;900,0;NOK;buy;1300

@@ -92,6 +92,7 @@ public class CsvHandler {
                 double rate = Double.parseDouble(parts[2].replace(',', '.'));
                 LocalDate lastUpdated = LocalDate.parse(parts[3],FORMATTER);
                 System.out.println(lastUpdated);
+                System.out.println(lastUpdated);
                 Currency currency = new Currency(baseCurr, quote, rate, lastUpdated);
                 currencies.add(currency);
 
@@ -172,8 +173,29 @@ public class CsvHandler {
 
     }
 
-    // --- Private konverterings-hjælpemetoder ---
 
+    /**
+     * Overskriver hele bruger-filen med en ny liste af medlemmer.
+     */
+    public void writeCurrencies(String filePath, List<Currency> currencies) throws IOException {
+        List<String> lines = new ArrayList<>();
+        lines.add("base_currency;quote_currency;rate;last_updated"); // Header
+
+        List<String> currencyLines = currencies.stream()
+                .map(this::convertToCsvLine)
+                .collect(Collectors.toList());
+        lines.addAll(currencyLines);
+
+        try (FileWriter writer = new FileWriter(filePath)) {
+            for (String line : lines) {
+                writer.write(line + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println("Fejl ved skrivning til fil: " + e.getMessage());
+        }
+    }
+
+    // --- Private konverterings-hjælpemetoder ---
     private String convertToCsvLine(Member m) {
         return String.join(SEPARATOR,
                 String.valueOf(m.getUserId()),
@@ -198,4 +220,34 @@ public class CsvHandler {
                 String.valueOf(t.getQuantity())
         );
     }
+
+    private String convertToCsvLine(Currency c) {
+        return String.join(SEPARATOR,
+                c.getBaseCurr(),
+                String.valueOf(c.getQuote()),
+                String.valueOf(c.getRate()),
+                c.getLastUpdated().format(FORMATTER));
+    }
+
+    public List<Member> parseloginCredentials() {
+        List<Member> login = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader("Investeringsklubben/src/Files/loginCredentials.csv"))) {
+            String line;
+            br.readLine(); // eat the line
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(";");
+                if (parts.length == 3) {
+                    String username = parts[0];
+                    String password = parts[1];
+                    String userType = parts[2];
+                    Member member = new Member(username, password, userType);
+                    login.add(member);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Fejl ved læsning: " + e.getMessage());
+        }
+        return login;
+    }
+
 }

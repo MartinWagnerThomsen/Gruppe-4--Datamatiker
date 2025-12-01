@@ -41,17 +41,16 @@ public abstract class User {
          this.lastUpdated = lastUpdated;
          this.fullName = fullName;
      }
-
-     User(){
-         int userId = 0;
-         String email = null;
-         LocalDate birthday = null;
-         double initialCash = 0;
-         LocalDate createdAt = null;
-         LocalDate lastUpdated = null;
-         Portfolio portfolio = null;
-         String fullName = null;
-     }
+    User() {
+        int userId = 0;
+        String email = null;
+        LocalDate birthday = null;
+        double initialCash = 0;
+        LocalDate createdAt = null;
+        LocalDate lastUpdated = null;
+        Portfolio portfolio = null;
+        String fullName = null;
+    }
 
     /**
      * Mandatory methods for the user

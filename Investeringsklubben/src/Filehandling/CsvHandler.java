@@ -172,8 +172,32 @@ public class CsvHandler {
 
     }
 
-    // --- Private konverterings-hjælpemetoder ---
 
+    /**
+     * Overskriver hele bruger-filen med en ny liste af medlemmer.
+     */
+    public void writeCurrencies(String filePath, List<Currency> currencies) throws IOException {
+        List<String> lines = new ArrayList<>();
+        lines.add("base_currency;quote_currency;rate;last_updated"); // Header
+
+        List<String> currencyLines = currencies.stream()
+                .map(this::convertToCsvLine)
+                .collect(Collectors.toList());
+        lines.addAll(currencyLines);
+
+        try (FileWriter writer = new FileWriter(filePath)) {
+            for (String line : lines) {
+                writer.write(line + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println("Fejl ved skrivning til fil: " + e.getMessage());
+        }
+
+
+    }
+
+
+    // --- Private konverterings-hjælpemetoder ---
     private String convertToCsvLine(Member m) {
         return String.join(SEPARATOR,
                 String.valueOf(m.getUserId()),
@@ -197,5 +221,13 @@ public class CsvHandler {
                 t.getOrderType(),
                 String.valueOf(t.getQuantity())
         );
+    }
+
+    private String convertToCsvLine(Currency c) {
+        return String.join(SEPARATOR,
+                String.valueOf(c.getBaseCurr()),
+                String.valueOf(c.getQuote()),
+                String.valueOf(c.getRate()),
+                String.valueOf(c.getLastUpdated()));
     }
 }

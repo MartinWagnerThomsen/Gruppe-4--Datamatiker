@@ -119,9 +119,6 @@ public class Club {
 
         createTransaction();
       //  findMember();
-      List<Currency> currencies =  manager.getCurrencies();
-        System.out.println(currencies);
-
 
     }
 
@@ -130,6 +127,7 @@ public class Club {
     public static void main(String[] args) {
         Club investmentClub = new Club();
         investmentClub.mainLoop();
+
 
     }
 }

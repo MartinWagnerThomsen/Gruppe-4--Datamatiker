@@ -4,12 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae984337-46c5-4ef3-841f-b0742731d61c" name="Changes" comment="Working commit - ændringer fra login branch (usikker.login) er implementeret her. Enkelte ting er kommenteret ud">
+    <list default="true" id="ae984337-46c5-4ef3-841f-b0742731d61c" name="Changes" comment="calculate total value and view transaction history">
+      <change afterPath="$PROJECT_DIR$/Investeringsklubben/src/Files/loginCredentials.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Club.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Club.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/DataObjects/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/DataObjects/Transaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/CsvHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/CsvHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/DataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/DataManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Users/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Users/Member.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Users/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Club.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Club.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Files/currency.csv" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Files/currency.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Filehandling/CsvHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Filehandling/CsvHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Filehandling/FileHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Users/Member.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Users/Member.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Users/President.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Users/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Users/User.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,13 +48,10 @@
     &quot;assignee&quot;: &quot;Nelsoon-ds&quot;
   }
 }</component>
-  <component name="GithubDefaultAccount">
-    <option name="defaultAccountId" value="7bfb12cd-7438-4218-8d06-d6af1f84871b" />
-  </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/MartinWagnerThomsen/Gruppe-4--Datamatiker.git&quot;,
-    &quot;accountId&quot;: &quot;7bfb12cd-7438-4218-8d06-d6af1f84871b&quot;
+    &quot;accountId&quot;: &quot;9d9d938a-800b-4bd7-bfd5-00af52d2420b&quot;
   },
   &quot;recentNewPullRequestHead&quot;: {
     &quot;server&quot;: {
@@ -96,7 +102,7 @@
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "database.data.extractors.current.export.id": "Semicolon-separated_id",
     "database.data.extractors.current.id": "Semicolon-separated_id",
-    "git-widget-placeholder": "feature-getSector",
+    "git-widget-placeholder": "Merging totalValue",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/David/IdeaProjects/Gruppe-4--Datamatiker/Investeringsklubben/src",
@@ -153,9 +159,6 @@
       <list>
         <item itemvalue="Application.Club" />
         <item itemvalue="Application.CsvHandler" />
-        <item itemvalue="Application.CsvHandler" />
-        <item itemvalue="Application.Club" />
-        <item itemvalue="Application.Club" />
       </list>
     </recent_temporary>
   </component>
@@ -330,23 +333,7 @@
       <option name="project" value="LOCAL" />
       <updated>1764593296707</updated>
     </task>
-    <task id="LOCAL-00020" summary="Tilføjet changes">
-      <option name="closed" value="true" />
-      <created>1764664885387</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1764664885388</updated>
-    </task>
-    <task id="LOCAL-00021" summary="Working commit - ændringer fra login branch (usikker.login) er implementeret her. Enkelte ting er kommenteret ud">
-      <option name="closed" value="true" />
-      <created>1764665298471</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1764665298471</updated>
-    </task>
-    <option name="localTasksCounter" value="22" />
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -383,8 +370,6 @@
     <MESSAGE value="Valutakonvertering rykket til DataManager og koblet direkte til Create new transaction." />
     <MESSAGE value="Not functioning yet - consider going back  a commit" />
     <MESSAGE value="Rollback commit" />
-    <MESSAGE value="Tilføjet changes" />
-    <MESSAGE value="Working commit - ændringer fra login branch (usikker.login) er implementeret her. Enkelte ting er kommenteret ud" />
-    <option name="LAST_COMMIT_MESSAGE" value="Working commit - ændringer fra login branch (usikker.login) er implementeret her. Enkelte ting er kommenteret ud" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rollback commit" />
   </component>
 </project>

@@ -29,7 +29,7 @@ public class Member extends User {
     @Override
     public void viewTransactionHistory(Member member) {
         List<Transaction> memberTransactions = getPortfolio().getTransactions();
-        for(Transaction transactions : memberTransactions){
+        for(Transaction transactions : memberTransactions) {
             System.out.println(transactions.toString(member));
         }
     }
@@ -82,10 +82,10 @@ public class Member extends User {
         return portfolio;
     }
 
-    public double getCashBalance(){return cashBalance;}
+    public double getCashBalance() {return cashBalance;}
 
     //setter
-    public void setCashBalance(double cashBalance){
+    public void setCashBalance(double cashBalance) {
         this.cashBalance = cashBalance;
     }
 

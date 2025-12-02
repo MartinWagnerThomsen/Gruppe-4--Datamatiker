@@ -8,9 +8,7 @@ import Users.Member;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class Club {
@@ -21,7 +19,7 @@ public class Club {
 
     public static void main(String[] args) {
         Club investmentClub = new Club();
-        investmentClub.login();
+        System.out.println(investmentClub.getSector());
     }
 
     public void login() {
@@ -74,7 +72,7 @@ public class Club {
                 //getRankings();
                 break;
             case "3":
-                //getSector(getPortfolio(user));
+                getSector();
                 break;
             case "4":
                 //addUser(getUserInfo());
@@ -89,6 +87,27 @@ public class Club {
             default:
                 throw new IllegalArgumentException("Forket input");
         }
+    }
+
+    private Map<String, Double> getSector() {
+        // Deklarer variablerne
+        List<Transaction> history = dataManager.getTransactions();
+        List<Stock> stockHistory = dataManager.getStocks();
+        // Vi skal bruge et Hashmap hvor vi har Sector som Key og Price som Value
+        Map<String, Double> sectorAnalysis = new HashMap<>();
+        // Prisen bliver initialiseret uden for loopet. Den
+        double price = 0;
+        // Først skal vi iterere over aktierne og dernæst transaktions historikken
+        for (Stock investment : stockHistory) {
+            for(Transaction transaction : history) {
+                if (investment.getTicker().equalsIgnoreCase(transaction.getTicker())) {
+                    if(transaction.getOrderType().equalsIgnoreCase("buy"))
+                        price = transaction.getPrice() * transaction.getQuantity();
+                    String sector = investment.getSector();
+                    // Her tager vi og kalder en summariserings funktion over alle vores values
+                    sectorAnalysis.merge(sector, price, Double::sum);
+        }}}
+        return sectorAnalysis;
     }
 
 

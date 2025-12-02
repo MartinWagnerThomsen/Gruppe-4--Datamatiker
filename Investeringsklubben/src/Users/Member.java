@@ -4,6 +4,7 @@ import DataObjects.Portfolio;
 import DataObjects.Transaction;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Member extends User {
     private double cashBalance;
@@ -16,16 +17,21 @@ public class Member extends User {
            LocalDate createdAt, LocalDate lastUpdated,
            Portfolio portfolio){
         super(userId, fullName,email,birthday, initialCash,createdAt,lastUpdated, portfolio);
+        this.cashBalance = initialCash;
     }
     @Override
     public void viewPortfolio() {
+
         getPortfolio().getTransactions();
 
     }
 
     @Override
-    public void viewTransactionHistory() {
-
+    public void viewTransactionHistory(Member member) {
+        List<Transaction> memberTransactions = getPortfolio().getTransactions();
+        for(Transaction transactions : memberTransactions){
+            System.out.println(transactions.toString(member));
+        }
     }
 
     @Override

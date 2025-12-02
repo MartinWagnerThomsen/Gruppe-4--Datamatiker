@@ -47,7 +47,7 @@ public abstract class User {
      * Mandatory methods for the user
      */
     public abstract void viewPortfolio();
-    public abstract void viewTransactionHistory();
+    public abstract void viewTransactionHistory(Member member);
     public abstract void createUser();
 
     public abstract double getInitialCash();

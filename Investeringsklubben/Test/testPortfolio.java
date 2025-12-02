@@ -97,7 +97,17 @@ public class testPortfolio {
     }
 
     @Test
-    public void testTotalValueNotZero(){
+    public void testStartCashBalanceNotZero(){
+        Assertions.assertNotEquals(0, fakeMember.getCashBalance());
+    }
+
+    @Test
+    public void testInitialCashNotZero(){
+        Assertions.assertNotEquals(0, fakeMember.getCashBalance());
+    }
+
+    @Test
+    public void testStartTotalValueNotZero(){
         Assertions.assertNotEquals(0, portfolio.calculateCashBalance(fakeMember));
     }
 
@@ -145,6 +155,7 @@ public class testPortfolio {
         Assertions.assertEquals(17820, portfolio.calculateInvestedStocks(fakeMember));
     }
 
+    //beregn total value for en mestemt member
     @Test
     public void testTotalValue100238(){
         portfolio.addTransactions(transaction1); //buy VWS
@@ -154,9 +165,14 @@ public class testPortfolio {
         Assertions.assertEquals(100238, portfolio.getTotalValue());
     }
 
-//    public static void main(String[] args) {
-//
-//    }
+    @Test
+    public void testViewTransactionHistory(){
+        portfolio.addTransactions(transaction1); //buy VWS
+        portfolio.addTransactions(transaction2); //sell VWS
+        portfolio.addTransactions(transaction3); //buy NETC
+        fakeMember.viewTransactionHistory(fakeMember);
+    }
+
 }
 
 

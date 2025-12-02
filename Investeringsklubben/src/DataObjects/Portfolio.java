@@ -68,6 +68,7 @@ public class Portfolio {
             }
         }
         member.setCashBalance(cashBalance);
+        System.out.println("Cash balance is: " + member.getCashBalance());
         return member.getCashBalance();
     }
 

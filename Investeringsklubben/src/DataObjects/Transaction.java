@@ -4,31 +4,31 @@ import java.time.LocalDate;
 
 public class Transaction {
 
-  private int transactionId;
-  private  int userId;
-  private  LocalDate date;
-  private  String ticker;
-  private  double price;
-  private  String currency;
-  private String orderType;
-   private int quantity;
+    private int transactionId;
+    private int userId;
+    private LocalDate date;
+    private String ticker;
+    private double price;
+    private String currency;
+    private String orderType;
+    private int quantity;
 
 
-   /**
-    * Main constructor for Transaction
-    */
-   public Transaction(int transactionId,int userId, LocalDate date, String ticker, double price,
-                String currency,
-   String orderType, int quantity) {
-       this.transactionId = transactionId;
-       this.userId = userId;
-       this.date = date;
-       this.ticker = ticker;
-       this.price = price;
-       this.currency = currency;
-       this.orderType = orderType;
-       this.quantity = quantity;
-   }
+    /**
+     * Main constructor for Transaction
+     */
+    public Transaction(int transactionId, int userId, LocalDate date, String ticker, double price,
+                       String currency,
+                       String orderType, int quantity) {
+        this.transactionId = transactionId;
+        this.userId = userId;
+        this.date = date;
+        this.ticker = ticker;
+        this.price = price;
+        this.currency = currency;
+        this.orderType = orderType;
+        this.quantity = quantity;
+    }
 
     public int getUserId() {
         return userId;
@@ -97,6 +97,6 @@ public class Transaction {
     // Der skal konverteres fra int til String samt localdate til en string værdi
     @Override
     public String toString() {
-        return "Transaction Id: " + transactionId + " | Userid: " + userId + " | Date of the transaction: " + date + " | Ticker: " + ticker + " | Price: " + price + " | Currency: " + currency +  " | Order type: " + orderType + " Quantity: " + quantity;
-     }
+        return "Transaction Id: " + transactionId + " | Userid: " + userId + " | Date of the transaction: " + date + " | Ticker: " + ticker + " | Price: " + price + " | Currency: " + currency + " | Order type: " + orderType + " Quantity: " + quantity;
+    }
 }

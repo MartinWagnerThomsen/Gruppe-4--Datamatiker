@@ -1,3 +1,4 @@
+import DataObjects.Currency;
 import DataObjects.Stock;
 import DataObjects.Transaction;
 import Exceptions.CsvParsingException;
@@ -40,11 +41,12 @@ public class Club {
                 String password = sc.nextLine();
                 if (password.equals(member.getPassword())) {
                     System.out.println("Logger dig ind som " + member.getUserType());
+                    currentMember = dataManager.getMember(username);
                     switch (member.getUserType().toLowerCase()) {
                         case "member":
                             try {
-                                membersMenu(username);
-                            } catch (CsvParsingException e) {
+                                membersMenu();
+                            } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
                             break;
@@ -92,31 +94,33 @@ public class Club {
 
 
     public void membersMenu() throws IllegalArgumentException {
-        // Hvad medlemmerne kan
-        System.out.println(
-                "1. Se aktiemarkedet og aktuel kurs\n" +
-                        "2. Registrer køb og salg af aktier\n" +
-                        "3. Se portefølje\n" +
-                        "4. Se transaktionshistorik\n" +
-                        "5. Log ud");
+        boolean quit = false;
+        while (!quit) {
+            System.out.println(
+                    "1. Se aktiemarkedet og aktuel kurs\n" +
+                            "2. Registrer køb og salg af aktier\n" +
+                            "3. Se portefølje\n" +
+                            "4. Se transaktionshistorik\n" +
+                            "5. Log ud");
 
-        switch (sc.nextLine()) {
-            case "1":
-                //getStockMarket()
-                List<Stock> stockMarket = dataManager.getStocks();
-                for (Stock stock : stockMarket) {
-                    System.out.println(stock.getName());
-                    System.out.println(stock.getPrice());
-                }
-                break;
-            case "2":
-                //registerStock()
-                break;
-            case "3":
-                //getPortfolio()
-                break;
-            case "4":
-                //getTransactions()
+            switch (sc.nextLine()) {
+                case "1":
+                    //getStockMarket()
+                    List<Stock> stockMarket = dataManager.getStocks();
+                    for (Stock stock : stockMarket) {
+                        System.out.println(stock.getName());
+                        System.out.println(stock.getPrice());
+                    }
+                    break;
+                case "2":
+                    registerStock(currentMember);
+                    break;
+                case "3":
+                    //getPortfolio()
+                    findMember(currentMember.getUserId());
+                    break;
+                case "4":
+                    //getTransactions()
 
                 /*
 
@@ -130,12 +134,137 @@ public class Club {
                 }
 
                  */
-                break;
-            case "5":
-                //logOut
-                break;
-            default:
-                throw new IllegalArgumentException("Forket input");
+                    break;
+                case "5":
+                    //logOut
+                    break;
+                default:
+                    throw new IllegalArgumentException("Forket input");
+            }
         }
+    }
+
+    public void registerStock() {
+        int transactionId = -1;
+        LocalDate date;
+        String ticker;
+        double price;
+        String currency;
+        String orderType;
+        int quantity;
+
+        System.out.println("Vil du registrere et køb eller salg?");
+        String orderType = sc.nextLine();
+        if (orderType.equalsIgnoreCase("køb")) {
+            System.out.println("Hvilken aktie købte du?"); //ticker
+            System.out.println("Hvor meget betalte du for aktien"); // price
+            System.out.println("Hvor mange aktier købte du?"); // quantity
+            System.out.println("Hvilken valuta var aktien i?"); // currency
+            System.out.println("Hvilen dato købte du?"); // date
+        } else if (orderType.equalsIgnoreCase("salg")) {
+            System.out.println("Hvilken aktie solgte du?"); //ticker
+            ticker = sc.nextLine();
+
+            // pris
+            System.out.println("Hvor meget fik du for aktien"); // price
+            price = Integer.parseInt(sc.nextLine());
+
+            // mængde
+            System.out.println("Hvor mange aktier solgte du?"); // quantity
+            quantity = Integer.parseInt(sc.nextLine());
+
+            // valuta
+            System.out.println("Hvilken valuta var aktien i?"); // currency
+            List<Currency> currencies = dataManager.getCurrencies();
+            for (Currency curr : currencies) {
+                System.out.println(curr);
+            }
+            switch (sc.nextLine().toLowerCase()) {
+                case "dkk" -> currency = "DKK";
+                case "eur" -> currency = "EUR";
+                case "usd" -> currency = "USD";
+            }
+
+             // dato
+            System.out.println("Hvilen dato solgte du?"); // date
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate.parse(sc.nextLine()).format(formatter);
+
+        } else {
+            System.out.println("Du kan kun vælge mellem 'køb' og 'salg', prøv venligst igen.");
+            registerStock();
+        }
+
+
+        Transaction transaction = new Transaction(transactionId,currentMember.getUserId(),date,ticker,price,currency,orderType,quantity);
+        dataManager.registerNewTransaction(transaction);
+    }
+
+    /**
+     * Finder vores medlem ved at bruge userId
+     */
+    public void findMember(int userId) {
+        //Scanner sc = new Scanner(System.in);
+        //System.out.print("Enter user ID for the user which you want to find transactions from: ");
+        //int userId = sc.nextInt();
+        Member foundMember;
+        List<Member> members = dataManager.getMembers();
+        Optional<Member> memberOptional = members.stream()
+                .filter(member -> member.getUserId() == userId)
+                .findFirst();
+        if (memberOptional.isPresent()) {
+            foundMember = memberOptional.get();
+            foundMember.printMember();
+        }
+    }
+
+    public void createTransaction() {
+        Scanner sc = new Scanner(System.in);
+        Transaction lastTransaction = dataManager.getMembers().getLast().getPortfolio().getTransactions().getLast(); // Tag den sidste transaction
+        int transactionId = lastTransaction.getTransactionId() + 1;
+        System.out.print("Enter user ID: ");
+        int userId = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Enter date (dd-MM-yyyy): ");
+        String dateInput = sc.nextLine();
+        LocalDate date = LocalDate.parse(dateInput, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        System.out.print("Enter stock ticker: ");
+        String ticker = sc.nextLine();
+        System.out.print("Enter price: ");
+        double price = sc.nextDouble();
+        sc.nextLine();
+        System.out.print("Enter currency (e.g., DKK): ");
+        String currency = sc.nextLine();
+        System.out.print("Enter order type (buy/sell): ");
+        String orderType = sc.nextLine();
+        System.out.print("Enter quantity: ");
+        int quantity = sc.nextInt();
+        // Create the transaction
+        Transaction transaction = new Transaction(
+                transactionId,
+                userId,
+                date,
+                ticker,
+                price,
+                currency,
+                orderType,
+                quantity
+        );
+        dataManager.registerNewTransaction(transaction);
+    }
+
+    public void mainLoop() {
+
+        try {
+            DataManager manager = new DataManager();
+            if (manager.getMembers().size() < 0) {
+                System.out.println("Tom liste af medlemmer");
+            }
+        } catch (Exception e) {
+            System.out.println("Fortsæt loop");
+            e.printStackTrace();
+        }
+        //  findMember();
+
     }
 }

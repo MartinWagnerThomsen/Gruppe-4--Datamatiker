@@ -186,13 +186,18 @@ public class DataManager {
             }
 
         }
-
-
-
-
     }
 
     // --- Getters til UI-laget ---
+    public Member getMember(String email) {
+        for (Member member : members) {
+            if (email.equals(member.getEmail())) {
+                return member;
+            }
+        }
+        return null;
+    }
+
     public List<Member> getMembers() {
         return members;
     }

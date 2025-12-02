@@ -34,6 +34,7 @@ public class DataManager {
 
     private List<Member> members;
     private List<Stock> stocks;
+    private List<Transaction> transactions;
     private static List<Currency> currencies;
     private final CsvHandler csvHandler;
     public DecimalFormat numberFormat = new DecimalFormat("#.00");
@@ -64,6 +65,7 @@ public class DataManager {
             this.members = loadedMembers;
             this.stocks = loadedStocks;
             currencies = loadedCurrencies;
+            this.transactions = allTransactions;
 
             // 3. Prøv at opdatere vores currencies fra vores API kald
             System.out.println("Opdaterer valutakurser fra Nationalbanken...");
@@ -202,6 +204,10 @@ public class DataManager {
 
     public List<Member> getMembers() {
         return members;
+    }
+
+    public List<Transaction> getTransactions () {
+        return transactions;
     }
 
 

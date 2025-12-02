@@ -105,7 +105,7 @@ public class Member extends User {
     }
 
     public void addTransaction(Transaction transaction) {
-        this.portfolio.setTransactions(transaction);
+   //     this.portfolio.setTransactions(transaction);
     }
 
     @Override

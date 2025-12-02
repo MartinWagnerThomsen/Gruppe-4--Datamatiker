@@ -119,7 +119,8 @@ public class Member extends User {
         return fullName;
     }
 
-    public void printMember() {
+    public void printMember(Member foundMember) {
+        getPortfolio().calculateTotalValue(foundMember);
         System.out.println("Member profile for: " + this.getFullName());
         System.out.println("Portfolio: ");
         System.out.println(this.getPortfolio());

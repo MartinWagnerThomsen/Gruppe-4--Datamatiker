@@ -4,6 +4,7 @@ import DataObjects.*;
 import DataObjects.Currency;
 import Exceptions.CsvParsingException;
 import Users.Member;
+import Users.User;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -13,14 +14,15 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
-
 public class CsvHandler {
+
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private static final String SEPARATOR = ";";
 
     /**
-     * Læser en fil med brugere og returnerer en liste af Member-objekter.
+     * Header for the parseUser
+     * @params userId;full_name;email;birth_date;initial_cash_DKK;created_at;last_updated
      */
     public List<Member> readMembers(String filePath) throws CsvParsingException {
         List<Member> members = new ArrayList<>();
@@ -58,6 +60,7 @@ public class CsvHandler {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             br.readLine(); // Spring header
             String line;
+                br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(SEPARATOR);
                 if (parts.length == 8) {
@@ -231,4 +234,27 @@ public class CsvHandler {
                 String.valueOf(c.getRate()),
                 c.getLastUpdated().format(FORMATTER));
     }
+
+
+    public List<Member> parseloginCredentials() {
+        List<Member> login = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader("Investeringsklubben/src/Files/loginCredentials.csv"))) {
+            String line;
+            br.readLine(); // eat the line
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(";");
+                if (parts.length == 3) {
+                    String username = parts[0];
+                    String password = parts[1];
+                    String userType = parts[2];
+                    Member member = new Member(username, password, userType);
+                    login.add(member);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Fejl ved læsning: " + e.getMessage());
+        }
+        return login;
+    }
+
 }

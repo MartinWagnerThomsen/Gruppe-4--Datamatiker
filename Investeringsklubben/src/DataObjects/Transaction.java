@@ -6,31 +6,31 @@ import java.time.LocalDate;
 
 public class Transaction {
 
-  private int transactionId;
-  private  int userId;
-  private  LocalDate date;
-  private  String ticker;
-  private  double price;
-  private  String currency;
-  private String orderType;
-   private int quantity;
+    private int transactionId;
+    private int userId;
+    private LocalDate date;
+    private String ticker;
+    private double price;
+    private String currency;
+    private String orderType;
+    private int quantity;
 
 
-   /**
-    * Main constructor for Transaction
-    */
-   public Transaction(int transactionId,int userId, LocalDate date, String ticker, double price,
-                String currency,
-   String orderType, int quantity) {
-       this.transactionId = transactionId;
-       this.userId = userId;
-       this.date = date;
-       this.ticker = ticker;
-       this.price = price;
-       this.currency = currency;
-       this.orderType = orderType;
-       this.quantity = quantity;
-   }
+    /**
+     * Main constructor for Transaction
+     */
+    public Transaction(int transactionId, int userId, LocalDate date, String ticker, double price,
+                       String currency,
+                       String orderType, int quantity) {
+        this.transactionId = transactionId;
+        this.userId = userId;
+        this.date = date;
+        this.ticker = ticker;
+        this.price = price;
+        this.currency = currency;
+        this.orderType = orderType;
+        this.quantity = quantity;
+    }
 
     public int getUserId() {
         return userId;

@@ -27,6 +27,7 @@ public class Member extends User {
     public Member(int userId) {
 
     }
+    private double cashBalance;
 
     /**
      * Constructor with Portfolio added
@@ -62,13 +63,6 @@ public class Member extends User {
     }
 
 
-
-    @Override
-    public double getInitialCash() {
-        return initialCash;
-    }
-
-
     @Override
    public  int getUserId() {
         return userId;
@@ -84,6 +78,10 @@ public class Member extends User {
         return birthday;
     }
 
+    public double getInitialCash(){
+        return initialCash;
+    }
+
     @Override
     public LocalDate getCreationLocalDate() {
         return createdAt;
@@ -97,6 +95,13 @@ public class Member extends User {
     @Override
     public Portfolio getPortfolio() {
         return portfolio;
+    }
+
+    public double getCashBalance(){return cashBalance;}
+
+    //setter
+    public void setCashBalance(double cashBalance){
+        this.cashBalance = cashBalance;
     }
 
     public void addTransaction(Transaction transaction) {

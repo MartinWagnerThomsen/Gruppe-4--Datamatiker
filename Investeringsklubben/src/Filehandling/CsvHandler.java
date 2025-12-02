@@ -4,6 +4,7 @@ import DataObjects.*;
 import DataObjects.Currency;
 import Exceptions.CsvParsingException;
 import Users.Member;
+import Users.User;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -13,14 +14,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
+public class CsvHandler implements FileHandler {
 
-public class CsvHandler {
+    private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private static final String SEPARATOR = ";";
 
     /**
-     * Læser en fil med brugere og returnerer en liste af Member-objekter.
+     * Header for the parseUser
+     * @params userId;full_name;email;birth_date;initial_cash_DKK;created_at;last_updated
      */
     public List<Member> readMembers(String filePath) throws CsvParsingException {
         List<Member> members = new ArrayList<>();
@@ -58,6 +62,7 @@ public class CsvHandler {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             br.readLine(); // Spring header
             String line;
+                br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(SEPARATOR);
                 if (parts.length == 8) {
@@ -193,7 +198,10 @@ public class CsvHandler {
         } catch (IOException e) {
             System.out.println("Fejl ved skrivning til fil: " + e.getMessage());
         }
+
+
     }
+
 
     // --- Private konverterings-hjælpemetoder ---
     private String convertToCsvLine(Member m) {
@@ -228,6 +236,7 @@ public class CsvHandler {
                 String.valueOf(c.getRate()),
                 c.getLastUpdated().format(FORMATTER));
     }
+
 
     public List<Member> parseloginCredentials() {
         List<Member> login = new ArrayList<>();

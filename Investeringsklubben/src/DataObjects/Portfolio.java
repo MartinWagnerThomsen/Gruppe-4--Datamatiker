@@ -1,7 +1,10 @@
 package DataObjects;
 
-import java.lang.reflect.Array;
+import Filehandling.DataManager;
+import Users.Member;
 import java.util.ArrayList;
+import java.util.List;
+
 
 public class Portfolio {
     private ArrayList<Transaction> transactions = new ArrayList<>();
@@ -28,17 +31,78 @@ public class Portfolio {
         this.transactions.add(transaction);
     }
 
-    public void setTransactions(Transaction transaction ) {
+    public void addTransactions(Transaction transaction ) {
         this.transactions.add(transaction);
-        setTotalValue();
     }
 
-    public void setTotalValue() {
-        double sum = 0;
+    /*
+    * Lav en variabel "sum" som holder quantity af den pågældende aktie
+    * Check om sum er lig med 0 - hvis det er den så skal den fjernes fra listen af akier
+    * for det pågældende medlem
+    * Hvis ikke den er nul skal quantity være resultatet af quantity - sum (sell) / quantity + sum (buy)
+     Bagefter skal man regne ud hvad den reele pris af aktien er baseret på stockmarket.csv prisen som er vores
+     * baseline pris (snapshot).
+     * */
+    public void calculateTotalValue(Member member){
+        System.out.println("Calculating total value...");
+        double balance = calculateCashBalance(member);
+        double stocksValue = calculateInvestedStocks(member);
+        totalValue = balance + stocksValue;
+        System.out.println("Total value is: " + totalValue);
+    }
+
+    public double calculateCashBalance(Member member) {
+        System.out.println("Calculating cash balance...");
+        double cashBalance = member.getInitialCash();
         for (Transaction transaction : transactions) {
-            sum+= transaction.getQuantity() * transaction.getPrice();
+
+            if (transaction.getOrderType().equalsIgnoreCase("buy")){
+                double stocksBuyValue = 0;
+                stocksBuyValue += transaction.getQuantity() * transaction.getPrice();
+                cashBalance -= stocksBuyValue;
+            }
+            if (transaction.getOrderType().equalsIgnoreCase("sell")){
+                double stocksSellValue = 0;
+                stocksSellValue += transaction.getQuantity() * transaction.getPrice();
+                cashBalance += stocksSellValue;
+            }
         }
-        totalValue = sum;
+        member.setCashBalance(cashBalance);
+        return member.getCashBalance();
+    }
+
+
+    public double calculateInvestedStocks(Member member) {
+        DataManager manager = new DataManager();
+        List<Stock> listOfStocks = manager.getStocks();
+        List<Stock> investedStocks = new ArrayList<>();
+        List<Transaction> memberTransactions = member.getPortfolio().transactions;
+        double sum = 0;
+
+        for (Transaction transaction : memberTransactions) {
+            if (transaction.getOrderType().equalsIgnoreCase("buy")){
+                for (Stock stocks : listOfStocks){
+                    if (stocks.getTicker().equalsIgnoreCase(transaction.getTicker())){
+                        investedStocks.add(stocks);
+                        sum += stocks.getPrice() * transaction.getQuantity();
+                    }
+                }
+            }
+            if (transaction.getOrderType().equalsIgnoreCase("sell")){
+                for (Stock stocks : listOfStocks){
+                    if (stocks.getTicker().equalsIgnoreCase(transaction.getTicker())){
+                        investedStocks.remove(stocks);
+                        sum -= stocks.getPrice() * transaction.getQuantity();
+                    }
+                }
+
+            }
+            // Nu bør vi have en liste af de aktier vi har tilbage
+        }
+
+        System.out.println(member.getFullName() + " is currently invested in: \n" + investedStocks);
+        System.out.println("sum value of invested stocks: " + sum);
+        return sum;
     }
     public void registerStock(){
 
@@ -56,6 +120,9 @@ public class Portfolio {
         for (Transaction element : transactions) {
             System.out.println(element);
         }
+    }
+    public double getTotalValue(){
+        return totalValue;
     }
 
     @Override

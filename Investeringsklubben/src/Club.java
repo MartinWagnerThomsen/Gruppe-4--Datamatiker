@@ -1,11 +1,20 @@
 import DataObjects.Currency;
 import DataObjects.Stock;
 import DataObjects.Transaction;
+import DataObjects.Currency;
+import DataObjects.Stock;
+import DataObjects.Transaction;
 import Exceptions.CsvParsingException;
 import Filehandling.CsvHandler;
 import Filehandling.DataManager;
 import Users.Member;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -144,6 +153,153 @@ public class Club {
         }
     }
 
+
+    public void logout() {
+
+    }
+
+    public void switchUser() {
+
+    }
+
+    /**
+     * Finder vores medlem ved at bruge userId
+     */
+    public void findMember() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter user ID for the user which you want to find transactions from: ");
+        int userId = sc.nextInt();
+        Member foundMember;
+        List<Member> members = dataManager.getMembers();
+        Optional<Member> memberOptional = members.stream()
+                .filter(member -> member.getUserId() == userId)
+                .findFirst();
+        if (memberOptional.isPresent()) {
+            foundMember = memberOptional.get();
+            foundMember.printMember();
+        }
+    }
+
+    public void createTransaction() {
+        Scanner sc = new Scanner(System.in);
+        Transaction lastTransaction = dataManager.getMembers().getLast().getPortfolio().getTransactions().getLast(); // Tag den sidste transaction
+        int transactionId = lastTransaction.getTransactionId() + 1;
+        System.out.print("Enter user ID: ");
+        int userId = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Enter date (dd-MM-yyyy): ");
+        String dateInput = sc.nextLine();
+        LocalDate date = LocalDate.parse(dateInput, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        System.out.print("Enter stock ticker: ");
+        String ticker = sc.nextLine();
+        System.out.print("Enter price: ");
+        double price = sc.nextDouble();
+        sc.nextLine();
+        System.out.print("Enter currency (e.g., DKK): ");
+        String currency = sc.nextLine();
+        System.out.print("Enter order type (buy/sell): ");
+        String orderType = sc.nextLine();
+        System.out.print("Enter quantity: ");
+        int quantity = sc.nextInt();
+        // Create the transaction
+        Transaction transaction = new Transaction(
+                transactionId,
+                userId,
+                date,
+                ticker,
+                price,
+                currency,
+                orderType,
+                quantity
+        );
+        dataManager.registerNewTransaction(transaction);
+    }
+
+    public void mainLoop() {
+
+        try {
+            DataManager manager = new DataManager();
+            if (manager.getMembers().size() < 0) {
+                System.out.println("Tom liste af medlemmer");
+            }
+        } catch (Exception e) {
+            System.out.println("Fortsæt loop");
+            e.printStackTrace();
+        }
+        //  findMember();
+
+    }
+
+
+
+    public static void main(String[] args) {
+        Club investmentClub = new Club();
+        investmentClub.mainLoop();
+
+
+        switch (sc.nextLine()) {
+            case "1":
+                //getPortfolio(user);
+                break;
+            case "2":
+                //getRankings();
+                break;
+            case "3":
+                //getSector(getPortfolio(user));
+                break;
+            case "4":
+                //addUser(getUserInfo());
+                break;
+            case "5":
+                //removeUser(getUserInfo());
+                break;
+            case "6":
+                //saveProgress();
+                login();
+                break;
+            default:
+                throw new IllegalArgumentException("Forket input");
+        }
+    }
+
+
+    public void membersMenu() throws IllegalArgumentException {
+        boolean quit = false;
+        while (!quit) {
+            System.out.println(
+                    "1. Se aktiemarkedet og aktuel kurs\n" +
+                            "2. Registrer køb og salg af aktier\n" +
+                            "3. Se portefølje\n" +
+                            "4. Se transaktionshistorik\n" +
+                            "5. Log ud");
+
+            switch (sc.nextLine()) {
+                case "1":
+                    //getStockMarket()
+                    List<Stock> stockMarket = dataManager.getStocks();
+                    for (Stock stock : stockMarket) {
+                        System.out.println(stock.getName());
+                        System.out.println(stock.getPrice());
+                    }
+                    break;
+                case "2":
+                    registerStock(currentMember);
+                    break;
+                case "3":
+                    //getPortfolio()
+                    findMember(currentMember.getUserId());
+                    break;
+                case "4":
+                    //getTransactions()
+                case "5":
+                    //logOut
+                    break;
+                default:
+                    throw new IllegalArgumentException("Forket input");
+            }}}}
+
+
+
     public void registerStock() {
         int transactionId = -1;
         LocalDate date;
@@ -267,4 +423,3 @@ public class Club {
         //  findMember();
 
     }
-}

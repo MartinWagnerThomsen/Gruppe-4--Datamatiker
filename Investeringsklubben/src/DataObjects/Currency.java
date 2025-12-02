@@ -20,11 +20,33 @@ public class Currency {
         this.lastUpdated = lastUpdated;
     }
 
+    public String getQuote() {
+        return quote;
+    }
+
+    public LocalDate getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setQuote(String quote) {
+        this.quote = quote;
+    }
+
+    public void setLastUpdated(LocalDate lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
+    public void setBaseCurr(String baseCurr) {
+        this.baseCurr = baseCurr;
+    }
 
     public double getRate() {
         return rate;
     }
 
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
     public String getBaseCurr() {
         return baseCurr;
     }

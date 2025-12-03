@@ -119,10 +119,13 @@ public class Member extends User {
         return fullName;
     }
 
-    public void printMember() {
+    public void printMember(Member foundMember) {
+        getPortfolio().calculateTotalValue(foundMember);
+        getPortfolio().calculateCashBalance(foundMember);
         System.out.println("Member profile for: " + this.getFullName());
         System.out.println("Portfolio: ");
         System.out.println(this.getPortfolio());
+        System.out.println("Cash balance: " + this.getCashBalance());
     }
 
     @Override

@@ -7,8 +7,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Member extends User {
-    String password;
-    String userType;
+    private String password;
+    private String userType;
+    private double cashBalance;
 
     // meget hacky
     public Member(String email, String password, String userType) {
@@ -28,8 +29,6 @@ public class Member extends User {
     public Member(int userId) {
 
     }
-    private double cashBalance;
-
     /**
      * Constructor with Portfolio added
       */
@@ -42,7 +41,6 @@ public class Member extends User {
     }
     @Override
     public void viewPortfolio() {
-
         getPortfolio().getTransactions();
 
     }

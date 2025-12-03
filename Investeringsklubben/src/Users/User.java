@@ -8,7 +8,7 @@ public abstract class User {
     /**
      * Mandatory attributes for Users
      */
-    int userId;
+     int userId;
      String email;
      LocalDate birthday;
      double initialCash;
@@ -16,6 +16,9 @@ public abstract class User {
      LocalDate lastUpdated;
      Portfolio portfolio;
      String fullName;
+
+
+
 
      public User(int userId, String fullName, String email, LocalDate birthday, double initialCash,
                  LocalDate createdAt, LocalDate lastUpdated,
@@ -41,7 +44,7 @@ public abstract class User {
          this.lastUpdated = lastUpdated;
          this.fullName = fullName;
      }
-    User() {
+    public User() {
         int userId = 0;
         String email = null;
         LocalDate birthday = null;
@@ -55,21 +58,20 @@ public abstract class User {
     /**
      * Mandatory methods for the user
      */
-    public abstract void viewPortfolio();
-    public abstract void viewTransactionHistory(Member member);
-    public abstract void createUser();
-
-    public abstract double getInitialCash();
+    abstract public void viewPortfolio();
+    abstract public void viewTransactionHistory(Member member);
+    abstract public void createUser();
+    abstract public double getInitialCash();
 
     /**
      * Getters & Setters for the user class
      */
-    abstract int getUserId();
-     abstract String getEmail();
-    abstract  LocalDate getBirthday();
+    abstract public int getUserId();
+    abstract public String getEmail();
+    abstract public LocalDate getBirthday();
     abstract public LocalDate getCreationLocalDate();
 
-    public abstract LocalDate getLastUpdated();
+    abstract public LocalDate getLastUpdated();
 
     abstract public Portfolio getPortfolio();
     abstract public String getFullName();

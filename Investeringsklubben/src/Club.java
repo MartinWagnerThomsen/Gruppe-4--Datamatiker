@@ -9,17 +9,17 @@ import Users.Member;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class Club {
-    public Scanner sc = new Scanner(System.in);
+    private final Scanner sc = new Scanner(System.in);
     private CsvHandler csvhandler = new CsvHandler();
     private DataManager dataManager = new DataManager();
     private Member currentMember;
 
     public static void main(String[] args) {
         Club investmentClub = new Club();
-        System.out.println(investmentClub.getSector());
         investmentClub.login();
     }
 
@@ -73,7 +73,7 @@ public class Club {
                 //getRankings();
                 break;
             case "3":
-                getSector();
+                printSectorInvestmentDistribution();
                 break;
             case "4":
                 //addUser(getUserInfo());
@@ -90,7 +90,7 @@ public class Club {
         }
     }
 
-    private Map<String, Double> getSector() {
+    private Map<String, Double> printSectorInvestmentDistribution() {
         // Deklarer variablerne
         List<Transaction> history = dataManager.getTransactions();
         List<Stock> stockHistory = dataManager.getStocks();
@@ -108,7 +108,26 @@ public class Club {
                     // Her tager vi og kalder en summariserings funktion over alle vores values
                     sectorAnalysis.merge(sector, price, Double::sum);
         }}}
+        printSectors(sectorAnalysis);
         return sectorAnalysis;
+    }
+
+    private void printSectors (Map<String, Double> sectorAnalysis) {
+        Comparator<Map.Entry<String, Double>> byValueComparator =
+                Map.Entry.comparingByValue(Comparator.reverseOrder()); // Kan være natural order hvis man gerne vil have det fra mindst til højest
+
+        Map<String, Double> sortedMap = sectorAnalysis.entrySet().stream()
+                .sorted(byValueComparator)
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue,
+                        LinkedHashMap::new
+                ));
+        System.out.println("--- Sorted Sector Investment Distribution (Highest to Lowest) ---");
+        sortedMap.forEach((sector, investment) ->
+                System.out.println("Total Investment: " + String.format("%,.2f", investment) + " DKK (Sector: " + sector + ")")
+        );
     }
 
 
@@ -124,12 +143,7 @@ public class Club {
 
             switch (sc.nextLine()) {
                 case "1":
-                    //getStockMarket()
-                    List<Stock> stockMarket = dataManager.getStocks();
-                    for (Stock stock : stockMarket) {
-                        System.out.println(stock.getName());
-                        System.out.println(stock.getPrice());
-                    }
+                    printMarketAndRates();
                     break;
                 case "2":
                     createTransaction();
@@ -140,9 +154,7 @@ public class Club {
                     break;
                 case "4":
                     //getTransactions()
-
                 /*
-
                 List<Transaction> transactions = dataManager.getTransactions();
 
                 for (Transaction transaction : transactions) {
@@ -151,44 +163,48 @@ public class Club {
                     System.out.println(transaction.getPrice());
                     System.out.println(transaction.getQuantity());
                 }
-
                  */
                     break;
                 case "5":
                     //logOut
                     break;
                 default:
-                    throw new IllegalArgumentException("Forket input");
+                    throw new IllegalArgumentException("Forkert input");
             }
         }
     }
 
+    public void printMarketAndRates() {
+        List<Stock> stockMarket = dataManager.getStocks();
+        for (Stock stock : stockMarket) {
+            System.out.println(stock.getName());
+            System.out.println(stock.getPrice());
+        }
+    }
 
     public void logout() {
-
     }
 
     public void switchUser() {
-
     }
 
     /**
      * Finder vores medlem ved at bruge userId
      */
-    public void findMember() {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter user ID for the user which you want to find transactions from: ");
-        int userId = sc.nextInt();
-        Member foundMember;
-        List<Member> members = dataManager.getMembers();
-        Optional<Member> memberOptional = members.stream()
-                .filter(member -> member.getUserId() == userId)
-                .findFirst();
-        if (memberOptional.isPresent()) {
-            foundMember = memberOptional.get();
-            foundMember.printMember(foundMember);
-        }
-    }
+//    public void findMember() {
+//        Scanner sc = new Scanner(System.in);
+//        System.out.print("Enter user ID for the user which you want to find transactions from: ");
+//        int userId = sc.nextInt();
+//        Member foundMember;
+//        List<Member> members = dataManager.getMembers();
+//        Optional<Member> memberOptional = members.stream()
+//                .filter(member -> member.getUserId() == userId)
+//                .findFirst();
+//        if (memberOptional.isPresent()) {
+//            foundMember = memberOptional.get();
+//            foundMember.printMember(foundMember);
+//        }
+//    }
 
     public void createTransaction() {
         Scanner sc = new Scanner(System.in);

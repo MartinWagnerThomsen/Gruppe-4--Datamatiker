@@ -66,29 +66,6 @@ public class testPortfolio {
     @BeforeEach
     void init(){
         System.out.println("Test startup");
-    //    Portfolio portfolio = new Portfolio(0,0);
-//        Transaction transaction1 = new Transaction(
-//                01, 101,
-//                LocalDate.of(2025, 11, 21),
-//                "ORSTED", 456, "DKK", "buy", 10);
-//        Transaction transaction2 = new Transaction(
-//                02, 101,
-//                LocalDate.of(2025, 11, 22),
-//                "ORSTED", 500, "DKK", "sell", 10);
-//        portfolio.addTransactions(transaction1);
-//        portfolio.calculateTotalValue();
-//        portfolio.addTransactions(transaction2);
-//        portfolio.calculateTotalValue();
-//        Member fakeMember = new Member(
-//                101,
-//                "Torben Christensen",
-//                "torbenchris@gmail.com",
-//                LocalDate.of(1995, 5, 20),
-//                100000,
-//                LocalDate.of(2025, 11, 20),
-//                LocalDate.of(2025, 11, 26),
-//                portfolio);
-
     }
 
     @Test

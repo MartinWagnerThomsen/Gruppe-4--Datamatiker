@@ -51,34 +51,6 @@ public class Currency {
         return baseCurr;
     }
 
-
-    /**
-     * Find beløbet
-     * Find den relevante kurs pris  (fx. Euro)
-     * Multiplicer beløbet med kursen
-     * Rund det af til nærmeste decimal
-     * Overvej gebyrer
-     * @return
-     */
-    public void convertToDkk (Stock stock) {
-        // Vi har brug for at få vores rater
-        DataManager manager = new DataManager();
-        List<Currency> listOfCurrenciesAndRates = manager.getCurrencies();
-
-        // Så har vi brug for at gemme aktie kursen
-        String stockCurrency = stock.getCurrency();
-        System.out.println(stockCurrency);
-
-
-        for (Currency currency : listOfCurrenciesAndRates) {
-        }
-
-    }
-
-    public static void main(String[] args) {
-    }
-
-
     @Override
     public String toString() {
         return "Currency: " + baseCurr + " Rate: " + rate;

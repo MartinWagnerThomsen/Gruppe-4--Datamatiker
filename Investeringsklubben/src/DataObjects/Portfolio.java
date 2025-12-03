@@ -20,7 +20,6 @@ public class Portfolio {
         this.totalDifference = totalDifference;
     }
     public void showStockPrice(){
-
     }
 
     public ArrayList<Transaction> getTransactions() {

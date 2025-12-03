@@ -9,6 +9,7 @@ import Users.Member;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class Club {
@@ -19,7 +20,7 @@ public class Club {
 
     public static void main(String[] args) {
         Club investmentClub = new Club();
-        System.out.println(investmentClub.getSector());
+        investmentClub.printSectorInvestmentDistribution();
     }
 
     public void login() {
@@ -72,7 +73,7 @@ public class Club {
                 //getRankings();
                 break;
             case "3":
-                getSector();
+                printSectorInvestmentDistribution();
                 break;
             case "4":
                 //addUser(getUserInfo());
@@ -89,7 +90,7 @@ public class Club {
         }
     }
 
-    private Map<String, Double> getSector() {
+    private Map<String, Double> printSectorInvestmentDistribution() {
         // Deklarer variablerne
         List<Transaction> history = dataManager.getTransactions();
         List<Stock> stockHistory = dataManager.getStocks();
@@ -107,7 +108,26 @@ public class Club {
                     // Her tager vi og kalder en summariserings funktion over alle vores values
                     sectorAnalysis.merge(sector, price, Double::sum);
         }}}
+        printSectors(sectorAnalysis);
         return sectorAnalysis;
+    }
+
+    private void printSectors (Map<String, Double> sectorAnalysis) {
+        Comparator<Map.Entry<String, Double>> byValueComparator =
+                Map.Entry.comparingByValue(Comparator.reverseOrder()); // Kan være natural order hvis man gerne vil have det fra mindst til højest
+
+        Map<String, Double> sortedMap = sectorAnalysis.entrySet().stream()
+                .sorted(byValueComparator)
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue,
+                        LinkedHashMap::new
+                ));
+        System.out.println("--- Sorted Sector Investment Distribution (Highest to Lowest) ---");
+        sortedMap.forEach((sector, investment) ->
+                System.out.println("Total Investment: " + String.format("%,.2f", investment) + " DKK (Sector: " + sector + ")")
+        );
     }
 
 

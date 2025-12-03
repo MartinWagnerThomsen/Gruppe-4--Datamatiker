@@ -94,8 +94,6 @@ public class CsvHandler {
                 String quote = parts[1];
                 double rate = Double.parseDouble(parts[2].replace(',', '.'));
                 LocalDate lastUpdated = LocalDate.parse(parts[3],FORMATTER);
-                System.out.println(lastUpdated);
-                System.out.println(lastUpdated);
                 Currency currency = new Currency(baseCurr, quote, rate, lastUpdated);
                 currencies.add(currency);
 
@@ -103,7 +101,6 @@ public class CsvHandler {
         } catch (IOException | NumberFormatException | java.time.format.DateTimeParseException e) {
             throw new CsvParsingException("Kunne ikke læse eller parse currency fil: " + filePath, e);
         }
-        System.out.println(currencies);
         return currencies;
     }
 

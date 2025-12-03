@@ -114,7 +114,7 @@ public class Club {
 
     private void printSectors (Map<String, Double> sectorAnalysis) {
         Comparator<Map.Entry<String, Double>> byValueComparator =
-                Map.Entry.comparingByValue(Comparator.reverseOrder());
+                Map.Entry.comparingByValue(Comparator.reverseOrder()); // Kan være natural order hvis man gerne vil have det fra mindst til højest
 
         Map<String, Double> sortedMap = sectorAnalysis.entrySet().stream()
                 .sorted(byValueComparator)

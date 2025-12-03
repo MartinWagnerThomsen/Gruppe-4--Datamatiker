@@ -32,7 +32,7 @@ public class Club {
             printPresidentMenu();
             switch (sc.nextLine()) {
                 case "1":
-                    //getPortfolio(user);
+                    clubPortfolioOverview();
                     break;
                 case "2":
                     //getRankings();
@@ -54,6 +54,20 @@ public class Club {
                     throw new IllegalArgumentException("Forket input");
             }
         }
+    }
+
+    private void clubPortfolioOverview() {
+        List<Member> members = dataManager.getMembers();
+        System.out.println("Klub portfølje oversigt\n ");
+        System.out.println("================================================");
+        for(Member element : members) {
+            System.out.println();
+            System.out.println("Portfølje for medlem: " + element.getFullName());
+            System.out.println("--------------------------------------------");
+            element.printMember(element);
+            System.out.println("--------------------------------------------");
+        }
+        System.out.println("================================================");
     }
 
     public void membersMenu() throws IllegalArgumentException {
@@ -83,19 +97,15 @@ public class Club {
         }
     }
 
-
     // ---------------------------------------------------------------------------------------
     // Metoder omhandlende login / logud
-
         /**
         tempMemberList bruger en mindre konstruktør og sørger for at det som brugeren logger ind som passer
         der bliver senere retuneret en Member med den fulde konstruktør
          */
     public void login() {
-
         List<Member> tempMemberList = csvhandler.parseloginCredentials();
         System.out.println("Velkommen. Tast brugernavn og adgangskode.");
-
         System.out.print("Brugernavn: ");
         String username = sc.nextLine();
         for (Member member : tempMemberList) {
@@ -105,6 +115,7 @@ public class Club {
                 if (password.equals(member.getPassword())) {
                     System.out.println("Logger dig ind som " + member.getUserType());
                     currentMember = dataManager.getMember(username);
+          //          refreshPortfolioValue(currentMember); // Sørg for at opdater vores portfolio værdi inden vi printer den til brugeren
                     switch (member.getUserType().toLowerCase()) {
                         case "member":
                             try {
@@ -123,13 +134,10 @@ public class Club {
     }
     public void logOut() {
     }
-
     public void switchUser() {
     }
-
     // ---------------------------------------------------------------------------------------
     // Private hjælpemetoder til alt fra at printe sektorer til at finde medlemmer og registrere aktier
-
     public void printMarketAndRates() {
         List<Stock> stockMarket = dataManager.getStocks();
         for (Stock stock : stockMarket) {
@@ -158,6 +166,10 @@ public class Club {
                 }}}
         printSectors(sectorAnalysis);
         return sectorAnalysis;
+    }
+
+    private void refreshPortfolioValue() {
+        currentMember.getPortfolio().calculateTotalValue(currentMember);
     }
 
     private void printSectors (Map<String, Double> sectorAnalysis) {

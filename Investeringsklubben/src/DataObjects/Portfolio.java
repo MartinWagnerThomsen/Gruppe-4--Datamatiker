@@ -43,15 +43,15 @@ public class Portfolio {
      * baseline pris (snapshot).
      * */
     public void calculateTotalValue(Member member){
-        System.out.println("Calculating total value...");
+        //System.out.println("Calculating total value...");
         double balance = calculateCashBalance(member);
         double stocksValue = calculateInvestedStocks(member);
         totalValue = balance + stocksValue;
-        System.out.println("Total value is: " + totalValue);
+        //System.out.println("Total value is: " + totalValue);
     }
 
     public double calculateCashBalance(Member member) {
-        System.out.println("Calculating cash balance...");
+        //System.out.println("Calculating cash balance...");
         double cashBalance = member.getInitialCash();
         for (Transaction transaction : transactions) {
 
@@ -67,7 +67,7 @@ public class Portfolio {
             }
         }
         member.setCashBalance(cashBalance);
-        System.out.println("Cash balance is: " + member.getCashBalance());
+        //System.out.println("Cash balance is: " + member.getCashBalance());
         return member.getCashBalance();
     }
 
@@ -100,8 +100,11 @@ public class Portfolio {
             // Nu bør vi have en liste af de aktier vi har tilbage
         }
 
-        System.out.println(member.getFullName() + " is currently invested in: \n" + investedStocks);
-        System.out.println("sum value of invested stocks: " + sum);
+        System.out.println(member.getFullName() + " is currently invested in:");
+        for(Stock stocks : investedStocks){
+            System.out.println(stocks);
+        }
+        System.out.println("Sum value of invested stocks: " + sum);
         return sum;
     }
     public void registerStock(){
@@ -136,7 +139,7 @@ public class Portfolio {
             sb.append(t.toString());
             sb.append("\n");
         }
-        sb.append("Portfolio total value: ").append(totalValue).append(" DKK").append("\n"); // Hardcoded Currency for now
+        sb.append("Portfolio total value: ").append(totalValue).append(" DKK"); // Hardcoded Currency for now
         return sb.toString();
     }
 

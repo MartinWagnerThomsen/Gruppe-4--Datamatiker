@@ -205,7 +205,7 @@ public class Club {
                 .findFirst();
         if (memberOptional.isPresent()) {
             foundMember = memberOptional.get();
-            foundMember.printMember();
+            foundMember.printMember(foundMember);
         }
     }
 
@@ -314,7 +314,7 @@ public class Club {
                 .findFirst();
         if (memberOptional.isPresent()) {
             foundMember = memberOptional.get();
-            foundMember.printMember();
+            foundMember.printMember(foundMember);
         }
     }
 

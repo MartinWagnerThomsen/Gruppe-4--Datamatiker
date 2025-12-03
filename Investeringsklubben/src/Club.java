@@ -27,48 +27,40 @@ public class Club {
     // Menu flows
 
     private void presidentMenu() throws IllegalArgumentException {
-        System.out.println(
-                "1. Se oversigt over brugernes porteføljeværdi\n" +
-                        "2. Vis rangliste\n" +
-                        "3. Vis fordelinger på aktier og sektorer\n" +
-                        "4. Tilføj ny bruger\n" + "5. Fjern bruger\n" +
-                        "6. Log ud");
-
-        switch (sc.nextLine()) {
-            case "1":
-                //getPortfolio(user);
-                break;
-            case "2":
-                //getRankings();
-                break;
-            case "3":
-                printSectorInvestmentDistribution();
-                break;
-            case "4":
-                //addUser(getUserInfo());
-                break;
-            case "5":
-                //removeUser(getUserInfo());
-                break;
-            case "6":
-                //saveProgress();
-                login();
-                break;
-            default:
-                throw new IllegalArgumentException("Forket input");
+        boolean quit = false;
+        while (!quit) {
+            printPresidentMenu();
+            switch (sc.nextLine()) {
+                case "1":
+                    //getPortfolio(user);
+                    break;
+                case "2":
+                    //getRankings();
+                    break;
+                case "3":
+                    printSectorInvestmentDistribution();
+                    break;
+                case "4":
+                    //addUser(getUserInfo());
+                    break;
+                case "5":
+                    //removeUser(getUserInfo());
+                    break;
+                case "6":
+                    //saveProgress();
+                    logOut();
+                    break;
+                default:
+                    throw new IllegalArgumentException("Forket input");
+            }
         }
     }
 
     public void membersMenu() throws IllegalArgumentException {
+        System.out.println(currentMember + "who is logged in");
         boolean quit = false;
         while (!quit) {
-            System.out.println(
-                    "1. Se aktiemarkedet og aktuel kurs\n" +
-                            "2. Registrer køb og salg af aktier\n" +
-                            "3. Se portefølje\n" +
-                            "4. Se transaktionshistorik\n" +
-                            "5. Log ud");
-
+            printMemberMenu();
             switch (sc.nextLine()) {
                 case "1":
                     printMarketAndRates();
@@ -77,24 +69,13 @@ public class Club {
                     registerStock();
                     break;
                 case "3":
-                    //getPortfolio()
                     findMember(currentMember.getUserId());
                     break;
                 case "4":
-                    //getTransactions()
-                /*
-                List<Transaction> transactions = dataManager.getTransactions();
-
-                for (Transaction transaction : transactions) {
-                    System.out.println(transaction.getDate());
-                    System.out.println(transaction.getTicker());
-                    System.out.println(transaction.getPrice());
-                    System.out.println(transaction.getQuantity());
-                }
-                 */
+                    currentMember.viewTransactionHistory(currentMember);
                     break;
                 case "5":
-                    //logOut
+                    logOut();
                     break;
                 default:
                     throw new IllegalArgumentException("Forkert input");
@@ -140,7 +121,7 @@ public class Club {
             }
         }
     }
-    public void logout() {
+    public void logOut() {
     }
 
     public void switchUser() {
@@ -201,9 +182,6 @@ public class Club {
      * Finder vores medlem ved at bruge userId
      */
     public void findMember(int userId) {
-        //Scanner sc = new Scanner(System.in);
-        //System.out.print("Enter user ID for the user which you want to find transactions from: ");
-        //int userId = sc.nextInt();
         Member foundMember;
         List<Member> members = dataManager.getMembers();
         Optional<Member> memberOptional = members.stream()
@@ -262,6 +240,24 @@ public class Club {
         }
           Transaction transaction = new Transaction(transactionId,currentMember.getUserId(),date,ticker,price,currency,orderType,quantity);
         dataManager.registerNewTransaction(transaction);
+    }
+    private void printPresidentMenu() {
+        System.out.println(
+                "1. Se oversigt over brugernes porteføljeværdi\n" +
+                        "2. Vis rangliste\n" +
+                        "3. Vis fordelinger på aktier og sektorer\n" +
+                        "4. Tilføj ny bruger\n" + "5. Fjern bruger\n" +
+                        "6. Log ud");
+    }
+
+
+    private void printMemberMenu() {
+        System.out.println(
+                "1. Se aktiemarkedet og aktuel kurs\n" +
+                        "2. Registrer køb og salg af aktier\n" +
+                        "3. Se portefølje\n" +
+                        "4. Se transaktionshistorik\n" +
+                        "5. Log ud");
     }
 
 

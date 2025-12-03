@@ -46,9 +46,12 @@ public class Member extends User {
     @Override
     public void viewTransactionHistory(Member member) {
         List<Transaction> memberTransactions = getPortfolio().getTransactions();
+        System.out.println("Transaction History of: " + member.getFullName());
+        System.out.println("================================================");
         for(Transaction transactions : memberTransactions) {
             System.out.println(transactions.toString(member));
         }
+        System.out.println("================================================");
     }
     @Override
     public void createUser() {

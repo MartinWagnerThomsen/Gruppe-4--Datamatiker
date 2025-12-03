@@ -63,7 +63,6 @@ public class DataManager {
             // 4. Link transaktioner til medlemmer
             linkTransactionsToMembers(allTransactions);
             System.out.println("Data indlæst successfuldt.");
-
         } catch (CsvParsingException e) {
             System.err.println("KRITISK FEJL under indlæsning af data: " + e.getMessage());
             System.err.println("Applikationen kan ikke starte korrekt. Tjek filformater.");

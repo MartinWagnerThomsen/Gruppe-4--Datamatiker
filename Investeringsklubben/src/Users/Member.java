@@ -2,6 +2,7 @@ package Users;
 
 import DataObjects.Portfolio;
 import DataObjects.Transaction;
+import Filehandling.DataManager;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -105,24 +106,19 @@ public class Member extends User {
         this.cashBalance = cashBalance;
     }
 
-    public void addTransaction(Transaction transaction) {
-   //     this.portfolio.setTransactions(transaction);
-    }
-
     @Override
     public String getFullName() {
         return fullName;
     }
 
-    public void printMember(Member foundMember) {
-        getPortfolio().calculateTotalValue(foundMember);
+    public void printMember(DataManager dataManager, Member foundMember) {
+        getPortfolio().calculateTotalValue(foundMember, dataManager);
         getPortfolio().calculateCashBalance(foundMember);
         System.out.println("Member profile for: " + this.getFullName());
         System.out.println("Portfolio: ");
         System.out.println(this.getPortfolio());
         System.out.println("Cash balance: " + this.getCashBalance());
     }
-
     @Override
     public String toString() {
         return
@@ -135,9 +131,5 @@ public class Member extends User {
                 ", lastUpdated='" + lastUpdated + '\'' +
                     ", portfolio='" + portfolio + '\''
                 ;
-    }
-
-    public void add(Transaction transaction) {
-        portfolio.registerStock();
     }
 }

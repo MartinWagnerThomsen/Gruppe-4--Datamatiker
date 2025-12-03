@@ -64,7 +64,7 @@ public class Club {
             System.out.println();
             System.out.println("Portfølje for medlem: " + element.getFullName());
             System.out.println("--------------------------------------------");
-            element.printMember(element);
+            element.printMember(dataManager, element);
             System.out.println("--------------------------------------------");
         }
         System.out.println("================================================");
@@ -115,7 +115,6 @@ public class Club {
                 if (password.equals(member.getPassword())) {
                     System.out.println("Logger dig ind som " + member.getUserType());
                     currentMember = dataManager.getMember(username);
-          //          refreshPortfolioValue(currentMember); // Sørg for at opdater vores portfolio værdi inden vi printer den til brugeren
                     switch (member.getUserType().toLowerCase()) {
                         case "member":
                             try {
@@ -169,7 +168,7 @@ public class Club {
     }
 
     private void refreshPortfolioValue() {
-        currentMember.getPortfolio().calculateTotalValue(currentMember);
+        currentMember.getPortfolio().calculateTotalValue(currentMember, dataManager);
     }
 
     private void printSectors (Map<String, Double> sectorAnalysis) {
@@ -201,7 +200,7 @@ public class Club {
                 .findFirst();
         if (memberOptional.isPresent()) {
             foundMember = memberOptional.get();
-            foundMember.printMember(foundMember);
+            foundMember.printMember(dataManager, foundMember);
         }
     }
 

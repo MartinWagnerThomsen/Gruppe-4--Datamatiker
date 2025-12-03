@@ -163,11 +163,20 @@ public class DataManager {
         }
     }
 
+
+   public void saveMembers() {
+       try {
+           csvHandler.writeAllMembers(MEMBERS_FILE, this.members);
+       } catch (IOException e) {
+           throw new RuntimeException(e);
+       }
+       }
+
     /**
      * Kalder vores CurrencyFetcher klasses metode for at få
      * valutakurser fra Nationalbanken
      */
-    public void updateCurrencies() {
+    private void updateCurrencies() {
         CurrencyFetcher fetcher = new CurrencyFetcher();
         String xmlData = fetcher.fetchCurrencyData();
         if (xmlData != null && !xmlData.isEmpty()) {

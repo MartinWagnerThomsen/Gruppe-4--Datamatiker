@@ -28,7 +28,6 @@ public class Club {
         Club investmentClub = new Club();
         investmentClub.login();
     }
-
     // ---------------------------------------------------------------------------------------
     // Menu flows
 
@@ -53,7 +52,6 @@ public class Club {
                     removeUser();
                     break;
                 case "6":
-                    //saveProgress();
                     logOut();
                     quit = true;
                     break;
@@ -62,6 +60,8 @@ public class Club {
                 default:
                     throw new IllegalArgumentException("Forket input");
             }
+            saveProgram();
+
     }
         }
 
@@ -142,6 +142,10 @@ public class Club {
             System.out.println("Problem med at logge ind.");
             e.printStackTrace();
         }
+    }
+
+    public void saveProgram() {
+        dataManager.saveMembers();
     }
 
     private void addUser() {

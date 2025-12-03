@@ -101,7 +101,7 @@ public class Portfolio {
             // Nu bør vi have en liste af de aktier vi har tilbage
         }
 
-        System.out.println(member.getFullName() + " is currently invested in:");
+        System.out.println("\n" + member.getFullName() + " is currently invested in:");
         for(Stock stocks : investedStocks){
             System.out.println(stocks);
         }

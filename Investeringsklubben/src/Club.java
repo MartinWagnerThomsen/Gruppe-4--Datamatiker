@@ -20,6 +20,7 @@ public class Club {
     public static void main(String[] args) {
         Club investmentClub = new Club();
         System.out.println(investmentClub.getSector());
+        investmentClub.login();
     }
 
     public void login() {

@@ -9,6 +9,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.*;
@@ -206,153 +207,154 @@ public class DataManager {
         return members;
     }
 
-    public List<Transaction> getTransactions () {
+    public List<Transaction> getTransactions() {
         return transactions;
     }
 
 
     public List<Stock> getStocks() {
-            return stocks;
-        }
-        public List<Currency> getCurrencies() {
-            return currencies;
-        }
-    
-        public void updateCurrencies() {
-            CurrencyFetcher fetcher = new CurrencyFetcher();
-            String xmlData = fetcher.fetchCurrencyData();
-            if (xmlData != null && !xmlData.isEmpty()) {
-                List<Currency> fetchedCurrencies = fetcher.parseCurrencyXml(xmlData);
-    
-                // Opdater eksisterende kurser eller tilføj nye
-                for (Currency fetchedCurrency : fetchedCurrencies) {
-                    // Find om vi allerede har denne valuta
-                    Optional<Currency> existingCurrencyOpt = currencies.stream()
-                            .filter(c -> c.getBaseCurr().equalsIgnoreCase(fetchedCurrency.getBaseCurr()))
-                            .findFirst();
-    
-                    if (existingCurrencyOpt.isPresent()) {
-                        // Opdater rate og dato for eksisterende valuta
-                        Currency existingCurrency = existingCurrencyOpt.get();
-                        existingCurrency.setRate(fetchedCurrency.getRate());
-                        existingCurrency.setLastUpdated(fetchedCurrency.getLastUpdated());
-                        System.out.println("Opdateret kurs for " + existingCurrency.getBaseCurr() + " til " + existingCurrency.getRate());
-                    } else {
-                        // Tilføj ny valuta, hvis den ikke findes
-                        currencies.add(fetchedCurrency);
-                        System.out.println("Tilføjet ny kurs for " + fetchedCurrency.getBaseCurr());
-                    }
-                }
-                 try {
-                    csvHandler.writeCurrencies(CURRENCY_FILE, currencies);
-                    System.out.println("Valutakurser gemt til fil.");
-                } catch (IOException e) {
-                    System.err.println("Fejl under skrivning af opdaterede valutakurser til fil: " + e.getMessage());
-                }
-            }
-        }
-    
-        private static class CurrencyFetcher {
-            private static final String API_URL = "https://www.nationalbanken.dk/api/currencyrates?format=rss&lang=da&isocodes=eur,usd,sek,nok,gbp,jpy,aud,cad,chf";
-    
-            public String fetchCurrencyData() {
-                HttpClient client = HttpClient.newHttpClient();
-                HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create(API_URL))
-                        .GET()
-                        .build();
-                try {
-                    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-                    if (response.statusCode() == 200) {
-                        return response.body();
-                    } else {
-                        System.err.println("Fejl ved hentning af valutakurser. Statuskode: " + response.statusCode());
-                        return null;
-                    }
-                } catch (Exception e) {
-                    System.err.println("Exception under HTTP-forespørgsel til Nationalbanken: " + e.getMessage());
-                    return null;
-                }
-            }
-    
-            public List<Currency> parseCurrencyXml(String xmlData) {
-                List<Currency> fetchedCurrencies = new ArrayList<>();
-                try {
-                    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-                    DocumentBuilder builder = factory.newDocumentBuilder();
-                    InputSource is = new InputSource(new StringReader(xmlData.replace("\uFEFF", "").trim()));
-                    Document doc = builder.parse(is);
-    
-                    XPath xpath = XPathFactory.newInstance().newXPath();
-                    XPathExpression expr = xpath.compile("//item");
-                    NodeList itemNodes = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
-    
-                    Map<String, String> nameToCode = createNameToCodeMap();
-                    Pattern pattern = Pattern.compile("^(.+)\\s*\\(([\\d,]+)\\)$");
-    
-                    String firstDate = (itemNodes.getLength() > 0)
-                            ? xpath.compile("./pubDate").evaluate(itemNodes.item(0), XPathConstants.STRING).toString().trim()
-                            : null;
-    
-                    for (int i = 0; i < itemNodes.getLength(); i++) {
-                        Node itemNode = itemNodes.item(i);
-                        String pubDate = xpath.compile("./pubDate").evaluate(itemNode, XPathConstants.STRING).toString().trim();
-    
-                        if (firstDate != null && !pubDate.equals(firstDate)) {
-                            break; // Stop hvis vi er nået til gårsdagens kurser
-                        }
-    
-                        String titleString = xpath.compile("./title").evaluate(itemNode, XPathConstants.STRING).toString();
-                        Matcher matcher = pattern.matcher(titleString.trim());
-    
-                        if (matcher.find()) {
-                            String rawName = matcher.group(1).trim();
-                            String rateString = matcher.group(2).trim();
-                            String baseCurrency = nameToCode.get(rawName);
-                            
-                            if(baseCurrency == null && rawName.contains("Schweiziske franc")){
-                                baseCurrency = "CHF";
-                            }
-    
-                            if (baseCurrency != null) {
-                                try {
-                                    double rawRateValue = Double.parseDouble(rateString.replace(',', '.'));
-                                    double unitAmount = 100.0;
-                                    // Japanske Yen er per 1 enhed, ikke 100
-                                    if (baseCurrency.equals("JPY")) {
-                                        unitAmount = 1.0;
-                                    }
-                                    double actualRate = rawRateValue / unitAmount;
-                                    actualRate = Math.round(actualRate* 100.0) / 100.0; // nærmeste 2 decimaller
+        return stocks;
+    }
 
-                                    fetchedCurrencies.add(new Currency(baseCurrency, "DKK", actualRate, LocalDate.now()));
-                                } catch (NumberFormatException e) {
-                                    System.err.println("Advarsel: Kunne ikke parse kurs for '" + rawName + "'. Værdi: '" + rateString + "'");
-                                }
-                            } else {
-                                System.err.println("Advarsel: Kunne ikke finde ISO-kode for: " + rawName);
-                            }
-                        }
-                    }
-                } catch (Exception e) {
-                    System.err.println("Fejl under XML-parsing: " + e.getMessage());
+    public List<Currency> getCurrencies() {
+        return currencies;
+    }
+
+    public void updateCurrencies() {
+        CurrencyFetcher fetcher = new CurrencyFetcher();
+        String xmlData = fetcher.fetchCurrencyData();
+        if (xmlData != null && !xmlData.isEmpty()) {
+            List<Currency> fetchedCurrencies = fetcher.parseCurrencyXml(xmlData);
+
+            // Opdater eksisterende kurser eller tilføj nye
+            for (Currency fetchedCurrency : fetchedCurrencies) {
+                // Find om vi allerede har denne valuta
+                Optional<Currency> existingCurrencyOpt = currencies.stream()
+                        .filter(c -> c.getBaseCurr().equalsIgnoreCase(fetchedCurrency.getBaseCurr()))
+                        .findFirst();
+
+                if (existingCurrencyOpt.isPresent()) {
+                    // Opdater rate og dato for eksisterende valuta
+                    Currency existingCurrency = existingCurrencyOpt.get();
+                    existingCurrency.setRate(fetchedCurrency.getRate());
+                    existingCurrency.setLastUpdated(fetchedCurrency.getLastUpdated());
+                    System.out.println("Opdateret kurs for " + existingCurrency.getBaseCurr() + " til " + existingCurrency.getRate());
+                } else {
+                    // Tilføj ny valuta, hvis den ikke findes
+                    currencies.add(fetchedCurrency);
+                    System.out.println("Tilføjet ny kurs for " + fetchedCurrency.getBaseCurr());
                 }
-                return fetchedCurrencies;
             }
-    
-            private Map<String, String> createNameToCodeMap() {
-                Map<String, String> nameToCode = new HashMap<>();
-                nameToCode.put("Amerikanske dollar", "USD");
-                nameToCode.put("Euro", "EUR");
-                nameToCode.put("Svenske kroner", "SEK");
-                nameToCode.put("Australske dollar", "AUD");
-                nameToCode.put("Norske kroner", "NOK");
-                nameToCode.put("Canadiske dollar", "CAD");
-                nameToCode.put("Britiske pund", "GBP");
-                nameToCode.put("Japanske yen", "JPY");
-                nameToCode.put("Schweiziske franc", "CHF");
-                return nameToCode;
+            try {
+                csvHandler.writeCurrencies(CURRENCY_FILE, currencies);
+                System.out.println("Valutakurser gemt til fil.");
+            } catch (IOException e) {
+                System.err.println("Fejl under skrivning af opdaterede valutakurser til fil: " + e.getMessage());
             }
         }
     }
+
+    private static class CurrencyFetcher {
+        private static final String API_URL = "https://www.nationalbanken.dk/api/currencyrates?format=rss&lang=da&isocodes=eur,usd,sek,nok,gbp,jpy,aud,cad,chf";
+
+        public String fetchCurrencyData() {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(API_URL))
+                    .GET()
+                    .build();
+            try {
+                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                if (response.statusCode() == 200) {
+                    return response.body();
+                } else {
+                    System.err.println("Fejl ved hentning af valutakurser. Statuskode: " + response.statusCode());
+                    return null;
+                }
+            } catch (Exception e) {
+                System.err.println("Exception under HTTP-forespørgsel til Nationalbanken: " + e.getMessage());
+                return null;
+            }
+        }
+
+        public List<Currency> parseCurrencyXml(String xmlData) {
+            List<Currency> fetchedCurrencies = new ArrayList<>();
+            try {
+                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder builder = factory.newDocumentBuilder();
+                InputSource is = new InputSource(new StringReader(xmlData.replace("\uFEFF", "").trim()));
+                Document doc = builder.parse(is);
+
+                XPath xpath = XPathFactory.newInstance().newXPath();
+                XPathExpression expr = xpath.compile("//item");
+                NodeList itemNodes = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
+
+                Map<String, String> nameToCode = createNameToCodeMap();
+                Pattern pattern = Pattern.compile("^(.+)\\s*\\(([\\d,]+)\\)$");
+
+                String firstDate = (itemNodes.getLength() > 0)
+                        ? xpath.compile("./pubDate").evaluate(itemNodes.item(0), XPathConstants.STRING).toString().trim()
+                        : null;
+
+                for (int i = 0; i < itemNodes.getLength(); i++) {
+                    Node itemNode = itemNodes.item(i);
+                    String pubDate = xpath.compile("./pubDate").evaluate(itemNode, XPathConstants.STRING).toString().trim();
+
+                    if (firstDate != null && !pubDate.equals(firstDate)) {
+                        break; // Stop hvis vi er nået til gårsdagens kurser
+                    }
+
+                    String titleString = xpath.compile("./title").evaluate(itemNode, XPathConstants.STRING).toString();
+                    Matcher matcher = pattern.matcher(titleString.trim());
+
+                    if (matcher.find()) {
+                        String rawName = matcher.group(1).trim();
+                        String rateString = matcher.group(2).trim();
+                        String baseCurrency = nameToCode.get(rawName);
+
+                        if (baseCurrency == null && rawName.contains("Schweiziske franc")) {
+                            baseCurrency = "CHF";
+                        }
+
+                        if (baseCurrency != null) {
+                            try {
+                                double rawRateValue = Double.parseDouble(rateString.replace(',', '.'));
+                                double unitAmount = 100.0;
+                                // Japanske Yen er per 1 enhed, ikke 100
+                                if (baseCurrency.equals("JPY")) {
+                                    unitAmount = 1.0;
+                                }
+                                double actualRate = rawRateValue / unitAmount;
+                                actualRate = Math.round(actualRate * 100.0) / 100.0; // nærmeste 2 decimaller
+
+                                fetchedCurrencies.add(new Currency(baseCurrency, "DKK", actualRate, LocalDate.now()));
+                            } catch (NumberFormatException e) {
+                                System.err.println("Advarsel: Kunne ikke parse kurs for '" + rawName + "'. Værdi: '" + rateString + "'");
+                            }
+                        } else {
+                            System.err.println("Advarsel: Kunne ikke finde ISO-kode for: " + rawName);
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                System.err.println("Fejl under XML-parsing: " + e.getMessage());
+            }
+            return fetchedCurrencies;
+        }
+
+        private Map<String, String> createNameToCodeMap() {
+            Map<String, String> nameToCode = new HashMap<>();
+            nameToCode.put("Amerikanske dollar", "USD");
+            nameToCode.put("Euro", "EUR");
+            nameToCode.put("Svenske kroner", "SEK");
+            nameToCode.put("Australske dollar", "AUD");
+            nameToCode.put("Norske kroner", "NOK");
+            nameToCode.put("Canadiske dollar", "CAD");
+            nameToCode.put("Britiske pund", "GBP");
+            nameToCode.put("Japanske yen", "JPY");
+            nameToCode.put("Schweiziske franc", "CHF");
+            return nameToCode;
+        }
+    }
+}
     

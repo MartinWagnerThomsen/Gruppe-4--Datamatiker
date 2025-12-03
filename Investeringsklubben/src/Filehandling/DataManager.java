@@ -20,7 +20,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -217,8 +216,12 @@ public class DataManager {
         public List<Currency> getCurrencies() {
             return currencies;
         }
-    
-        public void updateCurrencies() {
+
+    /**
+     * Kalder Nationalbankens API til at få deres rater for idag
+     * Fjern kommentarer på print lines hvis man vil have de fulde flow
+     */
+    public void updateCurrencies() {
             CurrencyFetcher fetcher = new CurrencyFetcher();
             String xmlData = fetcher.fetchCurrencyData();
             if (xmlData != null && !xmlData.isEmpty()) {
@@ -236,11 +239,11 @@ public class DataManager {
                         Currency existingCurrency = existingCurrencyOpt.get();
                         existingCurrency.setRate(fetchedCurrency.getRate());
                         existingCurrency.setLastUpdated(fetchedCurrency.getLastUpdated());
-                        System.out.println("Opdateret kurs for " + existingCurrency.getBaseCurr() + " til " + existingCurrency.getRate());
+                  //      System.out.println("Opdateret kurs for " + existingCurrency.getBaseCurr() + " til " + existingCurrency.getRate());
                     } else {
                         // Tilføj ny valuta, hvis den ikke findes
                         currencies.add(fetchedCurrency);
-                        System.out.println("Tilføjet ny kurs for " + fetchedCurrency.getBaseCurr());
+                    //    System.out.println("Tilføjet ny kurs for " + fetchedCurrency.getBaseCurr());
                     }
                 }
                  try {
@@ -309,22 +312,13 @@ public class DataManager {
                             String rawName = matcher.group(1).trim();
                             String rateString = matcher.group(2).trim();
                             String baseCurrency = nameToCode.get(rawName);
-                            
-                            if(baseCurrency == null && rawName.contains("Schweiziske franc")){
-                                baseCurrency = "CHF";
-                            }
-    
+
                             if (baseCurrency != null) {
                                 try {
                                     double rawRateValue = Double.parseDouble(rateString.replace(',', '.'));
                                     double unitAmount = 100.0;
-                                    // Japanske Yen er per 1 enhed, ikke 100
-                                    if (baseCurrency.equals("JPY")) {
-                                        unitAmount = 1.0;
-                                    }
                                     double actualRate = rawRateValue / unitAmount;
                                     actualRate = Math.round(actualRate* 100.0) / 100.0; // nærmeste 2 decimaller
-
                                     fetchedCurrencies.add(new Currency(baseCurrency, "DKK", actualRate, LocalDate.now()));
                                 } catch (NumberFormatException e) {
                                     System.err.println("Advarsel: Kunne ikke parse kurs for '" + rawName + "'. Værdi: '" + rateString + "'");

@@ -150,6 +150,21 @@ public class testPortfolio {
         fakeMember.viewTransactionHistory(fakeMember);
     }
 
+    @Test
+    public void testPrintMemberThreeTransactions(){
+        portfolio.addTransactions(transaction1); //buy VWS
+        portfolio.addTransactions(transaction2); //sell VWS
+        portfolio.addTransactions(transaction3); //buy NETC
+        fakeMember.printMember(fakeMember);
+    }
+
+    @Test
+    public void testPrintMemberTwoTransactions(){
+        portfolio.addTransactions(transaction1); //buy VWS
+        portfolio.addTransactions(transaction3); //buy NETC
+        fakeMember.printMember(fakeMember);
+    }
+
 }
 
 

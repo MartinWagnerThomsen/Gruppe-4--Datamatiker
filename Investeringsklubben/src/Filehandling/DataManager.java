@@ -39,8 +39,11 @@ public class DataManager {
     public DecimalFormat numberFormat = new DecimalFormat("#.00");
 
 
-    // Initialiser lister for at undgå NullPointerException, selv hvis indlæsning fejler
+    /**
+     * Her skal der
+     */
     public DataManager() {
+        // Initialiser lister for at undgå NullPointerException, selv hvis indlæsning fejler
         this.csvHandler = new CsvHandler();
         this.members = new ArrayList<>();
         this.stocks = new ArrayList<>();

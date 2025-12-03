@@ -140,10 +140,10 @@ public class CsvHandler {
 
     /**
      * Tilføjer en enkelt transaktion til slutningen af en CSV-fil.
+     * @param filePath
      */
     public void appendTransaction(String filePath, Transaction transaction) throws IOException {
         String csvLine = convertToCsvLine(transaction);
-
         try (FileWriter writer = new FileWriter(filePath, true)) {
             writer.write(csvLine + "\n");
         } catch (IOException e) {

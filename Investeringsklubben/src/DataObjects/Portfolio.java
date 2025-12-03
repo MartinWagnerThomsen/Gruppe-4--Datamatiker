@@ -116,7 +116,8 @@ public class Portfolio {
     public void showPortfolioValue(){
 
     }
-    public void showLosses(){
+    public void showDifference(){
+
     }
 
     public void printPortfolio() {

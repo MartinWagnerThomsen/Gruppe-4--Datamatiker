@@ -23,39 +23,8 @@ public class Club {
         investmentClub.login();
     }
 
-    public void login() {
-        /*
-        tempMemberList bruger en mindre konstruktør og sørger for at det som brugeren logger ind som passer
-        der bliver senere retuneret en Member med den fulde konstruktør
-         */
-        List<Member> tempMemberList = csvhandler.parseloginCredentials();
-        System.out.println("Velkommen. Tast brugernavn og adgangskode.");
-
-        System.out.print("Brugernavn: ");
-        String username = sc.nextLine();
-        for (Member member : tempMemberList) {
-            if (username.equals(member.getEmail())) {
-                System.out.print("Adgangskode: ");
-                String password = sc.nextLine();
-                if (password.equals(member.getPassword())) {
-                    System.out.println("Logger dig ind som " + member.getUserType());
-                    currentMember = dataManager.getMember(username);
-                    switch (member.getUserType().toLowerCase()) {
-                        case "member":
-                            try {
-                                membersMenu();
-                            } catch (Exception e) {
-                                throw new RuntimeException(e);
-                            }
-                            break;
-                        case "president":
-                            presidentMenu();
-                            break;
-                    }
-                }
-            }
-        }
-    }
+    // ---------------------------------------------------------------------------------------
+    // Menu flows
 
     private void presidentMenu() throws IllegalArgumentException {
         System.out.println(
@@ -90,47 +59,6 @@ public class Club {
         }
     }
 
-    private Map<String, Double> printSectorInvestmentDistribution() {
-        // Deklarer variablerne
-        List<Transaction> history = dataManager.getTransactions();
-        List<Stock> stockHistory = dataManager.getStocks();
-        // Vi skal bruge et Hashmap hvor vi har Sector som Key og Price som Value
-        Map<String, Double> sectorAnalysis = new HashMap<>();
-        // Prisen bliver initialiseret uden for loopet. Den
-        double price = 0;
-        // Først skal vi iterere over aktierne og dernæst transaktions historikken
-        for (Stock investment : stockHistory) {
-            for(Transaction transaction : history) {
-                if (investment.getTicker().equalsIgnoreCase(transaction.getTicker())) {
-                    if(transaction.getOrderType().equalsIgnoreCase("buy"))
-                        price = transaction.getPrice() * transaction.getQuantity();
-                    String sector = investment.getSector();
-                    // Her tager vi og kalder en summariserings funktion over alle vores values
-                    sectorAnalysis.merge(sector, price, Double::sum);
-        }}}
-        printSectors(sectorAnalysis);
-        return sectorAnalysis;
-    }
-
-    private void printSectors (Map<String, Double> sectorAnalysis) {
-        Comparator<Map.Entry<String, Double>> byValueComparator =
-                Map.Entry.comparingByValue(Comparator.reverseOrder()); // Kan være natural order hvis man gerne vil have det fra mindst til højest
-
-        Map<String, Double> sortedMap = sectorAnalysis.entrySet().stream()
-                .sorted(byValueComparator)
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        Map.Entry::getValue,
-                        (oldValue, newValue) -> oldValue,
-                        LinkedHashMap::new
-                ));
-        System.out.println("--- Sorted Sector Investment Distribution (Highest to Lowest) ---");
-        sortedMap.forEach((sector, investment) ->
-                System.out.println("Total Investment: " + String.format("%,.2f", investment) + " DKK (Sector: " + sector + ")")
-        );
-    }
-
-
     public void membersMenu() throws IllegalArgumentException {
         boolean quit = false;
         while (!quit) {
@@ -146,7 +74,7 @@ public class Club {
                     printMarketAndRates();
                     break;
                 case "2":
-                    createTransaction();
+                    registerStock();
                     break;
                 case "3":
                     //getPortfolio()
@@ -174,6 +102,53 @@ public class Club {
         }
     }
 
+
+    // ---------------------------------------------------------------------------------------
+    // Metoder omhandlende login / logud
+
+        /**
+        tempMemberList bruger en mindre konstruktør og sørger for at det som brugeren logger ind som passer
+        der bliver senere retuneret en Member med den fulde konstruktør
+         */
+    public void login() {
+
+        List<Member> tempMemberList = csvhandler.parseloginCredentials();
+        System.out.println("Velkommen. Tast brugernavn og adgangskode.");
+
+        System.out.print("Brugernavn: ");
+        String username = sc.nextLine();
+        for (Member member : tempMemberList) {
+            if (username.equals(member.getEmail())) {
+                System.out.print("Adgangskode: ");
+                String password = sc.nextLine();
+                if (password.equals(member.getPassword())) {
+                    System.out.println("Logger dig ind som " + member.getUserType());
+                    currentMember = dataManager.getMember(username);
+                    switch (member.getUserType().toLowerCase()) {
+                        case "member":
+                            try {
+                                membersMenu();
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                            break;
+                        case "president":
+                            presidentMenu();
+                            break;
+                    }
+                }
+            }
+        }
+    }
+    public void logout() {
+    }
+
+    public void switchUser() {
+    }
+
+    // ---------------------------------------------------------------------------------------
+    // Private hjælpemetoder til alt fra at printe sektorer til at finde medlemmer og registrere aktier
+
     public void printMarketAndRates() {
         List<Stock> stockMarket = dataManager.getStocks();
         for (Stock stock : stockMarket) {
@@ -182,119 +157,44 @@ public class Club {
         }
     }
 
-    public void logout() {
+    private Map<String, Double> printSectorInvestmentDistribution() {
+        // Deklarer variablerne
+        List<Transaction> history = dataManager.getTransactions();
+        List<Stock> stockHistory = dataManager.getStocks();
+        // Vi skal bruge et Hashmap hvor vi har Sector som Key og Price som Value
+        Map<String, Double> sectorAnalysis = new HashMap<>();
+        // Prisen bliver initialiseret uden for loopet. Den
+        double price = 0;
+        // Først skal vi iterere over aktierne og dernæst transaktions historikken
+        for (Stock investment : stockHistory) {
+            for(Transaction transaction : history) {
+                if (investment.getTicker().equalsIgnoreCase(transaction.getTicker())) {
+                    if(transaction.getOrderType().equalsIgnoreCase("buy"))
+                        price = transaction.getPrice() * transaction.getQuantity();
+                    String sector = investment.getSector();
+                    // Her tager vi og kalder en summariserings funktion over alle vores values
+                    sectorAnalysis.merge(sector, price, Double::sum);
+                }}}
+        printSectors(sectorAnalysis);
+        return sectorAnalysis;
     }
 
-    public void switchUser() {
-    }
+    private void printSectors (Map<String, Double> sectorAnalysis) {
+        Comparator<Map.Entry<String, Double>> byValueComparator =
+                Map.Entry.comparingByValue(Comparator.reverseOrder()); // Kan være natural order hvis man gerne vil have det fra mindst til højest
 
-    /**
-     * Finder vores medlem ved at bruge userId
-     */
-//    public void findMember() {
-//        Scanner sc = new Scanner(System.in);
-//        System.out.print("Enter user ID for the user which you want to find transactions from: ");
-//        int userId = sc.nextInt();
-//        Member foundMember;
-//        List<Member> members = dataManager.getMembers();
-//        Optional<Member> memberOptional = members.stream()
-//                .filter(member -> member.getUserId() == userId)
-//                .findFirst();
-//        if (memberOptional.isPresent()) {
-//            foundMember = memberOptional.get();
-//            foundMember.printMember(foundMember);
-//        }
-//    }
-
-    public void createTransaction() {
-        Scanner sc = new Scanner(System.in);
-        Transaction lastTransaction = dataManager.getMembers().getLast().getPortfolio().getTransactions().getLast(); // Tag den sidste transaction
-        int transactionId = lastTransaction.getTransactionId() + 1;
-        System.out.print("Enter user ID: ");
-        int userId = sc.nextInt();
-        sc.nextLine();
-        System.out.print("Enter date (dd-MM-yyyy): ");
-        String dateInput = sc.nextLine();
-        LocalDate date = LocalDate.parse(dateInput, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        System.out.print("Enter stock ticker: ");
-        String ticker = sc.nextLine();
-        System.out.print("Enter price: ");
-        double price = sc.nextDouble();
-        sc.nextLine();
-        System.out.print("Enter currency (e.g., DKK): ");
-        String currency = sc.nextLine();
-        System.out.print("Enter order type (buy/sell): ");
-        String orderType = sc.nextLine();
-        System.out.print("Enter quantity: ");
-        int quantity = sc.nextInt();
-        // Create the transaction
-        Transaction transaction = new Transaction(
-                transactionId,
-                userId,
-                date,
-                ticker,
-                price,
-                currency,
-                orderType,
-                quantity
+        Map<String, Double> sortedMap = sectorAnalysis.entrySet().stream()
+                .sorted(byValueComparator)
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue,
+                        LinkedHashMap::new
+                ));
+        System.out.println("--- Sorted Sector Investment Distribution (Highest to Lowest) ---");
+        sortedMap.forEach((sector, investment) ->
+                System.out.println("Total Investment: " + String.format("%,.2f", investment) + " DKK (Sector: " + sector + ")")
         );
-        dataManager.registerNewTransaction(transaction);
-    }
-
-
-    public void registerStock() {
-        int transactionId = -1;
-        LocalDate date;
-        String ticker;
-        double price;
-        String currency;
-        String orderType;
-        int quantity;
-
-        System.out.println("Vil du registrere et køb eller salg?");
-        orderType = sc.nextLine();
-        if (orderType.equalsIgnoreCase("køb")) {
-            System.out.println("Hvilken aktie købte du?"); //ticker
-            System.out.println("Hvor meget betalte du for aktien"); // price
-            System.out.println("Hvor mange aktier købte du?"); // quantity
-            System.out.println("Hvilken valuta var aktien i?"); // currency
-            System.out.println("Hvilen dato købte du?"); // date
-        } else if (orderType.equalsIgnoreCase("salg")) {
-            System.out.println("Hvilken aktie solgte du?"); //ticker
-            ticker = sc.nextLine();
-
-            // pris
-            System.out.println("Hvor meget fik du for aktien"); // price
-            price = Integer.parseInt(sc.nextLine());
-
-            // mængde
-            System.out.println("Hvor mange aktier solgte du?"); // quantity
-            quantity = Integer.parseInt(sc.nextLine());
-
-            // valuta
-            System.out.println("Hvilken valuta var aktien i?"); // currency
-            List<Currency> currencies = dataManager.getCurrencies();
-            for (Currency curr : currencies) {
-                System.out.println(curr);
-            }
-            switch (sc.nextLine().toLowerCase()) {
-                case "dkk" -> currency = "DKK";
-                case "eur" -> currency = "EUR";
-                case "usd" -> currency = "USD";
-            }
-
-            // dato
-            System.out.println("Hvilen dato solgte du?"); // date
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            LocalDate.parse(sc.nextLine()).format(formatter);
-
-        } else {
-            System.out.println("Du kan kun vælge mellem 'køb' og 'salg', prøv venligst igen.");
-            registerStock();
-        }
-
-        //  Transaction transaction = new Transaction(transactionId,currentMember.getUserId(),date,ticker,price,currency,orderType,quantity);
-        //  dataManager.registerNewTransaction(transaction);
     }
 
     /**
@@ -314,5 +214,56 @@ public class Club {
             foundMember.printMember(foundMember);
         }
     }
+
+    public void registerStock() {
+        int transactionId = -1;
+        LocalDate date = null;
+        String ticker = "";
+        double price = 0;
+        String currency = "";
+        String orderType = "";
+        int quantity = 0;
+        System.out.println("Vil du registrere et køb eller salg?");
+        orderType = sc.nextLine();
+        if (orderType.equalsIgnoreCase("køb")) {
+            System.out.println("Hvilken aktie købte du?"); //ticker
+            System.out.println("Hvor meget betalte du for aktien"); // price
+            System.out.println("Hvor mange aktier købte du?"); // quantity
+            System.out.println("Hvilken valuta var aktien i?"); // currency
+            System.out.println("Hvilen dato købte du?"); // date
+        } else if (orderType.equalsIgnoreCase("salg")) {
+            System.out.println("Hvilken aktie solgte du?"); //ticker
+            ticker = sc.nextLine();
+            // pris
+            System.out.println("Hvor meget fik du for aktien"); // price
+            price = Integer.parseInt(sc.nextLine());
+            // mængde
+            System.out.println("Hvor mange aktier solgte du?"); // quantity
+            quantity = Integer.parseInt(sc.nextLine());
+            // valuta
+            System.out.println("Hvilken valuta var aktien i?"); // currency
+            List<Currency> currencies = dataManager.getCurrencies();
+            for (Currency curr : currencies) {
+                System.out.println(curr);
+            }
+            switch (sc.nextLine().toLowerCase()) {
+                case "dkk" -> currency = "DKK";
+                case "eur" -> currency = "EUR";
+                case "usd" -> currency = "USD";
+            }
+            // dato
+            System.out.println("Hvilen dato solgte du?"); // date
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate.parse(sc.nextLine()).format(formatter);
+
+        } else {
+            System.out.println("Du kan kun vælge mellem 'køb' og 'salg', prøv venligst igen.");
+            registerStock();
+        }
+          Transaction transaction = new Transaction(transactionId,currentMember.getUserId(),date,ticker,price,currency,orderType,quantity);
+        dataManager.registerNewTransaction(transaction);
+    }
+
+
 
 }

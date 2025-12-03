@@ -143,12 +143,7 @@ public class Club {
 
             switch (sc.nextLine()) {
                 case "1":
-                    //getStockMarket()
-                    List<Stock> stockMarket = dataManager.getStocks();
-                    for (Stock stock : stockMarket) {
-                        System.out.println(stock.getName());
-                        System.out.println(stock.getPrice());
-                    }
+                    printMarketAndRates();
                     break;
                 case "2":
                     createTransaction();
@@ -176,6 +171,14 @@ public class Club {
                 default:
                     throw new IllegalArgumentException("Forkert input");
             }
+        }
+    }
+
+    public void printMarketAndRates() {
+        List<Stock> stockMarket = dataManager.getStocks();
+        for (Stock stock : stockMarket) {
+            System.out.println(stock.getName());
+            System.out.println(stock.getPrice());
         }
     }
 

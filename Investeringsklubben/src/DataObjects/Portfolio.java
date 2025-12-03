@@ -105,7 +105,7 @@ public class Portfolio {
         for(Stock stocks : investedStocks){
             System.out.println(stocks);
         }
-        System.out.println("Sum value of invested stocks: " + sum);
+        System.out.println("Sum value of invested stocks: " + sum + "\n");
         return sum;
     }
     public void registerStock(){

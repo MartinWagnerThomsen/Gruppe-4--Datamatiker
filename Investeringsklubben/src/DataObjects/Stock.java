@@ -66,16 +66,14 @@ public class Stock {
     @Override
     public String toString() {
         return "Stock {" +
-                "ticker='" + ticker + '\'' +
-                ", name='" + name + '\'' +
-                ", sector='" + sector + '\'' +
-                ", price=" + price +
-                ", transactionCost=" + transactionCost +
-                ", currency=" + currency +
-                ", rating='" + rating + '\'' +
-                ", dividentYield=" + dividentYield +
-                ", stockExchange=" + stockExchange +
-                ", lastUpdated=" + lastUpdated +
+                "Ticker: " + ticker +
+                " | Name: " + name +
+                " | Sector: " + sector +
+                " | Price: " + price + " " + currency +
+                " | Rating: " + rating +
+                " | Dividend yield: " + dividentYield +
+                " | Stock exchange: " + stockExchange +
+                " | Last updated: " + lastUpdated +
                 " }";
     }
 }

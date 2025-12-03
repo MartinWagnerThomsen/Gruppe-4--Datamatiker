@@ -104,8 +104,10 @@ public class DataManager {
         // 1.2
         String currency = transaction.getCurrency();
 
-        if (!currency.equals("DKK")) {
+        // Her kunne vi faktisk sætte dens valuta til at være DKK fra det som den var før?
+        if (!currency.equalsIgnoreCase("DKK")) {
             convertToDkk(transaction);
+        //    transaction.setCurrency("DKK");
         }
         // 2. Opdater medlemmets 'cash' (skal implementeres)
         if (transaction.getOrderType().equals("buy")) {
@@ -157,17 +159,12 @@ public class DataManager {
                 if (stockCurrency.equalsIgnoreCase(currency.getBaseCurr())) {
                     System.out.println("Found the currency in our list: " + currency);
                     System.out.println("Converting " + stockTransaction.getTicker() + " at the current price pr stock: " + stockPricePrStock + " " + stockCurrency + " to " + currency.getRate());
-
                     double totalStockPrice = stockPricePrStock * stockQuantity;
                     double totalPriceAfterConversion = totalStockPrice * currency.getRate();
                     System.out.println("Result of the conversion of " + stockQuantity + " " + stockCurrency + " to " + numberFormat.format(totalPriceAfterConversion) + danishkrone);
-
                 }
             }
-
         }
-
-
     }
 
     /**
@@ -220,16 +217,13 @@ public class DataManager {
     public List<Member> getMembers() {
         return members;
     }
-
     public List<Transaction> getTransactions() {
         return transactions;
     }
 
-
     public List<Stock> getStocks() {
         return stocks;
     }
-
     public List<Currency> getCurrencies() {
         return currencies;
     }

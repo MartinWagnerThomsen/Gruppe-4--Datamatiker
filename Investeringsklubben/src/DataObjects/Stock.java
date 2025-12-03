@@ -10,8 +10,8 @@ public class Stock {
     private double transactionCost;
     private String currency;
     private String rating;
-    private double dividentYield;
-    private StockExchange stockExchange;
+    private double dividendYield;
+    private String stockExchange;
     private LocalDate lastUpdated;
 
     // getters
@@ -22,8 +22,8 @@ public class Stock {
     public double getTransactionCost(){return this.transactionCost;}
     public String getCurrency(){return this.currency;}
     public String getRating(){return this.rating;}
-    public double getDividentYield(){return this.dividentYield;}
-    public StockExchange getStockExchange(){return this.stockExchange;}
+    public double getDividendYield(){return this.dividendYield;}
+    public String getStockExchange(){return this.stockExchange;}
     public LocalDate getLastUpdate(){return this.lastUpdated;}
 
     // setters
@@ -34,8 +34,8 @@ public class Stock {
     public void setTransactionCost(double transactionCost){this.transactionCost = transactionCost;}
     public void setCurrency(String currency){this.currency = currency;}
     public void setRating(String rating){this.rating = rating;}
-    public void setDividentYield(double dividentYield){this.dividentYield = dividentYield;}
-    public void setMarket(StockExchange stockExchange){this.stockExchange = stockExchange;}
+    public void setDividendYield(double dividendYield){this.dividendYield = dividendYield;}
+    public void setMarket(String stockExchange){this.stockExchange = stockExchange;}
     public void setLastUpdated(LocalDate lastUpdated){this.lastUpdated = lastUpdated;}
 
     // constructor
@@ -47,8 +47,8 @@ public class Stock {
     // double transactionCost,
     String currency,
     String rating,
-    double dividentYield,
-    StockExchange stockExchange,
+    double dividendYield,
+    String stockExchange,
     LocalDate lastUpdated
     ){
         this.ticker = ticker;
@@ -58,7 +58,7 @@ public class Stock {
         // this.transactionCost = transactionCost;
         this.currency = currency;
         this.rating = rating;
-        this.dividentYield = dividentYield;
+        this.dividendYield = dividendYield;
         this.stockExchange = stockExchange;
         this.lastUpdated = lastUpdated;
     }
@@ -73,7 +73,7 @@ public class Stock {
                 ", transactionCost=" + transactionCost +
                 ", currency=" + currency +
                 ", rating='" + rating + '\'' +
-                ", dividentYield=" + dividentYield +
+                ", dividentYield=" + dividendYield +
                 ", stockExchange=" + stockExchange +
                 ", lastUpdated=" + lastUpdated +
                 " }";

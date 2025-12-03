@@ -11,13 +11,17 @@ public class Member extends User {
     private String userType;
     private double cashBalance;
 
-    // meget hacky
+    /**
+     * Konstruktør til login-flowet. Bliver overskrevet af den størrere konstruktør efter succesfuldt login
+     * @param email
+     * @param password
+     * @param userType
+     */
     public Member(String email, String password, String userType) {
         this.email = email;
         this.password = password;
         this.userType = userType;
     }
-
     public String getPassword() {
         return this.password;
     }
@@ -26,13 +30,9 @@ public class Member extends User {
         return this.userType;
     }
 
-    public Member(int userId) {
-
-    }
     /**
      * Constructor with Portfolio added
       */
-
     public Member(int userId, String fullName, String email, LocalDate birthday, double initialCash,
            LocalDate createdAt, LocalDate lastUpdated,
            Portfolio portfolio){
@@ -41,10 +41,8 @@ public class Member extends User {
     }
     @Override
     public void viewPortfolio() {
-        getPortfolio().getTransactions();
 
     }
-
     @Override
     public void viewTransactionHistory(Member member) {
         List<Transaction> memberTransactions = getPortfolio().getTransactions();
@@ -52,12 +50,9 @@ public class Member extends User {
             System.out.println(transactions.toString(member));
         }
     }
-
     @Override
     public void createUser() {
-
     }
-
     public void setLastUpdated (LocalDate update) {
         this.lastUpdated = update;
     }
@@ -66,9 +61,8 @@ public class Member extends User {
         this.initialCash = cash;
     }
 
-
     @Override
-   public  int getUserId() {
+    public  int getUserId() {
         return userId;
     }
 

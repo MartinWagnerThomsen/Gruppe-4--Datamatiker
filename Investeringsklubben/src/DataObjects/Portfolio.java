@@ -116,8 +116,21 @@ public class Portfolio {
     public void showPortfolioValue(){
 
     }
-    public void showDifference(){
+//    public void refreshTotalValue(){
+//        calculateTotalValue();
+//    }
 
+    //gevinst/tab = nuværende totalværdi - initial cash
+    public void showDifference(Member member){
+        calculateTotalValue(member);
+        String symbol = "";
+        double difference = totalValue - member.getInitialCash();
+        if (difference >= 0){
+            symbol = " ↗";
+        } else {
+            symbol = " ↘";
+        }
+        System.out.println("Gevinst/tab: " + difference + symbol);
     }
 
     public void printPortfolio() {

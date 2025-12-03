@@ -37,7 +37,7 @@ public class Member extends User {
     public Member(int userId, String fullName, String email, LocalDate birthday, double initialCash,
            LocalDate createdAt, LocalDate lastUpdated,
            Portfolio portfolio){
-        super(userId, fullName,email,birthday, initialCash,createdAt,lastUpdated, portfolio);
+        super(userId, fullName,email,birthday, initialCash ,createdAt,lastUpdated, portfolio);
         this.cashBalance = initialCash;
     }
     @Override
@@ -57,6 +57,12 @@ public class Member extends User {
     @Override
     public void createUser() {
     }
+
+    @Override
+    public double getInitialCash() {
+        return 0;
+    }
+
     public void setLastUpdated (LocalDate update) {
         this.lastUpdated = update;
     }
@@ -78,10 +84,6 @@ public class Member extends User {
     @Override
     public LocalDate getBirthday() {
         return birthday;
-    }
-
-    public double getInitialCash(){
-        return initialCash;
     }
 
     @Override

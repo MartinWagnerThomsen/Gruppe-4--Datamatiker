@@ -112,9 +112,6 @@ public class DataManager {
         if (transaction.getOrderType().equals("buy")) {
 
         }
-        double cost = transaction.getPrice() * transaction.getQuantity();
-        memberToUpdate.setCash(memberToUpdate.getInitialCash() - cost);
-
         // 3. Sæt 'lastUpdated' dato
         memberToUpdate.setLastUpdated(LocalDate.now());
 
@@ -202,6 +199,7 @@ public class DataManager {
         }
     }
 
+
     // --- Getters til UI-laget ---
     public Member getMember(String email) {
         for (Member member : members) {
@@ -209,7 +207,6 @@ public class DataManager {
                 return member;
             }
         }
-        System.out.println("Ingen medlem med mail: " + email + " fundet i vores medlemsliste.");
         return null;
     }
 
@@ -226,6 +223,17 @@ public class DataManager {
     public List<Currency> getCurrencies() {
         return currencies;
     }
+
+    public void addMember(Member member) throws IOException {
+        members.add(member);
+        csvHandler.writeAllMembers(MEMBERS_FILE, members);
+    }
+
+    public void removeMember(int userId) throws IOException {
+        members.removeIf(member -> member.getUserId() == userId);
+        csvHandler.writeAllMembers(MEMBERS_FILE, members);
+
+        }
 
 }
     

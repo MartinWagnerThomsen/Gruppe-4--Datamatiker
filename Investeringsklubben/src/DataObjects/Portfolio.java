@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Portfolio {
+public class Portfolio implements  Comparable<Portfolio> {
     private ArrayList<Transaction> transactions = new ArrayList<>();
     private double totalValue;
     private double totalDifference;
@@ -52,7 +52,7 @@ public class Portfolio {
 
     public double calculateCashBalance(Member member) {
         //System.out.println("Calculating cash balance...");
-        double cashBalance = member.getInitialCash();
+        double cashBalance = member.getCashBalance();
         for (Transaction transaction : transactions) {
 
             if (transaction.getOrderType().equalsIgnoreCase("buy")){
@@ -124,6 +124,11 @@ public class Portfolio {
     }
     public double getTotalValue(){
         return totalValue;
+    }
+
+    public int compareTo(Portfolio o) {
+        // Stigende sortering efter værdi (laveste værdi først)
+        return Double.compare(this.totalValue, o.totalValue);
     }
 
     @Override

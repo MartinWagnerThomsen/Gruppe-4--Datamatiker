@@ -1,4 +1,5 @@
 import DataObjects.Currency;
+import DataObjects.Portfolio;
 import DataObjects.Stock;
 import DataObjects.Transaction;
 
@@ -6,6 +7,7 @@ import Filehandling.CsvHandler;
 import Filehandling.DataManager;
 import Users.Member;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -15,18 +17,21 @@ import java.util.stream.Collectors;
 public class Club {
     private final Scanner sc = new Scanner(System.in);
     private CsvHandler csvhandler = new CsvHandler();
-    private DataManager dataManager = new DataManager();
+    private DataManager dataManager;
     private Member currentMember;
 
-    public static void main(String[] args) {
+    Club() {
+        this.dataManager = new DataManager();
+    }
+
+    public static void main(String[] args) throws IOException {
         Club investmentClub = new Club();
         investmentClub.login();
     }
-
     // ---------------------------------------------------------------------------------------
     // Menu flows
 
-    private void presidentMenu() throws IllegalArgumentException {
+    private void presidentMenu() throws IllegalArgumentException, IOException {
         boolean quit = false;
         while (!quit) {
             printPresidentMenu();
@@ -35,43 +40,33 @@ public class Club {
                     clubPortfolioOverview();
                     break;
                 case "2":
-                    //getRankings();
+                    clubRankingInTotalValue();
                     break;
                 case "3":
                     printSectorInvestmentDistribution();
                     break;
                 case "4":
-                    //addUser(getUserInfo());
+                    addUser();
                     break;
                 case "5":
-                    //removeUser(getUserInfo());
+                    removeUser();
                     break;
                 case "6":
-                    //saveProgress();
                     logOut();
+                    quit = true;
                     break;
+                case "7":
+                    switchUser();
                 default:
                     throw new IllegalArgumentException("Forket input");
             }
-        }
-    }
+            saveProgram();
 
-    private void clubPortfolioOverview() {
-        List<Member> members = dataManager.getMembers();
-        System.out.println("Klub portfølje oversigt\n ");
-        System.out.println("================================================");
-        for(Member element : members) {
-            System.out.println();
-            System.out.println("Portfølje for medlem: " + element.getFullName());
-            System.out.println("--------------------------------------------");
-            element.printMember(element);
-            System.out.println("--------------------------------------------");
-        }
-        System.out.println("================================================");
     }
+        }
 
-    public void membersMenu() throws IllegalArgumentException {
-        System.out.println(currentMember + "who is logged in");
+    public void membersMenu() throws IllegalArgumentException, IOException {
+        System.out.println("Logget ind som medlem: " + currentMember);
         boolean quit = false;
         while (!quit) {
             printMemberMenu();
@@ -90,7 +85,10 @@ public class Club {
                     break;
                 case "5":
                     logOut();
+                    quit = true;
                     break;
+                case "6":
+                    switchUser();
                 default:
                     throw new IllegalArgumentException("Forkert input");
             }
@@ -103,7 +101,7 @@ public class Club {
         tempMemberList bruger en mindre konstruktør og sørger for at det som brugeren logger ind som passer
         der bliver senere retuneret en Member med den fulde konstruktør
          */
-    public void login() {
+    public void login() throws IOException {
         List<Member> tempMemberList = csvhandler.parseloginCredentials();
         System.out.println("Velkommen. Tast brugernavn og adgangskode.");
         System.out.print("Brugernavn: ");
@@ -115,7 +113,6 @@ public class Club {
                 if (password.equals(member.getPassword())) {
                     System.out.println("Logger dig ind som " + member.getUserType());
                     currentMember = dataManager.getMember(username);
-          //          refreshPortfolioValue(currentMember); // Sørg for at opdater vores portfolio værdi inden vi printer den til brugeren
                     switch (member.getUserType().toLowerCase()) {
                         case "member":
                             try {
@@ -133,12 +130,74 @@ public class Club {
         }
     }
     public void logOut() {
+        System.out.println("Logger ud som bruger: " + currentMember.getFullName());
+        System.out.println("Farvel og tak.");
     }
     public void switchUser() {
+        try {
+            System.out.println("Logger ud som bruger: " + currentMember.getFullName());
+            System.out.println("Farvel og tak.");
+            login();
+        } catch (Exception e) {
+            System.out.println("Problem med at logge ind.");
+            e.printStackTrace();
+        }
+    }
+
+    public void saveProgram() {
+        dataManager.saveMembers();
+    }
+
+    private void addUser() {
+        try {
+            int userId = dataManager.getMembers().getLast().getUserId() + 1;
+            Portfolio portfolio = new Portfolio();
+            LocalDate birthday = LocalDate.now();
+            String fullName = "Dave";
+            String email = "dave@gmail.com";
+            double initialCash = 100000.0;
+            LocalDate createdAt = LocalDate.now();
+            LocalDate lastUpdated = LocalDate.now();
+            Member member = new Member(
+                    userId,
+                    fullName,
+                    email,
+                    birthday,
+                    initialCash,
+                    createdAt,
+                    lastUpdated,
+                    portfolio
+            );
+
+            if (dataManager.getMembers().contains(member)) {
+                System.out.println(member.getFullName() + " er allerede i listen. Man kan ikke have flere kontier noob.");
+                return;
+            }
+            System.out.println("Tilføjer medlem: " + member.getFullName() + " til klubben.");
+            dataManager.addMember(member);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void removeUser() {
+        try {
+            System.out.println("Printer liste af alle brugere:");
+            System.out.println("==================================");
+            System.out.println(dataManager.getMembers());
+            System.out.println("==================================");
+            System.out.println("Brug user ID nr'et til at fjerne den bruger du gerne vil have fjernet.");
+            int userInput = sc.nextInt();
+            dataManager.removeMember(userInput);
+            sc.nextLine();
+        } catch (Exception e) {
+            System.out.println("Problem med at fjerne bruger. Tilbage til menu.");
+            throw new RuntimeException(e);
+        }
     }
     // ---------------------------------------------------------------------------------------
     // Private hjælpemetoder til alt fra at printe sektorer til at finde medlemmer og registrere aktier
-    public void printMarketAndRates() {
+    private void printMarketAndRates() {
         List<Stock> stockMarket = dataManager.getStocks();
         for (Stock stock : stockMarket) {
             System.out.println(stock.getName());
@@ -169,13 +228,15 @@ public class Club {
     }
 
     private void refreshPortfolioValue() {
-        currentMember.getPortfolio().calculateTotalValue(currentMember);
-    }
+        for (Member member : dataManager.getMembers() ) {
+            if (member != null && member.getPortfolio() != null) {
+            member.getPortfolio().calculateTotalValue(member, dataManager);
+        }}
 
+    }
     private void printSectors (Map<String, Double> sectorAnalysis) {
         Comparator<Map.Entry<String, Double>> byValueComparator =
                 Map.Entry.comparingByValue(Comparator.reverseOrder()); // Kan være natural order hvis man gerne vil have det fra mindst til højest
-
         Map<String, Double> sortedMap = sectorAnalysis.entrySet().stream()
                 .sorted(byValueComparator)
                 .collect(Collectors.toMap(
@@ -184,9 +245,9 @@ public class Club {
                         (oldValue, newValue) -> oldValue,
                         LinkedHashMap::new
                 ));
-        System.out.println("--- Sorted Sector Investment Distribution (Highest to Lowest) ---");
+        System.out.println("--- Sektor investeringer (Højest til Lavest) ---");
         sortedMap.forEach((sector, investment) ->
-                System.out.println("Total Investment: " + String.format("%,.2f", investment) + " DKK (Sector: " + sector + ")")
+                System.out.println("Investeret: " + String.format("%,.2f", investment) + " DKK (Sektor: " + sector + ")")
         );
     }
 
@@ -201,7 +262,7 @@ public class Club {
                 .findFirst();
         if (memberOptional.isPresent()) {
             foundMember = memberOptional.get();
-            foundMember.printMember(foundMember);
+            foundMember.printMember(dataManager, foundMember);
         }
     }
 
@@ -253,15 +314,47 @@ public class Club {
           Transaction transaction = new Transaction(transactionId,currentMember.getUserId(),date,ticker,price,currency,orderType,quantity);
         dataManager.registerNewTransaction(transaction);
     }
+
+
+    private void clubRankingInTotalValue() {
+        refreshPortfolioValue();
+        List<Member> members = dataManager.getMembers();
+        members.sort((m1, m2) -> Double.compare(m2.getPortfolio().getTotalValue(), m1.getPortfolio().getTotalValue()));
+        System.out.println();
+        System.out.println("Klub rangering baseret på portfølje værdi:");
+        System.out.println("================================================");
+        for (int i = 1; i < members.size(); i++) {
+            System.out.println("Nr: " + i + " Medlem: " + members.get(i).getFullName());
+            System.out.println("Total værdi af portføljen: " + members.get(i).getPortfolio().getTotalValue() + " DKK");
+        }
+        System.out.println("================================================");
+    }
+
+
+    /**
+     * Printer portføljen for alle medlemmer.
+     */
+    private void clubPortfolioOverview() {
+        System.out.println("Klub portfølje oversigt\n ");
+        System.out.println("================================================");
+        for(Member element : dataManager.getMembers()) {
+            System.out.println();
+            System.out.println("Portfølje for medlem: " + element.getFullName());
+            System.out.println("--------------------------------------------");
+            element.printMember(dataManager, element);
+            System.out.println("--------------------------------------------");
+        }
+        System.out.println("================================================");
+    }
+
     private void printPresidentMenu() {
         System.out.println(
                 "1. Se oversigt over brugernes porteføljeværdi\n" +
                         "2. Vis rangliste\n" +
                         "3. Vis fordelinger på aktier og sektorer\n" +
                         "4. Tilføj ny bruger\n" + "5. Fjern bruger\n" +
-                        "6. Log ud");
+                        "6. Log ud\n" + "7. Skift bruger");
     }
-
 
     private void printMemberMenu() {
         System.out.println(
@@ -269,7 +362,7 @@ public class Club {
                         "2. Registrer køb og salg af aktier\n" +
                         "3. Se portefølje\n" +
                         "4. Se transaktionshistorik\n" +
-                        "5. Log ud");
+                        "5. Log ud\n" + "6. Skift bruger" );
     }
 
 

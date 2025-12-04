@@ -203,7 +203,7 @@ public class CsvHandler {
                 m.getFullName(),
                 m.getEmail(),
                 m.getBirthday().format(FORMATTER),
-                String.valueOf(m.getInitialCash()).replace('.', ','), // Konverter tilbage til komma for CSV
+                String.valueOf(m.getCashBalance()).replace('.', ','), // Konverter tilbage til komma for CSV
                 m.getCreationLocalDate().format(FORMATTER),
                 m.getLastUpdated().format(FORMATTER)
         );

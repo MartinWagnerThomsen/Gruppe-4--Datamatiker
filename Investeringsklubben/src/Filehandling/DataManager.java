@@ -63,7 +63,6 @@ public class DataManager {
             // 4. Link transaktioner til medlemmer
             linkTransactionsToMembers(allTransactions);
             System.out.println("Data indlæst successfuldt.");
-
         } catch (CsvParsingException e) {
             System.err.println("KRITISK FEJL under indlæsning af data: " + e.getMessage());
             System.err.println("Applikationen kan ikke starte korrekt. Tjek filformater.");
@@ -113,9 +112,6 @@ public class DataManager {
         if (transaction.getOrderType().equals("buy")) {
 
         }
-        double cost = transaction.getPrice() * transaction.getQuantity();
-        memberToUpdate.setCash(memberToUpdate.getInitialCash() - cost);
-
         // 3. Sæt 'lastUpdated' dato
         memberToUpdate.setLastUpdated(LocalDate.now());
 
@@ -167,11 +163,20 @@ public class DataManager {
         }
     }
 
+
+   public void saveMembers() {
+       try {
+           csvHandler.writeAllMembers(MEMBERS_FILE, this.members);
+       } catch (IOException e) {
+           throw new RuntimeException(e);
+       }
+       }
+
     /**
      * Kalder vores CurrencyFetcher klasses metode for at få
      * valutakurser fra Nationalbanken
      */
-    public void updateCurrencies() {
+    private void updateCurrencies() {
         CurrencyFetcher fetcher = new CurrencyFetcher();
         String xmlData = fetcher.fetchCurrencyData();
         if (xmlData != null && !xmlData.isEmpty()) {
@@ -203,6 +208,7 @@ public class DataManager {
         }
     }
 
+
     // --- Getters til UI-laget ---
     public Member getMember(String email) {
         for (Member member : members) {
@@ -210,7 +216,6 @@ public class DataManager {
                 return member;
             }
         }
-        System.out.println("Ingen medlem med mail: " + email + " fundet i vores medlemsliste.");
         return null;
     }
 
@@ -227,6 +232,17 @@ public class DataManager {
     public List<Currency> getCurrencies() {
         return currencies;
     }
+
+    public void addMember(Member member) throws IOException {
+        members.add(member);
+        csvHandler.writeAllMembers(MEMBERS_FILE, members);
+    }
+
+    public void removeMember(int userId) throws IOException {
+        members.removeIf(member -> member.getUserId() == userId);
+        csvHandler.writeAllMembers(MEMBERS_FILE, members);
+
+        }
 
 }
     

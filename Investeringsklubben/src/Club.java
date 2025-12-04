@@ -288,10 +288,28 @@ public class Club {
         orderType = sc.nextLine();
         if (orderType.equalsIgnoreCase("køb")) {
             System.out.println("Hvilken aktie købte du?"); //ticker
+            ticker = sc.nextLine();
+
             System.out.println("Hvor meget betalte du for aktien"); // price
+            price = Integer.parseInt(sc.nextLine());
+
             System.out.println("Hvor mange aktier købte du?"); // quantity
+            quantity = Integer.parseInt(sc.nextLine());
+
             System.out.println("Hvilken valuta var aktien i?"); // currency
+            List<Currency> currencies = dataManager.getCurrencies();
+            for (Currency curr : currencies) {
+                System.out.println(curr);
+            }
+            switch (sc.nextLine().toLowerCase()) {
+                case "dkk" -> currency = "DKK";
+                case "eur" -> currency = "EUR";
+                case "usd" -> currency = "USD";
+            }
             System.out.println("Hvilen dato købte du?"); // date
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate.parse(sc.nextLine()).format(formatter);
+
         } else if (orderType.equalsIgnoreCase("salg")) {
             System.out.println("Hvilken aktie solgte du?"); //ticker
             ticker = sc.nextLine();

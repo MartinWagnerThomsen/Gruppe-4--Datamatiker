@@ -106,7 +106,7 @@ public class DataManager {
         // Her kunne vi faktisk sætte dens valuta til at være DKK fra det som den var før?
         if (!currency.equalsIgnoreCase("DKK")) {
             convertToDkk(transaction);
-        //    transaction.setCurrency("DKK");
+            //    transaction.setCurrency("DKK");
         }
         // 2. Opdater medlemmets 'cash' (skal implementeres)
         if (transaction.getOrderType().equals("buy")) {
@@ -164,13 +164,13 @@ public class DataManager {
     }
 
 
-   public void saveMembers() {
-       try {
-           csvHandler.writeAllMembers(MEMBERS_FILE, this.members);
-       } catch (IOException e) {
-           throw new RuntimeException(e);
-       }
-       }
+    public void saveMembers() {
+        try {
+            csvHandler.writeAllMembers(MEMBERS_FILE, this.members);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * Kalder vores CurrencyFetcher klasses metode for at få
@@ -219,9 +219,19 @@ public class DataManager {
         return null;
     }
 
+    public Member getMember(int userId) {
+        for (Member member : members) {
+            if (member.getUserId() == userId) {
+                return member;
+            }
+        }
+        return null;
+    }
+
     public List<Member> getMembers() {
         return members;
     }
+
     public List<Transaction> getTransactions() {
         return transactions;
     }
@@ -229,6 +239,7 @@ public class DataManager {
     public List<Stock> getStocks() {
         return stocks;
     }
+
     public List<Currency> getCurrencies() {
         return currencies;
     }
@@ -242,7 +253,6 @@ public class DataManager {
         members.removeIf(member -> member.getUserId() == userId);
         csvHandler.writeAllMembers(MEMBERS_FILE, members);
 
-        }
+    }
 
 }
-    

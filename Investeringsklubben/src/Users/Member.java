@@ -114,8 +114,6 @@ public class Member extends User {
     }
 
     public void printMember(DataManager dataManager, Member foundMember) {
-        getPortfolio().calculateTotalValue(foundMember, dataManager);
-        getPortfolio().calculateCashBalance(foundMember);
         System.out.println("Member profile for: " + this.getFullName());
         System.out.println("Portfolio: ");
         System.out.println(this.getPortfolio());

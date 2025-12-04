@@ -4,7 +4,6 @@ import DataObjects.*;
 import DataObjects.Currency;
 import Exceptions.CsvParsingException;
 import Users.Member;
-import Users.User;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

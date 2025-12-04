@@ -2,11 +2,13 @@ package DataObjects;
 
 import Filehandling.DataManager;
 import Users.Member;
+
+import javax.sound.sampled.Port;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Portfolio implements  Comparable<Portfolio> {
+public class Portfolio implements Comparable<Portfolio> {
     private ArrayList<Transaction> transactions = new ArrayList<>();
     private List<Stock> investedStocks = new ArrayList<>();
     private double totalValue;
@@ -16,23 +18,22 @@ public class Portfolio implements  Comparable<Portfolio> {
     public Portfolio() {
     }
 
-    public Portfolio(double totalValue, double totalDifference){
+    public Portfolio(double totalValue) {
         this.totalValue = totalValue;
-        this.totalDifference = totalDifference;
+        this.totalDifference = 0;
     }
-    public void showStockPrice(){
+
+    public void showStockPrice() {
     }
 
     public ArrayList<Transaction> getTransactions() {
         return transactions;
     }
 
-    public void addTransaction(Transaction transaction ) {
+    public void addTransaction(Transaction transaction) {
         this.transactions.add(transaction);
-    }
-
-    public void addTransactions(Transaction transaction ) {
-        this.transactions.add(transaction);
+        totalValue += transaction.getPrice();
+        totalDifference += transaction.getPrice();
     }
 
     /*
@@ -43,7 +44,7 @@ public class Portfolio implements  Comparable<Portfolio> {
      Bagefter skal man regne ud hvad den reele pris af aktien er baseret på stockmarket.csv prisen som er vores
      * baseline pris (snapshot).
      * */
-    public void calculateTotalValue(Member member, DataManager dataManager){
+    public void calculateTotalValue(Member member, DataManager dataManager) {
         //System.out.println("Calculating total value...");
         double balance = calculateCashBalance(member);
         double stocksValue = calculateInvestedStocks(member, dataManager);
@@ -56,12 +57,12 @@ public class Portfolio implements  Comparable<Portfolio> {
         double cashBalance = member.getCashBalance();
         for (Transaction transaction : transactions) {
 
-            if (transaction.getOrderType().equalsIgnoreCase("buy")){
+            if (transaction.getOrderType().equalsIgnoreCase("buy")) {
                 double stocksBuyValue = 0;
                 stocksBuyValue += transaction.getQuantity() * transaction.getPrice();
                 cashBalance -= stocksBuyValue;
             }
-            if (transaction.getOrderType().equalsIgnoreCase("sell")){
+            if (transaction.getOrderType().equalsIgnoreCase("sell")) {
                 double stocksSellValue = 0;
                 stocksSellValue += transaction.getQuantity() * transaction.getPrice();
                 cashBalance += stocksSellValue;
@@ -75,20 +76,19 @@ public class Portfolio implements  Comparable<Portfolio> {
 
     public double calculateInvestedStocks(Member member, DataManager dataManager) {
         List<Stock> listOfStocks = dataManager.getStocks();
-        List<Transaction> memberTransactions = member.getPortfolio().transactions;
         double sum = 0;
-        for (Transaction transaction : memberTransactions) {
-            if (transaction.getOrderType().equalsIgnoreCase("buy")){
-                for (Stock stocks : listOfStocks){
-                    if (stocks.getTicker().equalsIgnoreCase(transaction.getTicker())){
+        for (Transaction transaction : transactions) {
+            if (transaction.getOrderType().equalsIgnoreCase("buy")) {
+                for (Stock stocks : listOfStocks) {
+                    if (stocks.getTicker().equalsIgnoreCase(transaction.getTicker())) {
                         investedStocks.add(stocks);
                         sum += stocks.getPrice() * transaction.getQuantity();
                     }
                 }
             }
-            if (transaction.getOrderType().equalsIgnoreCase("sell")){
-                for (Stock stocks : listOfStocks){
-                    if (stocks.getTicker().equalsIgnoreCase(transaction.getTicker())){
+            if (transaction.getOrderType().equalsIgnoreCase("sell")) {
+                for (Stock stocks : listOfStocks) {
+                    if (stocks.getTicker().equalsIgnoreCase(transaction.getTicker())) {
                         investedStocks.remove(stocks);
                         sum -= stocks.getPrice() * transaction.getQuantity();
                     }
@@ -104,29 +104,31 @@ public class Portfolio implements  Comparable<Portfolio> {
     public void printInvestedStocks(Member member, DataManager dataManager) {
         System.out.println("\n" + member.getFullName() + " is currently invested in:");
         System.out.println("——————————————————————————————————————————————————");
-        for(Stock stocks : investedStocks){
+        for (Stock stocks : investedStocks) {
             System.out.println(stocks);
         }
         System.out.println("——————————————————————————————————————————————————");
         System.out.println("Sum value of invested stocks: " + calculateInvestedStocks(member, dataManager) + "\n");
     }
 
-    public void registerStock(){
+    public void registerStock() {
 
     }
-    public void viewPortfolio(){
+
+    public void viewPortfolio() {
 
     }
-    public void showPortfolioValue(){
+
+    public void showPortfolioValue() {
 
     }
 
     //gevinst/tab = nuværende totalværdi - initial cash
-    public void showDifference(Member member, DataManager dataManager){
+    public void showDifference(Member member, DataManager dataManager) {
         calculateTotalValue(member, dataManager);
         String symbol = "";
         double difference = totalValue - member.getInitialCash();
-        if (difference >= 0){
+        if (difference >= 0) {
             symbol = " ↗";
         } else {
             symbol = " ↘";
@@ -139,7 +141,8 @@ public class Portfolio implements  Comparable<Portfolio> {
             System.out.println(element);
         }
     }
-    public double getTotalValue(){
+
+    public double getTotalValue() {
         return totalValue;
     }
 

@@ -74,7 +74,6 @@ public class CurrencyFetcher {
                 if (firstDate != null && !pubDate.equals(firstDate)) {
                     break; // Stop hvis vi er nået til gårsdagens kurser
                 }
-
                 String titleString = xpath.compile("./title").evaluate(itemNode, XPathConstants.STRING).toString();
                 Matcher matcher = pattern.matcher(titleString.trim());
 
@@ -103,7 +102,6 @@ public class CurrencyFetcher {
         }
         return fetchedCurrencies;
     }
-
 
     private Map<String, String> createNameToCodeMap() {
         Map<String, String> nameToCode = new HashMap<>();

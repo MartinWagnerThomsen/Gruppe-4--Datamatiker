@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Portfolio {
+public class Portfolio implements  Comparable<Portfolio> {
     private ArrayList<Transaction> transactions = new ArrayList<>();
     private double totalValue;
     private double totalDifference;
@@ -42,17 +42,17 @@ public class Portfolio {
      Bagefter skal man regne ud hvad den reele pris af aktien er baseret på stockmarket.csv prisen som er vores
      * baseline pris (snapshot).
      * */
-    public void calculateTotalValue(Member member){
+    public void calculateTotalValue(Member member, DataManager dataManager){
         //System.out.println("Calculating total value...");
         double balance = calculateCashBalance(member);
-        double stocksValue = calculateInvestedStocks(member);
+        double stocksValue = calculateInvestedStocks(member, dataManager);
         totalValue = balance + stocksValue;
         //System.out.println("Total value is: " + totalValue);
     }
 
     public double calculateCashBalance(Member member) {
         //System.out.println("Calculating cash balance...");
-        double cashBalance = member.getInitialCash();
+        double cashBalance = member.getCashBalance();
         for (Transaction transaction : transactions) {
 
             if (transaction.getOrderType().equalsIgnoreCase("buy")){
@@ -72,13 +72,11 @@ public class Portfolio {
     }
 
 
-    public double calculateInvestedStocks(Member member) {
-        DataManager manager = new DataManager();
-        List<Stock> listOfStocks = manager.getStocks();
+    public double calculateInvestedStocks(Member member, DataManager dataManager) {
+        List<Stock> listOfStocks = dataManager.getStocks();
         List<Stock> investedStocks = new ArrayList<>();
         List<Transaction> memberTransactions = member.getPortfolio().transactions;
         double sum = 0;
-
         for (Transaction transaction : memberTransactions) {
             if (transaction.getOrderType().equalsIgnoreCase("buy")){
                 for (Stock stocks : listOfStocks){
@@ -121,8 +119,8 @@ public class Portfolio {
 //    }
 
     //gevinst/tab = nuværende totalværdi - initial cash
-    public void showDifference(Member member){
-        calculateTotalValue(member);
+    public void showDifference(Member member, DataManager dataManager){
+        calculateTotalValue(member, dataManager);
         String symbol = "";
         double difference = totalValue - member.getInitialCash();
         if (difference >= 0){
@@ -140,6 +138,11 @@ public class Portfolio {
     }
     public double getTotalValue(){
         return totalValue;
+    }
+
+    public int compareTo(Portfolio o) {
+        // Stigende sortering efter værdi (laveste værdi først)
+        return Double.compare(this.totalValue, o.totalValue);
     }
 
     @Override

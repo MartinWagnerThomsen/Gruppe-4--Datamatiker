@@ -121,7 +121,7 @@ public class CsvHandler {
                     String currency = parts[4];
                     String rating = parts[5];
                     double dividendYield = Double.parseDouble(parts[6].replace(',', '.'));
-                    StockExchange market = StockExchange.parseStockExchange(parts[7]);
+                    String market = parts[7];
                     LocalDate lastUpdated = LocalDate.parse(parts[8], FORMATTER);
                     stocks.add(new Stock(ticker, name, sector, price, currency, rating, dividendYield, market, lastUpdated));
                 } else {
@@ -196,8 +196,6 @@ public class CsvHandler {
 
 
     }
-
-
     // --- Private konverterings-hjælpemetoder ---
     private String convertToCsvLine(Member m) {
         return String.join(SEPARATOR,
@@ -205,7 +203,7 @@ public class CsvHandler {
                 m.getFullName(),
                 m.getEmail(),
                 m.getBirthday().format(FORMATTER),
-                String.valueOf(m.getInitialCash()).replace('.', ','), // Konverter tilbage til komma for CSV
+                String.valueOf(m.getCashBalance()).replace('.', ','), // Konverter tilbage til komma for CSV
                 m.getCreationLocalDate().format(FORMATTER),
                 m.getLastUpdated().format(FORMATTER)
         );

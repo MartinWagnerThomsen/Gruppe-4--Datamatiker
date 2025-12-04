@@ -17,9 +17,6 @@ public abstract class User {
      Portfolio portfolio;
      String fullName;
 
-
-
-
      public User(int userId, String fullName, String email, LocalDate birthday, double initialCash,
                  LocalDate createdAt, LocalDate lastUpdated,
                  Portfolio portfolio

@@ -1,4 +1,5 @@
 import DataObjects.*;
+import Filehandling.DataManager;
 import Users.Member;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -7,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 
 public class testPortfolio {
+    DataManager dataManager = new DataManager();
     Portfolio portfolio = new Portfolio(0,0);
 
     //;2;02-03-2025;VWS;197;DKK;buy;50
@@ -47,7 +49,7 @@ public class testPortfolio {
         portfolio.addTransactions(transaction1); //buy VWS
         portfolio.addTransactions(transaction2); //sell VWS
         portfolio.addTransactions(transaction3); //buy NETC
-        portfolio.showDifference(fakeMember);
+        portfolio.showDifference(fakeMember, dataManager);
     }
 
     @Test
@@ -55,7 +57,7 @@ public class testPortfolio {
         portfolio.addTransactions(transaction1); //buy VWS
         //portfolio.addTransactions(transaction2); //sell VWS
         portfolio.addTransactions(transaction3); //buy NETC
-        portfolio.showDifference(fakeMember);
+        portfolio.showDifference(fakeMember, dataManager);
     }
 
     @Test
@@ -63,12 +65,12 @@ public class testPortfolio {
         portfolio.addTransactions(transaction1); //buy VWS
         portfolio.addTransactions(transaction2); //sell VWS
         //portfolio.addTransactions(transaction3); //buy NETC
-        portfolio.showDifference(fakeMember);
+        portfolio.showDifference(fakeMember, dataManager);
     }
     @Test
     public void testDifference(){
         portfolio.addTransactions(transaction4); //buy 20 PANDORA
-        portfolio.showDifference(fakeMember);
+        portfolio.showDifference(fakeMember, dataManager);
     }
 
 /*    Portfolio p1 = new Portfolio(170200);
@@ -147,14 +149,14 @@ public class testPortfolio {
         portfolio.addTransactions(transaction1); //buy VWS
         portfolio.addTransactions(transaction2); //sell VWS
         portfolio.addTransactions(transaction3); //buy NETC
-        Assertions.assertEquals(7920, portfolio.calculateInvestedStocks(fakeMember));
+        Assertions.assertEquals(7920, portfolio.calculateInvestedStocks(fakeMember, dataManager));
     }
 
     @Test
     public void testListOfInvestedStocksTwo(){
         portfolio.addTransactions(transaction1); //buy VWS
         portfolio.addTransactions(transaction3); //buy NETC
-        Assertions.assertEquals(17820, portfolio.calculateInvestedStocks(fakeMember));
+        Assertions.assertEquals(17820, portfolio.calculateInvestedStocks(fakeMember, dataManager));
     }
 
     //beregn total value for en mestemt member
@@ -163,7 +165,7 @@ public class testPortfolio {
         portfolio.addTransactions(transaction1); //buy VWS
         portfolio.addTransactions(transaction2); //sell VWS
         portfolio.addTransactions(transaction3); //buy NETC
-        portfolio.calculateTotalValue(fakeMember);
+        portfolio.calculateTotalValue(fakeMember, dataManager);
         Assertions.assertEquals(100238, portfolio.getTotalValue());
     }
 
@@ -180,14 +182,14 @@ public class testPortfolio {
         portfolio.addTransactions(transaction1); //buy VWS
         portfolio.addTransactions(transaction2); //sell VWS
         portfolio.addTransactions(transaction3); //buy NETC
-        fakeMember.printMember(fakeMember);
+        fakeMember.printMember(dataManager, fakeMember);
     }
 
     @Test
     public void testPrintMemberTwoTransactions(){
         portfolio.addTransactions(transaction1); //buy VWS
         portfolio.addTransactions(transaction3); //buy NETC
-        fakeMember.printMember(fakeMember);
+        fakeMember.printMember(dataManager, fakeMember);
     }
 
 }

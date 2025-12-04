@@ -97,6 +97,7 @@ public class Transaction {
     }
 
 
+
     public String toString(Member member){
        return "Transaction id: " + transactionId + " | Date: " + date + " | " + ticker +
                " | Price: " + price + " " + currency + " | Order type: " + orderType + " | Quantity: " + quantity;

@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Portfolio implements  Comparable<Portfolio> {
     private ArrayList<Transaction> transactions = new ArrayList<>();
+    private List<Stock> investedStocks = new ArrayList<>();
     private double totalValue;
     private double totalDifference;
 
@@ -74,7 +75,6 @@ public class Portfolio implements  Comparable<Portfolio> {
 
     public double calculateInvestedStocks(Member member, DataManager dataManager) {
         List<Stock> listOfStocks = dataManager.getStocks();
-        List<Stock> investedStocks = new ArrayList<>();
         List<Transaction> memberTransactions = member.getPortfolio().transactions;
         double sum = 0;
         for (Transaction transaction : memberTransactions) {
@@ -98,13 +98,19 @@ public class Portfolio implements  Comparable<Portfolio> {
             // Nu bør vi have en liste af de aktier vi har tilbage
         }
 
-        System.out.println(member.getFullName() + " is currently invested in:");
+        return sum;
+    }
+
+    public void printInvestedStocks(Member member, DataManager dataManager) {
+        System.out.println("\n" + member.getFullName() + " is currently invested in:");
+        System.out.println("——————————————————————————————————————————————————");
         for(Stock stocks : investedStocks){
             System.out.println(stocks);
         }
-        System.out.println("Sum value of invested stocks: " + sum);
-        return sum;
+        System.out.println("——————————————————————————————————————————————————");
+        System.out.println("Sum value of invested stocks: " + calculateInvestedStocks(member, dataManager) + "\n");
     }
+
     public void registerStock(){
 
     }
@@ -114,7 +120,18 @@ public class Portfolio implements  Comparable<Portfolio> {
     public void showPortfolioValue(){
 
     }
-    public void showLosses(){
+
+    //gevinst/tab = nuværende totalværdi - initial cash
+    public void showDifference(Member member, DataManager dataManager){
+        calculateTotalValue(member, dataManager);
+        String symbol = "";
+        double difference = totalValue - member.getInitialCash();
+        if (difference >= 0){
+            symbol = " ↗";
+        } else {
+            symbol = " ↘";
+        }
+        System.out.println("Gevinst/Tab: " + difference + symbol);
     }
 
     public void printPortfolio() {

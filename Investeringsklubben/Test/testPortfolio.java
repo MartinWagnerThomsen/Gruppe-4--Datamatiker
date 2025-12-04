@@ -26,6 +26,10 @@ public class testPortfolio {
             3, 101,
             LocalDate.of(2025, 3, 8),
             "NETC", 356, "DKK", "buy", 22);
+    Transaction transaction4 = new Transaction(
+            4, 101,
+            LocalDate.of(2025, 3, 3),
+            "PANDORA", 770.5, "DKK", "buy", 20);
     Member fakeMember = new Member(
             101,
             "Torben Christensen",
@@ -35,19 +39,40 @@ public class testPortfolio {
             LocalDate.of(2025, 2, 20),
             LocalDate.of(2025, 11, 26), portfolio);
 
-    @Test
-    public void testShowStockPrice() {
-
-    }
-
-    @Test
-    public void testRegisterStock() {
-
-    }
 
     //beregn difference (gevindst/tab) uden %
     //nuværende totalværdi - startværdigen = difference
     // (startværdigen er 100.000 DKK)
+
+    @Test
+    public void testDifferenceOne(){
+        portfolio.addTransactions(transaction1); //buy VWS
+        portfolio.addTransactions(transaction2); //sell VWS
+        portfolio.addTransactions(transaction3); //buy NETC
+        portfolio.showDifference(fakeMember, dataManager);
+    }
+
+    @Test
+    public void testDifferenceTwo(){
+        portfolio.addTransactions(transaction1); //buy VWS
+        //portfolio.addTransactions(transaction2); //sell VWS
+        portfolio.addTransactions(transaction3); //buy NETC
+        portfolio.showDifference(fakeMember, dataManager);
+    }
+
+    @Test
+    public void testDifferenceThree(){
+        portfolio.addTransactions(transaction1); //buy VWS
+        portfolio.addTransactions(transaction2); //sell VWS
+        //portfolio.addTransactions(transaction3); //buy NETC
+        portfolio.showDifference(fakeMember, dataManager);
+    }
+    @Test
+    public void testDifference(){
+        portfolio.addTransactions(transaction4); //buy 20 PANDORA
+        portfolio.showDifference(fakeMember, dataManager);
+    }
+
 /*    Portfolio p1 = new Portfolio(170200);
     Portfolio p2 = new Portfolio(89630);
 

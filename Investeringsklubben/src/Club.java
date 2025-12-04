@@ -62,8 +62,8 @@ public class Club {
             }
             saveProgram();
 
-    }
         }
+    }
 
     public void membersMenu() throws IllegalArgumentException, IOException {
         System.out.println("Logget ind som medlem: " + currentMember);
@@ -97,10 +97,10 @@ public class Club {
 
     // ---------------------------------------------------------------------------------------
     // Metoder omhandlende login / logud
-        /**
-        tempMemberList bruger en mindre konstruktør og sørger for at det som brugeren logger ind som passer
-        der bliver senere retuneret en Member med den fulde konstruktør
-         */
+    /**
+     tempMemberList bruger en mindre konstruktør og sørger for at det som brugeren logger ind som passer
+     der bliver senere retuneret en Member med den fulde konstruktør
+     */
     public void login() throws IOException {
         List<Member> tempMemberList = csvhandler.parseloginCredentials();
         System.out.println("Velkommen. Tast brugernavn og adgangskode.");
@@ -149,25 +149,35 @@ public class Club {
     }
 
     private void addUser() {
-        try {
-            int userId = dataManager.getMembers().getLast().getUserId() + 1;
-            Portfolio portfolio = new Portfolio();
-            LocalDate birthday = LocalDate.now();
-            String fullName = "Dave";
-            String email = "dave@gmail.com";
-            double initialCash = 100000.0;
-            LocalDate createdAt = LocalDate.now();
-            LocalDate lastUpdated = LocalDate.now();
-            Member member = new Member(
-                    userId,
-                    fullName,
-                    email,
-                    birthday,
-                    initialCash,
-                    createdAt,
-                    lastUpdated,
-                    portfolio
-            );
+       try{ int userId = dataManager.getMembers().getLast().getUserId() + 1;
+        Portfolio portfolio = new Portfolio();
+
+        System.out.print("Hvad er dit fulde navn? ");
+        String fullName = sc.nextLine();
+
+        System.out.print("Hvad er din mail? ");
+        String email = sc.nextLine();
+
+        System.out.print("Hvad er din fødselsdag? (dd-mm-yyyy): ");
+        String birthdayInput = sc.nextLine();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate birthday = LocalDate.parse(birthdayInput, formatter);
+
+        double initialCash = 100000;
+
+        LocalDate createdAt = LocalDate.now();
+        LocalDate lastUpdated = LocalDate.now();
+
+        Member member = new Member(
+                userId,
+                fullName,
+                email,
+                birthday,
+                initialCash,
+                createdAt,
+                lastUpdated,
+                portfolio
+        );
 
             if (dataManager.getMembers().contains(member)) {
                 System.out.println(member.getFullName() + " er allerede i listen. Man kan ikke have flere kontier noob.");
@@ -230,8 +240,8 @@ public class Club {
     private void refreshPortfolioValue() {
         for (Member member : dataManager.getMembers() ) {
             if (member != null && member.getPortfolio() != null) {
-            member.getPortfolio().calculateTotalValue(member, dataManager);
-        }}
+                member.getPortfolio().calculateTotalValue(member, dataManager);
+            }}
 
     }
     private void printSectors (Map<String, Double> sectorAnalysis) {
@@ -311,7 +321,7 @@ public class Club {
             System.out.println("Du kan kun vælge mellem 'køb' og 'salg', prøv venligst igen.");
             registerStock();
         }
-          Transaction transaction = new Transaction(transactionId,currentMember.getUserId(),date,ticker,price,currency,orderType,quantity);
+        Transaction transaction = new Transaction(transactionId,currentMember.getUserId(),date,ticker,price,currency,orderType,quantity);
         dataManager.registerNewTransaction(transaction);
     }
 

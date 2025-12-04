@@ -120,9 +120,6 @@ public class Portfolio implements  Comparable<Portfolio> {
     public void showPortfolioValue(){
 
     }
-//    public void refreshTotalValue(){
-//        calculateTotalValue();
-//    }
 
     //gevinst/tab = nuværende totalværdi - initial cash
     public void showDifference(Member member, DataManager dataManager){

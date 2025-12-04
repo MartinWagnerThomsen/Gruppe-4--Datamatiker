@@ -52,24 +52,18 @@ public class Portfolio implements  Comparable<Portfolio> {
     }
 
     public double calculateCashBalance(Member member) {
-        //System.out.println("Calculating cash balance...");
-        double cashBalance = member.getCashBalance();
-        for (Transaction transaction : transactions) {
+        double cashBalance = member.getCashBalance(); // Start from the ORIGINAL gold reserves!
 
+        for (Transaction transaction : transactions) {
             if (transaction.getOrderType().equalsIgnoreCase("buy")){
-                double stocksBuyValue = 0;
-                stocksBuyValue += transaction.getQuantity() * transaction.getPrice();
-                cashBalance -= stocksBuyValue;
+                cashBalance -= transaction.getQuantity() * transaction.getPrice();
             }
-            if (transaction.getOrderType().equalsIgnoreCase("sell")){
-                double stocksSellValue = 0;
-                stocksSellValue += transaction.getQuantity() * transaction.getPrice();
-                cashBalance += stocksSellValue;
+            else if (transaction.getOrderType().equalsIgnoreCase("sell")){
+                cashBalance += transaction.getQuantity() * transaction.getPrice();
             }
         }
-        member.setCashBalance(cashBalance);
-        //System.out.println("Cash balance is: " + member.getCashBalance());
-        return member.getCashBalance();
+
+        return cashBalance; // Simply return! No writing to the member's records!
     }
 
 

@@ -209,13 +209,36 @@ public class Club {
     // Private hjælpemetoder til alt fra at printe sektorer til at finde medlemmer og registrere aktier
     private void printMarketAndRates() {
         List<Stock> stockMarket = dataManager.getStocks();
+        int totalStocks = stockMarket.size();
+        int midpoint = (totalStocks + 1) / 2;
+
+
+        int maxWidth = 0;
         for (Stock stock : stockMarket) {
-            System.out.println(stock.getName());
-            System.out.println(stock.getPrice());
+            String entry = stock.getName() + " " + stock.getPrice();
+            if (entry.length() > maxWidth) {
+                maxWidth = entry.length();
+            }
+        }
+
+
+        for (int i = 0; i < midpoint; i++) {
+
+            String leftEntry = stockMarket.get(i).getName() + " " + stockMarket.get(i).getPrice();
+            System.out.print(String.format("%-" + (maxWidth + 5) + "s", leftEntry));
+
+
+            int rightIndex = i + midpoint;
+            if (rightIndex < totalStocks) {
+                String rightEntry = stockMarket.get(rightIndex).getName() + " " + stockMarket.get(rightIndex).getPrice();
+                System.out.print(rightEntry);
+            }
+
+            System.out.println();
         }
     }
 
-    private Map<String, Double> printSectorInvestmentDistribution() {
+        private Map<String, Double> printSectorInvestmentDistribution() {
         // Deklarer variablerne
         List<Transaction> history = dataManager.getTransactions();
         List<Stock> stockHistory = dataManager.getStocks();

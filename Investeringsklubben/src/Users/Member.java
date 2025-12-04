@@ -33,10 +33,10 @@ public class Member extends User {
 
     /**
      * Constructor with Portfolio added
-      */
+     */
     public Member(int userId, String fullName, String email, LocalDate birthday, double initialCash,
-           LocalDate createdAt, LocalDate lastUpdated,
-           Portfolio portfolio){
+                  LocalDate createdAt, LocalDate lastUpdated,
+                  Portfolio portfolio){
         super(userId, fullName,email,birthday, initialCash ,createdAt,lastUpdated, portfolio);
         this.cashBalance = initialCash;
     }
@@ -127,13 +127,13 @@ public class Member extends User {
     public String toString() {
         return
                 "userId='" + userId + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", email='" + email + '\'' +
-                ", birthday='" + birthday + '\'' +
-                ", initialCash='" + initialCash +
-                "', createdAt='" + createdAt + '\'' +
-                ", lastUpdated='" + lastUpdated + '\'' +
-                    ", portfolio='" + portfolio + '\''
+                        ", fullName='" + fullName + '\'' +
+                        ", email='" + email + '\'' +
+                        ", birthday='" + birthday + '\'' +
+                        ", initialCash='" + initialCash +
+                        "', createdAt='" + createdAt + '\'' +
+                        ", lastUpdated='" + lastUpdated + '\'' +
+                        ", portfolio='" + portfolio + '\''
                 ;
     }
 }

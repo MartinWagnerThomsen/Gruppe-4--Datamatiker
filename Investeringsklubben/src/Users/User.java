@@ -8,39 +8,39 @@ public abstract class User {
     /**
      * Mandatory attributes for Users
      */
-     int userId;
-     String email;
-     LocalDate birthday;
-     double initialCash;
-     LocalDate createdAt;
-     LocalDate lastUpdated;
-     Portfolio portfolio;
-     String fullName;
+    int userId;
+    String email;
+    LocalDate birthday;
+    double initialCash;
+    LocalDate createdAt;
+    LocalDate lastUpdated;
+    Portfolio portfolio;
+    String fullName;
 
-     public User(int userId, String fullName, String email, LocalDate birthday, double initialCash,
-                 LocalDate createdAt, LocalDate lastUpdated,
-                 Portfolio portfolio
-          ){
-         this.userId = userId;
-         this.email = email;
-         this.birthday = birthday;
-         this.initialCash = initialCash;
-         this.createdAt = createdAt;
-         this.lastUpdated = lastUpdated;
-         this.portfolio = portfolio;
-         this.fullName = fullName;        
-     }
+    public User(int userId, String fullName, String email, LocalDate birthday, double initialCash,
+                LocalDate createdAt, LocalDate lastUpdated,
+                Portfolio portfolio
+    ){
+        this.userId = userId;
+        this.email = email;
+        this.birthday = birthday;
+        this.initialCash = initialCash;
+        this.createdAt = createdAt;
+        this.lastUpdated = lastUpdated;
+        this.portfolio = portfolio;
+        this.fullName = fullName;
+    }
 
-     public User(int userId, String fullName, String email, LocalDate birthday, double initialCash,
-                 LocalDate createdAt, LocalDate lastUpdated){
-         this.userId = userId;
-         this.email = email;
-         this.birthday = birthday;
-         this.initialCash = initialCash;
-         this.createdAt = createdAt;
-         this.lastUpdated = lastUpdated;
-         this.fullName = fullName;
-     }
+    public User(int userId, String fullName, String email, LocalDate birthday, double initialCash,
+                LocalDate createdAt, LocalDate lastUpdated){
+        this.userId = userId;
+        this.email = email;
+        this.birthday = birthday;
+        this.initialCash = initialCash;
+        this.createdAt = createdAt;
+        this.lastUpdated = lastUpdated;
+        this.fullName = fullName;
+    }
     public User() {
         int userId = 0;
         String email = null;

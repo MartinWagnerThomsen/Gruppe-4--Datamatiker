@@ -60,7 +60,7 @@ public class CsvHandler {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             br.readLine(); // Spring header
             String line;
-                br.readLine();
+            br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(SEPARATOR);
                 if (parts.length == 8) {

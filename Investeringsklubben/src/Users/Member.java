@@ -119,6 +119,7 @@ public class Member extends User {
         System.out.println("Member profile for: " + this.getFullName());
         System.out.println("Portfolio: ");
         System.out.println(this.getPortfolio());
+        getPortfolio().printInvestedStocks(foundMember, dataManager);
         System.out.println("Cash balance: " + this.getCashBalance());
         getPortfolio().showDifference(foundMember, dataManager);
     }

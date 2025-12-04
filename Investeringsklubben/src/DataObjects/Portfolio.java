@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Portfolio implements  Comparable<Portfolio> {
     private ArrayList<Transaction> transactions = new ArrayList<>();
+    private List<Stock> investedStocks = new ArrayList<>();
     private double totalValue;
     private double totalDifference;
 
@@ -74,7 +75,6 @@ public class Portfolio implements  Comparable<Portfolio> {
 
     public double calculateInvestedStocks(Member member, DataManager dataManager) {
         List<Stock> listOfStocks = dataManager.getStocks();
-        List<Stock> investedStocks = new ArrayList<>();
         List<Transaction> memberTransactions = member.getPortfolio().transactions;
         double sum = 0;
         for (Transaction transaction : memberTransactions) {
@@ -98,13 +98,19 @@ public class Portfolio implements  Comparable<Portfolio> {
             // Nu bør vi have en liste af de aktier vi har tilbage
         }
 
+        return sum;
+    }
+
+    public void printInvestedStocks(Member member, DataManager dataManager) {
         System.out.println("\n" + member.getFullName() + " is currently invested in:");
+        System.out.println("——————————————————————————————————————————————————");
         for(Stock stocks : investedStocks){
             System.out.println(stocks);
         }
-        System.out.println("Sum value of invested stocks: " + sum + "\n");
-        return sum;
+        System.out.println("——————————————————————————————————————————————————");
+        System.out.println("Sum value of invested stocks: " + calculateInvestedStocks(member, dataManager) + "\n");
     }
+
     public void registerStock(){
 
     }

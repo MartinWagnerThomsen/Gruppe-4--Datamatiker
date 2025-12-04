@@ -4,6 +4,7 @@ import DataObjects.Portfolio;
 import UI.Menu;
 
 import java.time.LocalDate;
+import java.util.Scanner;
 
 public abstract class User {
     /**
@@ -56,7 +57,7 @@ public abstract class User {
     /**
      * Mandatory methods for the user
      */
-    public abstract Menu getMenu();
+    public abstract Menu getMenu(Scanner scanner);
     public abstract void viewTransactionHistory();
     public abstract double getInitialCash();
 

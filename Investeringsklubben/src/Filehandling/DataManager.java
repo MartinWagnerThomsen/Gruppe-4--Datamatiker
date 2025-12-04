@@ -2,10 +2,12 @@ package Filehandling;
 
 import Api.CurrencyFetcher;
 import DataObjects.Currency;
+import DataObjects.Portfolio;
 import Exceptions.CsvParsingException;
 import DataObjects.Stock;
 import DataObjects.Transaction;
 import Users.Member;
+import Users.President;
 
 import javax.xml.xpath.*;
 import java.io.IOException;
@@ -73,6 +75,54 @@ public class DataManager {
         }
     }
 
+
+   public Member loadUserByUsername(String username) {
+       // 1. Find the user's assigned role from the login credentials file.
+       List<Member> loginDetailsList = csvHandler.parseloginCredentials(); // You already have this
+       String userRole = loginDetailsList.stream()
+               .filter(loginUser -> username.equalsIgnoreCase(loginUser.getEmail()))
+               .map(Member::getUserType) // Extracts the userType string ("president" or "member")
+               .findFirst()
+               .orElse("member"); // Default to "member" if something goes wrong
+       // 2. Find the user's full data record from the main users file.
+       Member fullUserData = this.members.stream()
+               .filter(user -> username.equalsIgnoreCase(user.getEmail()))
+               .findFirst()
+               .orElse(null);
+
+       if (fullUserData == null) {
+               System.out.println("FATAL ERROR: User exists in login file but not in main user data file.");
+               return null;
+           }
+       // 3. Now, build the correct object based on the role.
+       Portfolio userPortfolio = fullUserData.getPortfolio();
+       if ("president".equalsIgnoreCase(userRole)) {
+               // If the role is "president", we create a new President object.
+               return new President(
+                           this, // The DataManager itself
+                           fullUserData.getUserId(),
+                           fullUserData.getFullName(),
+                           fullUserData.getEmail(),
+                           fullUserData.getBirthday(),
+                           fullUserData.getInitialCash(),
+                           fullUserData.getCreationLocalDate(),
+                           fullUserData.getLastUpdated(),
+                          userPortfolio // You would load the user's specific portfolio here
+               );
+           } else {
+               return new Member(
+                           this, // The DataManager itself
+                           fullUserData.getUserId(),
+                           fullUserData.getFullName(),
+                           fullUserData.getEmail(),
+                          fullUserData.getBirthday(),
+                           fullUserData.getInitialCash(),
+                           fullUserData.getCreationLocalDate(),
+                           fullUserData.getLastUpdated(),
+                           userPortfolio // You would load the user's specific portfolio here
+              );
+           }
+   }
     /**
      * Hjælpemetode til at forbinde transaktioner med den korrekte bruger.
      */

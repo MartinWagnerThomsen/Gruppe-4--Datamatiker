@@ -262,7 +262,7 @@ public class CsvHandler {
 
     public void writeLogins(String filePath, List<Member> loginList) throws IOException {
         List<String> lines = new ArrayList<>();
-        lines.add("username;password;userType\n"); // Header
+        lines.add("username;password;userType"); // Header
         List<String> loginLines = loginList.stream()
                 .map(this::convertToCsvLines)
                 .collect(Collectors.toList());

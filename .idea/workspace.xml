@@ -4,22 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae984337-46c5-4ef3-841f-b0742731d61c" name="Changes" comment="Tilføjet save program metode">
-      <change afterPath="$PROJECT_DIR$/Investeringsklubben/src/UI/Menu.java" afterDir="false" />
+    <list default="true" id="ae984337-46c5-4ef3-841f-b0742731d61c" name="Changes" comment="Midt i projektet">
+      <change afterPath="$PROJECT_DIR$/Investeringsklubben/src/UI/MenuAction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Investeringsklubben/src/UI/MenuItem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Investeringsklubben/Test/testPortfolio.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/Test/testPortfolio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Csvhandler løsning gemini.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Club.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Club.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/CsvHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/CsvHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/DataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Filehandling/DataManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Files/currency.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Files/currency.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Files/loginCredentials.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Files/loginCredentials.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Files/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Files/users.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/UI/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/UI/Menu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Users/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Users/Member.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Users/President.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Users/President.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Investeringsklubben/src/Users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/Investeringsklubben/src/Users/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/DataObjects/Portfolio.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/DataObjects/Portfolio.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mulig dataManager class.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mulig while loop menu.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sprint review gemini.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Filehandling/CsvHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Filehandling/CsvHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Files/currency.csv" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Files/currency.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Files/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Files/users.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Users/Member.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Users/Member.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Users/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Gruppe-4--Datamatiker/Users/User.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,9 +35,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="JUnit5 Test Class" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -194,7 +200,7 @@
       <workItem from="1764348850707" duration="10253000" />
       <workItem from="1764581091177" duration="13778000" />
       <workItem from="1764778407714" duration="2431000" />
-      <workItem from="1764859328983" duration="10121000" />
+      <workItem from="1764859328983" duration="17768000" />
     </task>
     <task id="LOCAL-00001" summary="Initializing project with all the different classes so far.">
       <option name="closed" value="true" />
@@ -348,7 +354,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764593296707</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Midt i projektet">
+      <option name="closed" value="true" />
+      <created>1764872641631</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1764872641631</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -385,6 +399,7 @@
     <MESSAGE value="Valutakonvertering rykket til DataManager og koblet direkte til Create new transaction." />
     <MESSAGE value="Not functioning yet - consider going back  a commit" />
     <MESSAGE value="Rollback commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Rollback commit" />
+    <MESSAGE value="Midt i projektet" />
+    <option name="LAST_COMMIT_MESSAGE" value="Midt i projektet" />
   </component>
 </project>

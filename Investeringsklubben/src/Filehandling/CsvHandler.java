@@ -209,6 +209,14 @@ public class CsvHandler {
         );
     }
 
+    private String convertToCsvLines(Member m) {
+        return String.join(SEPARATOR,
+                m.getEmail(),
+                m.getPassword(),
+                m.getUserType()
+                );
+    }
+
     private String convertToCsvLine(Transaction t) {
         return String.join(SEPARATOR,
                 String.valueOf(t.getTransactionId()),
@@ -250,6 +258,25 @@ public class CsvHandler {
             System.out.println("Fejl ved læsning: " + e.getMessage());
         }
         return login;
+    }
+
+    public void writeLogins(String filePath, List<Member> loginList) throws IOException {
+        List<String> lines = new ArrayList<>();
+        lines.add("username;password;userType\n"); // Header
+        List<String> loginLines = loginList.stream()
+                .map(this::convertToCsvLines)
+                .collect(Collectors.toList());
+        lines.addAll(loginLines);
+
+        try (FileWriter writer = new FileWriter(filePath)) {
+            for (String line : lines) {
+                writer.write(line + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println("Fejl ved skrivning til fil: " + e.getMessage());
+        }
+
+
     }
 
 }

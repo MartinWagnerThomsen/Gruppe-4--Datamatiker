@@ -174,7 +174,7 @@ public class testPortfolio {
         portfolio.addTransactions(transaction1); //buy VWS
         portfolio.addTransactions(transaction2); //sell VWS
         portfolio.addTransactions(transaction3); //buy NETC
-        fakeMember.viewTransactionHistory(fakeMember);
+        fakeMember.viewTransactionHistory();
     }
 
     @Test

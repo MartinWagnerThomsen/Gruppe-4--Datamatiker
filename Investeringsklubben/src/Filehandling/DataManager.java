@@ -19,6 +19,7 @@ public class DataManager {
     private static final String STOCKS_FILE = "Investeringsklubben/src/Files/stockMarket.csv";
     private static final String TRANSACTIONS_FILE = "Investeringsklubben/src/Files/transactions.csv";
     private static final String CURRENCY_FILE = "Investeringsklubben/src/Files/currency.csv";
+    private static final String LOGIN_FILE = "Investeringsklubben/src/Files/loginCredentials.csv";
     private static final String danishkrone = "DKK";
 
     private List<Member> members;
@@ -26,6 +27,7 @@ public class DataManager {
     private List<Transaction> transactions;
     private static List<Currency> currencies;
     private final CsvHandler csvHandler;
+    private static List<Member> login;
     public DecimalFormat numberFormat = new DecimalFormat("#.00");
 
     /**
@@ -51,12 +53,14 @@ public class DataManager {
             List<Stock> loadedStocks = csvHandler.readStocks(STOCKS_FILE);
             List<Transaction> allTransactions = csvHandler.readTransactions(TRANSACTIONS_FILE);
             List<Currency> loadedCurrencies = csvHandler.readCurrency(CURRENCY_FILE);
+            List<Member> loadedLogins = csvHandler.parseloginCredentials();
 
             // 2. Gem primær data i DataManager's state
             this.members = loadedMembers;
             this.stocks = loadedStocks;
             currencies = loadedCurrencies;
             this.transactions = allTransactions;
+            login = loadedLogins;
             // 3. Prøv at opdatere vores currencies fra vores API kald
             System.out.println("Opdaterer valutakurser fra Nationalbanken...");
             updateCurrencies();
@@ -171,6 +175,13 @@ public class DataManager {
            throw new RuntimeException(e);
        }
        }
+   public void saveLogin() {
+        try {
+            csvHandler.writeLogins(LOGIN_FILE, this.getLogin());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+   }
 
     /**
      * Kalder vores CurrencyFetcher klasses metode for at få
@@ -217,6 +228,10 @@ public class DataManager {
             }
         }
         return null;
+    }
+
+    public List<Member> getLogin () {
+        return login;
     }
 
     public List<Member> getMembers() {

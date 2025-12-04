@@ -1,6 +1,7 @@
 package Users;
 
 import DataObjects.Portfolio;
+import UI.Menu;
 
 import java.time.LocalDate;
 
@@ -55,23 +56,20 @@ public abstract class User {
     /**
      * Mandatory methods for the user
      */
-    abstract public void viewPortfolio();
-    abstract public void viewTransactionHistory(Member member);
-    abstract public void createUser();
-    abstract public double getInitialCash();
+    public abstract Menu getMenu();
+    public abstract void viewTransactionHistory();
+    public abstract double getInitialCash();
 
     /**
      * Getters & Setters for the user class
      */
-    abstract public int getUserId();
-    abstract public String getEmail();
-    abstract public LocalDate getBirthday();
-    abstract public LocalDate getCreationLocalDate();
-
-    abstract public LocalDate getLastUpdated();
-
-    abstract public Portfolio getPortfolio();
-    abstract public String getFullName();
+    public abstract int getUserId();
+    public abstract String getEmail();
+    public abstract LocalDate getBirthday();
+    public abstract LocalDate getCreationLocalDate();
+    public abstract LocalDate getLastUpdated();
+    public abstract Portfolio getPortfolio();
+    public abstract String getFullName();
 
 
 }

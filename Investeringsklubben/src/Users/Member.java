@@ -124,6 +124,7 @@ public class Member extends User {
         System.out.println("Portfolio: ");
         System.out.println(this.getPortfolio());
         System.out.println("Cash balance: " + this.getCashBalance());
+        getPortfolio().showDifference(foundMember);
     }
 
     @Override

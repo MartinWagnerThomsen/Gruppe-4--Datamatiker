@@ -130,7 +130,7 @@ public class Portfolio {
         } else {
             symbol = " ↘";
         }
-        System.out.println("Gevinst/tab: " + difference + symbol);
+        System.out.println("Gevinst/Tab: " + difference + symbol);
     }
 
     public void printPortfolio() {

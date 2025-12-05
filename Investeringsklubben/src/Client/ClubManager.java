@@ -36,6 +36,10 @@ public class ClubManager {
         }
     }
 
+    public void saveProgram() {
+        dataManager.saveMembers();
+    }
+
     /**
      * Optional fordi den endte returner en PresidentAccessor, MemberAccessor eller ingenting
      *
@@ -114,6 +118,7 @@ public class ClubManager {
         Comparator<Map.Entry<String, Double>> byValueComparator =
                 Map.Entry.comparingByValue(Comparator.reverseOrder()); // Kan være natural order hvis man gerne vil have det fra mindst til højest
         Map<String, Double> sortedMap = sectorAnalysis.entrySet().stream()
+                .filter(entry -> entry.getValue() > 0) // transaktion filen er rodet så vi filtrere alt under nul ud
                 .sorted(byValueComparator)
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,

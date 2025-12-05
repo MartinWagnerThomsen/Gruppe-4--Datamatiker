@@ -154,7 +154,7 @@ public class CsvHandler {
      */
     public void writeAllMembers(String filePath, List<Member> members) throws IOException {
         List<String> lines = new ArrayList<>();
-        lines.add("user_Id;full_name;email;birth_date;initial_cash_DKK;created_at;last_updated"); // Header
+        lines.add("user_id;full_name;email;birth_date;initial_cash_DKK;created_at;last_updated"); // Header
 
         List<String> memberLines = members.stream()
                 .map(this::convertToCsvLine)

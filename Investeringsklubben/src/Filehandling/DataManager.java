@@ -62,6 +62,11 @@ public class DataManager {
             updateCurrencies();
             // 4. Link transaktioner til medlemmer
             linkTransactionsToMembers(allTransactions);
+            // 5. Sætter DataManager og Member i hvert members portefølje
+            for (Member member : this.members) {
+                member.getPortfolio().setMember(member);
+                member.getPortfolio().setDataManager(this);
+            }
             System.out.println("Data indlæst successfuldt.");
         } catch (CsvParsingException e) {
             System.err.println("KRITISK FEJL under indlæsning af data: " + e.getMessage());
@@ -245,6 +250,8 @@ public class DataManager {
     }
 
     public void addMember(Member member) throws IOException {
+        member.getPortfolio().setMember(member);
+        member.getPortfolio().setDataManager(this);
         members.add(member);
         csvHandler.writeAllMembers(MEMBERS_FILE, members);
     }

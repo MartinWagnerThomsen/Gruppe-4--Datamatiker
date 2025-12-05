@@ -16,6 +16,7 @@ public class ClubClient {
             IClubAccessor accessor = login();
             printMenu(accessor);
         }
+        manager.saveProgram();
     }
 
     private IClubAccessor login() {

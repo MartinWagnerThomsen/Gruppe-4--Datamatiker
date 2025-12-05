@@ -23,13 +23,6 @@ public class Member extends User {
         this.password = password;
         this.userType = userType;
     }
-    public String getPassword() {
-        return this.password;
-    }
-
-    public String getUserType() {
-        return this.userType;
-    }
 
     /**
      * Constructor with Portfolio added
@@ -58,18 +51,16 @@ public class Member extends User {
     public void createUser() {
     }
 
+    //getters
     @Override
-    public double getInitialCash() {
-        return 0;
-    }
+    public String getFullName() {return fullName;}
 
-    public void setLastUpdated (LocalDate update) {
-        this.lastUpdated = update;
-    }
+    public String getUserType() {return this.userType;}
 
-    public void setCash (double cash) {
-        this.initialCash = cash;
-    }
+    public String getPassword() {return this.password;}
+
+    @Override
+    public double getInitialCash() {return initialCash;}
 
     @Override
     public  int getUserId() {
@@ -97,29 +88,30 @@ public class Member extends User {
     }
 
     @Override
-    public Portfolio getPortfolio() {
-        return portfolio;
-    }
+    public Portfolio getPortfolio() {return portfolio;}
 
     public double getCashBalance() {return cashBalance;}
 
-    //setter
+    //setters
     public void setCashBalance(double cashBalance) {
         this.cashBalance = cashBalance;
     }
 
-    @Override
-    public String getFullName() {
-        return fullName;
+    public void setLastUpdated (LocalDate update) {
+        this.lastUpdated = update;
+    }
+
+    public void setCash (double cash) {
+        this.initialCash = cash;
     }
 
     public void printMember(DataManager dataManager, Member foundMember) {
         System.out.println("Member profile for: " + this.getFullName());
         System.out.println("Portfolio: ");
         System.out.println(this.getPortfolio());
-        getPortfolio().printInvestedStocks(foundMember, dataManager);
+        getPortfolio().printInvestedStocks(foundMember);
         System.out.println("Cash balance: " + this.getCashBalance());
-        getPortfolio().showDifference(foundMember, dataManager);
+        getPortfolio().showDifference();
     }
     @Override
     public String toString() {

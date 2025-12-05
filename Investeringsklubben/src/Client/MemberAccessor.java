@@ -2,6 +2,7 @@ package Client;
 
 import DataObjects.Stock;
 import DataObjects.Transaction;
+import Filehandling.DataManager;
 import Users.Member;
 
 import java.time.LocalDate;
